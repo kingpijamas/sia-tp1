@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'eclipse'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 
@@ -12,6 +13,9 @@ repositories {
 dependencies {
 	// Json serialization
 	compile 'io.fastjson:boon:0.33'
+
+	// Linting
+	compile 'com.google.code.findbugs:findbugs:3.0.1'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
