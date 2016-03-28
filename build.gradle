@@ -1,0 +1,15 @@
+apply plugin: 'java'
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+	// Json serialization
+	compile 'io.fastjson:boon:0.33'
+
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-all:1.10.19'
+    testCompile 'net.sourceforge.cobertura:cobertura:2.1.1'
+}
+
