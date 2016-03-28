@@ -2,6 +2,9 @@ apply plugin: 'java'
 apply plugin: 'checkstyle'
 apply plugin: 'findbugs'
 
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
 repositories {
     jcenter()
 }
@@ -13,4 +16,8 @@ dependencies {
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'
     testCompile 'net.sourceforge.cobertura:cobertura:2.1.1'
+}
+
+checkstyle {
+	toolVersion = '6.8'
 }
