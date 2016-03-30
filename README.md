@@ -4,9 +4,13 @@
 - [ ] definir arquitectura de la app
 - [ ] definir estructura del tablero
 - [ ] definir estructura de los nodos
-- [ ] hacer parse desde archivo, del tablero.
+- [ ] hacer parser desde archivo, del tablero.
 - [ ] definir las heuristicas
 - [ ] hacer una interfaz heuristica.
 
 ## Heuristicas:
 - [ ] contar cantidad de grupos no resueltos.(es admisible).
+- [ ] contar cantidad de casilleros vacios teniendo en cuenta que los completos son validos.
+- [ ] contar filas imcompletas
+- [ ] contar columnas incompletas
+....
