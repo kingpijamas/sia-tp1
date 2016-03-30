@@ -4,36 +4,23 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import ar.itba.edu.sia.tp1.gps.GPSEngine;
 import ar.itba.edu.sia.tp1.gps.SearchStrategy;
-import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
+import ar.itba.edu.sia.tp1.gps2.GPSEngine;
+import ar.itba.edu.sia.tp1.gps2.api.EnvironmentReader;
+import ar.itba.edu.sia.tp1.gps2.api.GPSProblem;
 
-public class Puzzle implements GPSProblem {
+public class Puzzle extends GPSProblem {
 
-    static GPSEngine pEngine;
 
-    public static void main(String[] args) {
-        pEngine = new PuzzleEngine();
-        try {
-            pEngine.engine(new Puzzle(), SearchStrategy.DFS);
-        } catch (StackOverflowError e) {
-            System.out.println("Solution (if any) too deep for stack.");
-        }
+    public Puzzle(EnvironmentReader environmentReader) {
+        reader = environmentReader;
     }
 
     @Override
     public GPSState getInitState() {
-        Scanner s = new Scanner(System.in);
-        int[][] map = new int[PuzzleState.LENGTH][PuzzleState.LENGTH];
-        int index = 0;
-        while (index < PuzzleState.LENGTH * PuzzleState.LENGTH) {
-            map[index / PuzzleState.LENGTH][index % PuzzleState.LENGTH] = s.nextInt();
-            index++;
-        }
-        s.close();
-        return new PuzzleState(map);
+        return reader.read();
     }
 
     @Override

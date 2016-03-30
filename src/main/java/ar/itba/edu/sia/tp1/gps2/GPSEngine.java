@@ -1,9 +1,11 @@
 package ar.itba.edu.sia.tp1.gps2;
 
+import ar.itba.edu.sia.tp1.gps.GPSNode;
+import ar.itba.edu.sia.tp1.gps.SearchStrategy;
+import ar.itba.edu.sia.tp1.gps.api.GPSRule;
+import ar.itba.edu.sia.tp1.gps.api.GPSState;
+import ar.itba.edu.sia.tp1.gps.exception.NotAppliableException;
 import ar.itba.edu.sia.tp1.gps2.api.GPSProblem;
-import ar.itba.edu.sia.tp1.gps2.api.GPSRule;
-import ar.itba.edu.sia.tp1.gps2.api.GPSState;
-import ar.itba.edu.sia.tp1.gps2.exception.NotAppliableException;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -19,6 +21,7 @@ public abstract class GPSEngine {
     // Use this variable in open set order.
     protected SearchStrategy strategy;
 
+
     /*an instance cannot exist unless all its dependencies exists*/
     private GPSEngine(){}
 
@@ -33,7 +36,6 @@ public abstract class GPSEngine {
         boolean failed = false;
         long explosionCounter = 0;
         open.add(rootNode);
-        bestCosts.put(rootNode.getState(), 0);
         while (!failed && !finished) {
             if (open.size() <= 0) {
                 failed = true;

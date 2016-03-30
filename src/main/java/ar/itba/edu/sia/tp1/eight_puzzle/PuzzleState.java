@@ -8,8 +8,8 @@ import ar.itba.edu.sia.tp1.gps.api.GPSState;
 public class PuzzleState implements GPSState {
     static PuzzleState finalState;
 
-    static int LENGTH = 3;
-    static int BLANK = -1;
+    public static int LENGTH = 3;
+    public static int BLANK = -1;
 
     int[][] map = new int[LENGTH][LENGTH];
 
