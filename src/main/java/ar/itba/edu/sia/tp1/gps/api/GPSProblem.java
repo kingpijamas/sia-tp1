@@ -39,6 +39,6 @@ public abstract class GPSProblem {
      * @param state The state where the Heuristic should be computed.
      * @return The value of the Heuristic.
      */
-    public abstract Integer getHValue(GPSState state);
+    public abstract int getHValue(GPSState state);
 
 }

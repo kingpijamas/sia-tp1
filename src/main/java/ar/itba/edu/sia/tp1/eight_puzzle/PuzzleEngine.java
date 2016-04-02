@@ -12,9 +12,9 @@ class PuzzleEngine extends GPSEngine {
         open = new PriorityQueue<>((o1, o2) -> {
             switch (strategy) {
                 case BFS:
-                    return Integer.compare(o1.getCost(), o2.getCost());
+                    return Integer.compare(o1.getG(), o2.getG());
                 case DFS:
-                    return Integer.compare(o2.getCost(), o1.getCost());
+                    return Integer.compare(o2.getG(), o1.getG());
                 case IDDFS:
                     // IDDFS Condition
                     return 0;

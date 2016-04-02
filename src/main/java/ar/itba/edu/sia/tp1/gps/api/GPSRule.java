@@ -2,6 +2,8 @@ package ar.itba.edu.sia.tp1.gps.api;
 
 import ar.itba.edu.sia.tp1.gps.exception.NotAppliableException;
 
+import java.util.Optional;
+
 /**
  * GPSRule interface.
  */
@@ -30,7 +32,7 @@ public interface GPSRule {
      * @return The next state of the problem.
      * @throws NotAppliableException If the rule can not be applied to the received state.
      */
-    GPSState evalRule(GPSState state);
+    Optional<GPSState> evalRule(GPSState state);
 
     boolean isValid();
 

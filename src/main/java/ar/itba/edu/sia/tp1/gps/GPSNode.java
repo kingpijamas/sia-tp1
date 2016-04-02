@@ -7,11 +7,11 @@ public class GPSNode {
 
     private GPSState state;
     private GPSNode parent;
-    private int cost;
+    private int g;
 
-    public GPSNode(GPSState state, Integer cost) {
+    public GPSNode(GPSState state, Integer g) {
         this.state = state;
-        this.cost = cost;
+        this.g = g;
     }
 
     public GPSNode getParent() {
@@ -26,8 +26,8 @@ public class GPSNode {
         return state;
     }
 
-    public int getCost() {
-        return cost;
+    public int getG() {
+        return g;
     }
 
     @Override
@@ -47,7 +47,7 @@ public class GPSNode {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + Integer.hashCode(cost);
+        result = prime * result + Integer.hashCode(g);
         result = prime * result + ((parent == null) ? 0 : parent.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         return result;
@@ -63,7 +63,7 @@ public class GPSNode {
         if (getClass() != obj.getClass())
             return false;
         GPSNode other = (GPSNode) obj;
-        if (cost != other.cost)
+        if (g != other.g)
             return false;
         if (parent == null) {
             if (other.parent != null)

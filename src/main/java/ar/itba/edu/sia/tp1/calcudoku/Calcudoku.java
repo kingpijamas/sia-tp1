@@ -1,4 +1,4 @@
-package ar.itba.edu.sia.tp1.eight_puzzle;
+package ar.itba.edu.sia.tp1.calcudoku;
 
 import ar.itba.edu.sia.tp1.gps.Heuristic;
 import ar.itba.edu.sia.tp1.gps.api.EnvironmentReader;
@@ -6,41 +6,37 @@ import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
 
-import java.util.LinkedList;
 import java.util.List;
 
-public class Puzzle extends GPSProblem {
+/**
+ * Created by scamisay on 02/04/16.
+ */
+public class Calcudoku extends GPSProblem{
 
-    private Heuristic<Puzzle> heuristic;
+    private Heuristic<Calcudoku> heuristic;
 
-    public Puzzle(EnvironmentReader environmentReader, Heuristic<Puzzle> heuristic) {
+    public Calcudoku(EnvironmentReader environmentReader, Heuristic<Calcudoku> heuristic) {
         this.reader = environmentReader;
         this.heuristic = heuristic;
     }
 
     @Override
     public GPSState getInitState() {
-        return reader.read();
+        return null;
     }
 
     @Override
     public boolean isGoal(GPSState state) {
-        return state.equals(PuzzleState.finalState());
+        return false;
     }
 
     @Override
     public List<GPSRule> getRules() {
-        List<GPSRule> rules = new LinkedList<GPSRule>();
-        for (Direction d : Direction.values()) {
-            rules.add(new PuzzleRule(d));
-        }
-        return rules;
+        return null;
     }
 
-    // Valor Heurística para A*
     @Override
     public int getHValue(GPSState state) {
-        return heuristic.geH(this);
+        return 0;
     }
-
 }

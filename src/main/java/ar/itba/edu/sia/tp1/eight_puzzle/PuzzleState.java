@@ -5,7 +5,7 @@ import ar.itba.edu.sia.tp1.gps.api.GPSState;
 import java.awt.*;
 import java.util.Arrays;
 
-public class PuzzleState implements GPSState {
+public class PuzzleState extends GPSState {
     static PuzzleState finalState;
 
     public static int LENGTH = 3;
