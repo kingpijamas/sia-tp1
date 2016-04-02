@@ -1,41 +1,36 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
+import ar.itba.edu.sia.tp1.calcudoku.CalcudokuRule;
+import ar.itba.edu.sia.tp1.gps.api.GPSState;
+
 import java.util.BitSet;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by scamisay on 02/04/16.
  */
 public class Board {
-    private final BoardStructure boardInmutableStructure;
     private final BitSet data;
 
-    public Board(int n, List<Group> groups) {
-        this.boardInmutableStructure = new BoardStructure(n, groups);
+    public Board(int n) {
         data = new BitSet(n * n * n);
     }
 
-    private Board(Board previousBoard) {
-        this.boardInmutableStructure = previousBoard.boardInmutableStructure;
-        this.data = previousBoard.data.get(0, previousBoard.data.size());
+    private Board(Board baseBoard) {
+        this.data = baseBoard.data.get(0, baseBoard.data.size());
     }
 
     public Board deepCopy() {
         return new Board(this);
     }
 
-    public boolean isValid(){
-        return true; //todo: implementar
+    public void put(Position position, int value) {
+        // TODO: Implement!
     }
 
-    private static class BoardStructure {
-        final int n;
-        final List<Group> groups;
-
-        BoardStructure(int n, List<Group> groups) {
-            this.n = n;
-            this.groups = groups;
-        }
+    public boolean isValid() {
+        return true; //todo: implementar
     }
 
 

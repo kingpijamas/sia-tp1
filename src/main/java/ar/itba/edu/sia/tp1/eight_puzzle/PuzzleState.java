@@ -1,11 +1,13 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
+import ar.itba.edu.sia.tp1.utils.Copies;
 
 import java.awt.*;
 import java.util.Arrays;
+import java.util.Optional;
 
-public class PuzzleState extends GPSState {
+public class PuzzleState extends GPSState<PuzzleRule> {
     static PuzzleState finalState;
 
     public static int LENGTH = 3;
@@ -30,6 +32,29 @@ public class PuzzleState extends GPSState {
             }
         }
         return hash;
+    }
+
+    @Override
+    public Optional<GPSState> apply(PuzzleRule rule) {
+        Point delta = rule.direction.getDelta();
+        Point blank = getBlankCoords();
+        rule.destination = (Point) blank.clone();
+        rule.destination.translate(delta.x, delta.y);
+        if (!isValid(rule)) {
+            return Optional.empty();
+        }
+
+        int[][] newMap = Copies.deepCopy(map);
+        newMap[blank.x][blank.y] = newMap[rule.destination.x][rule.destination.y];
+        newMap[rule.destination.x][rule.destination.y] = PuzzleState.BLANK;
+        return Optional.of(new PuzzleState(newMap));
+        /*return rule.evalRule(this);*/
+    }
+
+    public boolean isValid(PuzzleRule rule) {
+        Point destination = rule.destination;
+        return !(destination.getX() < 0 || destination.getX() >= PuzzleState.LENGTH || destination.getY() < 0
+                || destination.getY() >= PuzzleState.LENGTH);
     }
 
     @Override

@@ -10,7 +10,7 @@ import java.util.Optional;
 public class PuzzleRule implements GPSRule {
     Direction direction;
 
-    private Point destination;
+    Point destination;
 
     public PuzzleRule(Direction direction) {
         this.direction = direction;
@@ -26,8 +26,8 @@ public class PuzzleRule implements GPSRule {
         return "Move blank space " + direction.toString();
     }
 
-    @Override
-    public Optional<GPSState> evalRule(GPSState state) {
+
+   /* public Optional<GPSState> evalRule(GPSState state) {
         PuzzleState puzzleState = (PuzzleState) state;
         Point delta = direction.getDelta();
         Point blank = puzzleState.getBlankCoords();
@@ -41,11 +41,8 @@ public class PuzzleRule implements GPSRule {
         newMap[blank.x][blank.y] = newMap[destination.x][destination.y];
         newMap[destination.x][destination.y] = PuzzleState.BLANK;
         return Optional.of(new PuzzleState(newMap));
-    }
+    }*/
 
-    @Override
-    public boolean isValid() {
-        return !(destination.getX() < 0 || destination.getX() >= PuzzleState.LENGTH || destination.getY() < 0
-                || destination.getY() >= PuzzleState.LENGTH);
-    }
+
+
 }

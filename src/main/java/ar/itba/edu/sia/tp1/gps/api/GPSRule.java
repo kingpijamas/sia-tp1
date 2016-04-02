@@ -32,8 +32,8 @@ public interface GPSRule {
      * @return The next state of the problem.
      * @throws NotAppliableException If the rule can not be applied to the received state.
      */
-    Optional<GPSState> evalRule(GPSState state);
+    /*Optional<GPSState> evalRule(GPSState state);*/
 
-    boolean isValid();
+/*    boolean isValid();*/
 
 }
