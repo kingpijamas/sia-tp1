@@ -10,6 +10,8 @@ import ar.itba.edu.sia.tp1.utils.Copies;
 public class PuzzleRule implements GPSRule {
     Direction direction;
 
+    private Point destination;
+
     public PuzzleRule(Direction direction) {
         this.direction = direction;
     }
@@ -25,19 +27,25 @@ public class PuzzleRule implements GPSRule {
     }
 
     @Override
-    public GPSState evalRule(GPSState state) throws NotAppliableException {
+    public GPSState evalRule(GPSState state){
         PuzzleState puzzleState = ((PuzzleState) state);
         Point delta = direction.getDelta();
         Point blank = puzzleState.getBlankCoords();
-        Point destination = (Point) blank.clone();
+        destination = (Point) blank.clone();
         destination.translate(delta.x, delta.y);
-        if (destination.getX() < 0 || destination.getX() >= PuzzleState.LENGTH || destination.getY() < 0
-                || destination.getY() >= PuzzleState.LENGTH) {
-            throw new NotAppliableException();
+        if (!isValid()) {
+            return new InvalidState();
         }
+
         int[][] newMap = Copies.deepCopy(puzzleState.map);
         newMap[blank.x][blank.y] = newMap[destination.x][destination.y];
         newMap[destination.x][destination.y] = PuzzleState.BLANK;
         return new PuzzleState(newMap);
+    }
+
+    @Override
+    public boolean isValid() {
+        return !(destination.getX() < 0 || destination.getX() >= PuzzleState.LENGTH || destination.getY() < 0
+                || destination.getY() >= PuzzleState.LENGTH);
     }
 }

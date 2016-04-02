@@ -10,7 +10,6 @@
 
 ## Heuristicas:
 - [ ] contar cantidad de grupos no resueltos.(es admisible).
-- [ ] contar cantidad de casilleros vacios teniendo en cuenta que los completos son validos.
 - [ ] contar filas imcompletas
 - [ ] contar columnas incompletas
 ....

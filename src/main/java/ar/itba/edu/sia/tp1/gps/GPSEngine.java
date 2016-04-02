@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Queue;
 
+import ar.itba.edu.sia.tp1.eight_puzzle.InvalidState;
 import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
@@ -64,12 +65,8 @@ public abstract class GPSEngine {
         }
         for (GPSRule rule : problem.getRules()) {
             GPSState newState = null;
-            try {
-                newState = rule.evalRule(node.getState());
-            } catch (NotAppliableException e) {
-                // Do nothing
-            }
-            if (newState != null && isBest(newState, node.getCost() + rule.getCost())) {
+            newState = rule.evalRule(node.getState());
+            if (!(newState instanceof InvalidState) && isBest(newState, node.getCost() + rule.getCost())) {
                 GPSNode newNode = new GPSNode(newState, node.getCost() + rule.getCost());
                 newNode.setParent(node);
                 open.add(newNode);

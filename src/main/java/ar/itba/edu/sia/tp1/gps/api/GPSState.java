@@ -17,4 +17,6 @@ public interface GPSState {
     boolean equals(Object state);
 
     // int hashCode();
+
+
 }
