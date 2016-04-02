@@ -5,6 +5,7 @@ import ar.itba.edu.sia.tp1.gps.api.GPSState;
 import ar.itba.edu.sia.tp1.utils.Copies;
 
 import java.awt.*;
+import java.util.Optional;
 
 public class PuzzleRule implements GPSRule {
     Direction direction;
@@ -26,20 +27,20 @@ public class PuzzleRule implements GPSRule {
     }
 
     @Override
-    public GPSState evalRule(GPSState state) {
+    public Optional<GPSState> evalRule(GPSState state) {
         PuzzleState puzzleState = (PuzzleState) state;
         Point delta = direction.getDelta();
         Point blank = puzzleState.getBlankCoords();
         destination = (Point) blank.clone();
         destination.translate(delta.x, delta.y);
         if (!isValid()) {
-            return new InvalidState();
+            return Optional.empty();
         }
 
         int[][] newMap = Copies.deepCopy(puzzleState.map);
         newMap[blank.x][blank.y] = newMap[destination.x][destination.y];
         newMap[destination.x][destination.y] = PuzzleState.BLANK;
-        return new PuzzleState(newMap);
+        return Optional.of(new PuzzleState(newMap));
     }
 
     @Override

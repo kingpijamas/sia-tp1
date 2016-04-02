@@ -3,8 +3,9 @@ package ar.itba.edu.sia.tp1.gps.api;
 /**
  * GPSState interface.
  */
-public interface GPSState {
-    default boolean isValid() {
+public abstract class GPSState {
+
+    public boolean isValid() {
         return true;
     }
 
@@ -16,7 +17,7 @@ public interface GPSState {
      * @return true if self is the same as the state given, false if they are
      * different.
      */
-    boolean equals(Object state);
+    public abstract boolean equals(Object state);
 
-    // int hashCode();
+    public abstract int hashCode();
 }

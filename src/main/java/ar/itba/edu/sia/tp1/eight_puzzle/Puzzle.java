@@ -1,5 +1,6 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
+import ar.itba.edu.sia.tp1.gps.Heuristic;
 import ar.itba.edu.sia.tp1.gps.api.EnvironmentReader;
 import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
@@ -10,9 +11,11 @@ import java.util.List;
 
 public class Puzzle extends GPSProblem {
 
+    private Heuristic<Puzzle> heuristic;
 
-    public Puzzle(EnvironmentReader environmentReader) {
-        reader = environmentReader;
+    public Puzzle(EnvironmentReader environmentReader, Heuristic<Puzzle> heuristic) {
+        this.reader = environmentReader;
+        this.heuristic = heuristic;
     }
 
     @Override
@@ -36,8 +39,8 @@ public class Puzzle extends GPSProblem {
 
     // Valor Heurística para A*
     @Override
-    public Integer getHValue(GPSState state) {
-        return 0;
+    public int getHValue(GPSState state) {
+        return heuristic.geH(this);
     }
 
 }

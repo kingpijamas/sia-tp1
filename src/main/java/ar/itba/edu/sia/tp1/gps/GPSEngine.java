@@ -6,6 +6,7 @@ import ar.itba.edu.sia.tp1.gps.api.GPSState;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Queue;
 
 public abstract class GPSEngine {
@@ -43,7 +44,7 @@ public abstract class GPSEngine {
                     finished = true;
                     System.out.println(currentNode.getSolution());
                     System.out.println("Expanded nodes: " + explosionCounter);
-                    System.out.println("Solution cost: " + currentNode.getCost());
+                    System.out.println("Solution cost: " + currentNode.getG());
                 } else {
                     explosionCounter++;
                     explode(currentNode);
@@ -58,7 +59,7 @@ public abstract class GPSEngine {
     }
 
     private boolean explode(GPSNode node) {
-        if (bestCosts.containsKey(node.getState()) && bestCosts.get(node.getState()) <= node.getCost()) {
+        if (bestCosts.containsKey(node.getState()) && bestCosts.get(node.getState()) <= node.getG()) {
             return false;
         }
         updateBest(node);
@@ -67,11 +68,11 @@ public abstract class GPSEngine {
             return false;
         }
         for (GPSRule rule : problem.getRules()) {
-            GPSState newState = rule.evalRule(node.getState());
-            if (newState.isValid()) {
-                int newCost = node.getCost() + rule.getCost();
-                if (isBest(newState, newCost)) {
-                    GPSNode newNode = new GPSNode(newState, newCost);
+            Optional<GPSState> newState = rule.evalRule(node.getState());
+            if (newState.isPresent()) {
+                int gValue = node.getG() + rule.getCost();
+                if (isBest(newState.get(), gValue)) {
+                    GPSNode newNode = new GPSNode(newState.get(), gValue);
                     newNode.setParent(node);
                     open.add(newNode);
                 }
@@ -85,7 +86,7 @@ public abstract class GPSEngine {
     }
 
     private void updateBest(GPSNode node) {
-        bestCosts.put(node.getState(), node.getCost());
+        bestCosts.put(node.getState(), node.getG());
     }
 
 }
