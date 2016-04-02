@@ -1,14 +1,12 @@
 package ar.itba.edu.sia.tp1.gps;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Queue;
-
-import ar.itba.edu.sia.tp1.eight_puzzle.InvalidState;
 import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
-import ar.itba.edu.sia.tp1.gps.exception.NotAppliableException;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Queue;
 
 public abstract class GPSEngine {
 
@@ -20,17 +18,22 @@ public abstract class GPSEngine {
     // Use this variable in open set order.
     protected SearchStrategy strategy;
 
-    public void engine(GPSProblem myProblem, SearchStrategy myStrategy) {
 
-        problem = myProblem;
-        strategy = myStrategy;
+    /*an instance cannot exist unless all its dependencies exists*/
+    private GPSEngine() {
+    }
 
+    public GPSEngine(GPSProblem problem, SearchStrategy strategy) {
+        this.problem = problem;
+        this.strategy = strategy;
+    }
+
+    public void solve() {
         GPSNode rootNode = new GPSNode(problem.getInitState(), 0);
         boolean finished = false;
         boolean failed = false;
         long explosionCounter = 0;
         open.add(rootNode);
-        bestCosts.put(rootNode.getState(), 0);
         while (!failed && !finished) {
             if (open.size() <= 0) {
                 failed = true;
@@ -64,12 +67,14 @@ public abstract class GPSEngine {
             return false;
         }
         for (GPSRule rule : problem.getRules()) {
-            GPSState newState = null;
-            newState = rule.evalRule(node.getState());
-            if (!(newState instanceof InvalidState) && isBest(newState, node.getCost() + rule.getCost())) {
-                GPSNode newNode = new GPSNode(newState, node.getCost() + rule.getCost());
-                newNode.setParent(node);
-                open.add(newNode);
+            GPSState newState = rule.evalRule(node.getState());
+            if (newState.isValid()) {
+                int newCost = node.getCost() + rule.getCost();
+                if (isBest(newState, newCost)) {
+                    GPSNode newNode = new GPSNode(newState, newCost);
+                    newNode.setParent(node);
+                    open.add(newNode);
+                }
             }
         }
         return true;

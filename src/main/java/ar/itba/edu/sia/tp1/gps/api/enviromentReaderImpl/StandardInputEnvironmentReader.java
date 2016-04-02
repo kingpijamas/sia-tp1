@@ -1,8 +1,8 @@
-package ar.itba.edu.sia.tp1.gps2.api.enviromentReaderImpl;
+package ar.itba.edu.sia.tp1.gps.api.enviromentReaderImpl;
 
 import ar.itba.edu.sia.tp1.eight_puzzle.PuzzleState;
+import ar.itba.edu.sia.tp1.gps.api.EnvironmentReader;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
-import ar.itba.edu.sia.tp1.gps2.api.EnvironmentReader;
 
 import java.util.Scanner;
 

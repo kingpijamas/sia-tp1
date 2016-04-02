@@ -1,15 +1,12 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Scanner;
-
-import ar.itba.edu.sia.tp1.gps.SearchStrategy;
+import ar.itba.edu.sia.tp1.gps.api.EnvironmentReader;
+import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
-import ar.itba.edu.sia.tp1.gps2.GPSEngine;
-import ar.itba.edu.sia.tp1.gps2.api.EnvironmentReader;
-import ar.itba.edu.sia.tp1.gps2.api.GPSProblem;
+
+import java.util.LinkedList;
+import java.util.List;
 
 public class Puzzle extends GPSProblem {
 

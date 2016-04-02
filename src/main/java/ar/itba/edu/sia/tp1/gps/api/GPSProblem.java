@@ -1,27 +1,29 @@
 package ar.itba.edu.sia.tp1.gps.api;
 
+
 import java.util.List;
 
 /**
  * GPSProblem interface.
  */
-public interface GPSProblem {
+public abstract class GPSProblem {
+
+    protected EnvironmentReader reader;
 
     /**
      * Provides the initial state for the GPS to start from.
      *
      * @return The initial state of the problem to be solved.
      */
-    GPSState getInitState();
+    public abstract GPSState getInitState();
 
     /**
      * Given a state, resolves if it is a solution to the problem.
      *
-     * @param state
-     *            The state to establish if it is a goal state.
+     * @param state The state to establish if it is a goal state.
      * @return TRUE if the state is a goal state, FALSE otherwise.
      */
-    boolean isGoal(GPSState state);
+    public abstract boolean isGoal(GPSState state);
 
     /**
      * Provides the list of all the rules that the problem involves. These rules
@@ -29,15 +31,14 @@ public interface GPSProblem {
      *
      * @return The initial state of the problem to be solved.
      */
-    List<GPSRule> getRules();
+    public abstract List<GPSRule> getRules();
 
     /**
      * Computes the value of the Heuristic for the given state.
      *
-     * @param state
-     *            The state where the Heuristic should be computed.
+     * @param state The state where the Heuristic should be computed.
      * @return The value of the Heuristic.
      */
-    Integer getHValue(GPSState state);
+    public abstract Integer getHValue(GPSState state);
 
 }

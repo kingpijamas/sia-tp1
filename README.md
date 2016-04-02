@@ -13,3 +13,10 @@
 - [ ] contar filas imcompletas
 - [ ] contar columnas incompletas
 ....
+
+
+## TODO
+- Implementar un EnvironmentReader que parsee desde archivo
+- Implementar el board con binarios + API
+- Definir estructura del proyecto
+- Test del engine con todas las estrategias

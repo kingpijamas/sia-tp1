@@ -1,11 +1,10 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
-import java.awt.Point;
-
 import ar.itba.edu.sia.tp1.gps.api.GPSRule;
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
-import ar.itba.edu.sia.tp1.gps.exception.NotAppliableException;
 import ar.itba.edu.sia.tp1.utils.Copies;
+
+import java.awt.*;
 
 public class PuzzleRule implements GPSRule {
     Direction direction;
@@ -27,8 +26,8 @@ public class PuzzleRule implements GPSRule {
     }
 
     @Override
-    public GPSState evalRule(GPSState state){
-        PuzzleState puzzleState = ((PuzzleState) state);
+    public GPSState evalRule(GPSState state) {
+        PuzzleState puzzleState = (PuzzleState) state;
         Point delta = direction.getDelta();
         Point blank = puzzleState.getBlankCoords();
         destination = (Point) blank.clone();

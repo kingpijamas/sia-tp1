@@ -1,9 +1,9 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
-import java.awt.Point;
-import java.util.Arrays;
-
 import ar.itba.edu.sia.tp1.gps.api.GPSState;
+
+import java.awt.*;
+import java.util.Arrays;
 
 public class PuzzleState implements GPSState {
     static PuzzleState finalState;
@@ -76,7 +76,7 @@ public class PuzzleState implements GPSState {
 
     static public PuzzleState finalState() {
         if (finalState == null) {
-            int[][] map = { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, -1 } };
+            int[][] map = {{1, 2, 3}, {4, 5, 6}, {7, 8, -1}};
             finalState = new PuzzleState(map);
         }
         return finalState;

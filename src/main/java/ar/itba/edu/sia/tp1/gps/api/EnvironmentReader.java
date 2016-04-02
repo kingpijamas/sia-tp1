@@ -1,6 +1,4 @@
-package ar.itba.edu.sia.tp1.gps2.api;
-
-import ar.itba.edu.sia.tp1.gps.api.GPSState;
+package ar.itba.edu.sia.tp1.gps.api;
 
 /**
  * Created by scamisay on 29/03/16.

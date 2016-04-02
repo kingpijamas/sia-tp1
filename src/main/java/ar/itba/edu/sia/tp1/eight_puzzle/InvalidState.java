@@ -6,4 +6,8 @@ import ar.itba.edu.sia.tp1.gps.api.GPSState;
  * Created by scamisay on 02/04/16.
  */
 public class InvalidState implements GPSState {
+    @Override
+    public boolean isValid() {
+        return false;
+    }
 }

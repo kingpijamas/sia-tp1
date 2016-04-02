@@ -26,11 +26,9 @@ public interface GPSRule {
      * Computes the next state based on the previous one. The next state is the
      * result of applying the rule to the previous state.
      *
-     * @param state
-     *            The previous state of the problem.
+     * @param state The previous state of the problem.
      * @return The next state of the problem.
-     * @throws NotAppliableException
-     *             If the rule can not be applied to the received state.
+     * @throws NotAppliableException If the rule can not be applied to the received state.
      */
     GPSState evalRule(GPSState state);
 
