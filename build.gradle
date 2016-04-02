@@ -16,6 +16,7 @@ dependencies {
 
 	// Linting
 	compile 'com.google.code.findbugs:findbugs:3.0.1'
+    compile 'org.apache.commons:commons-lang3:3.4'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.mockito:mockito-all:1.10.19'

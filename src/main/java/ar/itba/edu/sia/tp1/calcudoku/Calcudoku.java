@@ -22,7 +22,7 @@ public class Calcudoku extends GPSProblem{
 
     @Override
     public GPSState getInitState() {
-        return null;
+        return reader.read();
     }
 
     @Override
