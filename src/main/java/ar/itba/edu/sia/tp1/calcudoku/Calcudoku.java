@@ -1,42 +1,41 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
-import ar.itba.edu.sia.tp1.gps.Heuristic;
-import ar.itba.edu.sia.tp1.gps.api.EnvironmentReader;
-import ar.itba.edu.sia.tp1.gps.api.GPSProblem;
-import ar.itba.edu.sia.tp1.gps.api.GPSRule;
-import ar.itba.edu.sia.tp1.gps.api.GPSState;
-
 import java.util.List;
+
+import ar.itba.edu.sia.tp1.gps.ProblemReader;
+import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
+import ar.itba.edu.sia.tp1.gps.GPSProblem;
 
 /**
  * Created by scamisay on 02/04/16.
  */
-public class Calcudoku extends GPSProblem{
+public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
+	private final CalcudokuState initialState;
+	private final GPSHeuristic<Calcudoku> heuristic;
 
-    private Heuristic<Calcudoku> heuristic;
+	public Calcudoku(ProblemReader<CalcudokuState> environmentReader,
+			GPSHeuristic<Calcudoku> heuristic) {
+		this.initialState = environmentReader.readInitialState();
+		this.heuristic = heuristic;
+	}
 
-    public Calcudoku(EnvironmentReader environmentReader, Heuristic<Calcudoku> heuristic) {
-        this.reader = environmentReader;
-        this.heuristic = heuristic;
-    }
+	@Override
+	public CalcudokuState getInitialState() {
+		return initialState;
+	}
 
-    @Override
-    public GPSState getInitState() {
-        return reader.read();
-    }
+	@Override
+	public boolean isGoal(CalcudokuState state) {
+		return false; // TODO
+	}
 
-    @Override
-    public boolean isGoal(GPSState state) {
-        return false;
-    }
+	@Override
+	public List<CalcudokuRule> getRules() {
+		return null; // TODO
+	}
 
-    @Override
-    public List<GPSRule> getRules() {
-        return null;
-    }
-
-    @Override
-    public int getHValue(GPSState state) {
-        return 0;
-    }
+	@Override
+	public int getHValue(CalcudokuState state) {
+		return 0; // TODO
+	}
 }

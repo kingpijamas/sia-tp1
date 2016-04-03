@@ -3,37 +3,31 @@ package ar.itba.edu.sia.tp1.eight_puzzle;
 import java.awt.*;
 
 public enum Direction {
-    LEFT, DOWN, RIGHT, UP;
+	LEFT(0, -1), DOWN(1, 0), RIGHT(0, 1), UP(-1, 0);
 
-    @Override
-    public String toString() {
-        switch (this) {
-            case LEFT:
-                return "Left";
-            case DOWN:
-                return "Down";
-            case RIGHT:
-                return "Right";
-            case UP:
-                return "Up";
-            default:
-                throw new IllegalStateException();
-        }
-    }
+	private final Point delta;
 
-    public Point getDelta() {
-        switch (this) {
-            case LEFT:
-                return new Point(0, -1);
-            case DOWN:
-                return new Point(1, 0);
-            case RIGHT:
-                return new Point(0, 1);
-            case UP:
-                return new Point(-1, 0);
-            default:
-                throw new IllegalStateException();
-        }
-    }
+	private Direction(int xDelta, int yDelta) {
+		this.delta = new Point(xDelta, yDelta);
+	}
 
+	public Point getDelta() {
+		return delta;
+	}
+
+	@Override
+	public String toString() {
+		switch (this) {
+		case LEFT:
+			return "Left";
+		case DOWN:
+			return "Down";
+		case RIGHT:
+			return "Right";
+		case UP:
+			return "Up";
+		default:
+			throw new IllegalStateException();
+		}
+	}
 }
