@@ -36,7 +36,7 @@ public abstract class GPSEngine {
         long explosionCounter = 0;
         open.add(rootNode);
         while (!failed && !finished) {
-            if (open.size() <= 0) {
+            if (open.isEmpty()) {
                 failed = true;
             } else {
                 GPSNode currentNode = open.remove();
@@ -59,7 +59,9 @@ public abstract class GPSEngine {
     }
 
     private boolean explode(GPSNode node) {
-        if (bestCosts.containsKey(node.getState()) && bestCosts.get(node.getState()) <= node.getG()) {
+        GPSState state = node.getState();
+        int gValue = node.getG();
+        if (bestCosts.containsKey(state) && bestCosts.get(state) <= gValue) {
             return false;
         }
         updateBest(node);
@@ -68,12 +70,14 @@ public abstract class GPSEngine {
             return false;
         }
         for (GPSRule rule : problem.getRules()) {
-            Optional<GPSState> newState = node.getState().apply(rule);
-                    //rule.evalRule(node.getState());
-            if (newState.isPresent()) {
-                int gValue = node.getG() + rule.getCost();
-                if (isBest(newState.get(), gValue)) {
-                    GPSNode newNode = new GPSNode(newState.get(), gValue);
+            Optional<GPSState> newStateOpt = state.apply(rule);
+
+            if (newStateOpt.isPresent()) {
+                GPSState newState = newStateOpt.get();
+                int newGValue = gValue + rule.getCost();
+
+                if (isBest(newState, newGValue)) {
+                    GPSNode newNode = new GPSNode(newState, newGValue);
                     newNode.setParent(node);
                     open.add(newNode);
                 }
