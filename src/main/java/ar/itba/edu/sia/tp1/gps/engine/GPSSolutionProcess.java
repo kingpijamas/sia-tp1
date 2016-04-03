@@ -1,7 +1,7 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import java.util.HashMap;
-import java.util.Map;
+import gnu.trove.map.hash.TObjectIntHashMap;
+
 import java.util.Optional;
 import java.util.Queue;
 
@@ -9,28 +9,26 @@ import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 
-public class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
+class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	private final Queue<GPSNode<R, S>> openNodes;
 	private final GPSProblem<R, S> problem;
 
-	// TODO: trovify maybe?
-	private final Map<S, Integer> bestCosts = new HashMap<S, Integer>();
+	private final TObjectIntHashMap<S> bestCosts = new TObjectIntHashMap<S>();
 
 	private Optional<GPSNode<R, S>> solution;
 	private long explosionsCount = 0;
 
-	public GPSSolutionProcess(GPSProblem<R, S> problem,
-			Queue<GPSNode<R, S>> openNodes) {
+	GPSSolutionProcess(GPSProblem<R, S> problem, Queue<GPSNode<R, S>> openNodes) {
 		this.problem = problem;
 		this.openNodes = openNodes;
 		openNodes.add(new GPSNode<>(problem.getInitialState(), 0));
 	}
 
-	public long getExplosionsCount() {
+	long getExplosionsCount() {
 		return explosionsCount;
 	}
 
-	public Optional<GPSNode<R, S>> solve() {
+	Optional<GPSNode<R, S>> solve() {
 		while (!openNodes.isEmpty()) {
 			GPSNode<R, S> currentNode = openNodes.poll();
 
@@ -38,7 +36,6 @@ public class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 				solution = Optional.of(currentNode);
 				return solution;
 			}
-			explosionsCount++;
 			explode(currentNode);
 		}
 		solution = Optional.empty();
@@ -46,6 +43,7 @@ public class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	}
 
 	private void explode(GPSNode<R, S> node) {
+		explosionsCount++;
 		if (!isBetterThanCurrentBest(node)) {
 			return;
 		}
@@ -61,7 +59,9 @@ public class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 				S newState = newStateOpt.get();
 				int newGValue = node.getGValue() + rule.getCost();
 				if (isBetterThanCurrentBest(newState, newGValue)) {
-					openNodes.add(new GPSNode<>(node, newState, newGValue));
+					GPSNode<R, S> newNode = new GPSNode<>(node, newState,
+							newGValue);
+					openNodes.add(newNode);
 				}
 			}
 		}

@@ -5,12 +5,16 @@ import java.awt.Point;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 
 public class PuzzleRule implements GPSRule {
-	Direction direction;
+	private final Direction direction;
 
-	Point destination;
+	Point destination; // XXX (mutable!)
 
 	public PuzzleRule(Direction direction) {
 		this.direction = direction;
+	}
+
+	public Direction getDirection() {
+		return direction;
 	}
 
 	@Override
@@ -22,17 +26,4 @@ public class PuzzleRule implements GPSRule {
 	public String getName() {
 		return "Move blank space " + direction.toString();
 	}
-
-	/*
-	 * public Optional<GPSState> evalRule(GPSState state) { PuzzleState
-	 * puzzleState = (PuzzleState) state; Point delta = direction.getDelta();
-	 * Point blank = puzzleState.getBlankCoords(); destination = (Point)
-	 * blank.clone(); destination.translate(delta.x, delta.y); if (!isValid()) {
-	 * return Optional.empty(); }
-	 * 
-	 * int[][] newMap = Copies.deepCopy(puzzleState.map);
-	 * newMap[blank.x][blank.y] = newMap[destination.x][destination.y];
-	 * newMap[destination.x][destination.y] = PuzzleState.BLANK; return
-	 * Optional.of(new PuzzleState(newMap)); }
-	 */
 }

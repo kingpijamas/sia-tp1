@@ -11,6 +11,9 @@ repositories {
 }
 
 dependencies {
+	// High performance/Low memory usage collections
+	compile 'net.sf.trove4j:trove4j:3.0.3'
+
 	// Json serialization
 	compile 'io.fastjson:boon:0.33'
 

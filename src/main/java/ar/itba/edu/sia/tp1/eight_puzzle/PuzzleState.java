@@ -19,7 +19,7 @@ public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 
 	@Override
 	public Optional<PuzzleState> apply(PuzzleRule rule) {
-		Point delta = rule.direction.getDelta();
+		Point delta = rule.getDirection().getDelta();
 		Point blank = getBlankCoords();
 		rule.destination = (Point) blank.clone();
 		rule.destination.translate(delta.x, delta.y);
