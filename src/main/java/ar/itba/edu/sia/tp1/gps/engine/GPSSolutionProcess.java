@@ -10,13 +10,13 @@ import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 
 class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
+	// TODO: merge back into GPSEngine
 	private final Queue<GPSNode<R, S>> openNodes;
 	private final GPSProblem<R, S> problem;
 
 	private final TObjectIntHashMap<S> bestCosts = new TObjectIntHashMap<S>();
 
-	private Optional<GPSNode<R, S>> solution;
-	private long explosionsCount = 0;
+	private long explosionCount = 0;
 
 	GPSSolutionProcess(GPSProblem<R, S> problem, Queue<GPSNode<R, S>> openNodes) {
 		this.problem = problem;
@@ -25,25 +25,22 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	}
 
 	long getExplosionsCount() {
-		return explosionsCount;
+		return explosionCount;
 	}
 
-	Optional<GPSNode<R, S>> solve() {
+	GPSSolution<R, S> solve() {
 		while (!openNodes.isEmpty()) {
 			GPSNode<R, S> currentNode = openNodes.poll();
-
 			if (problem.isGoal(currentNode.getState())) {
-				solution = Optional.of(currentNode);
-				return solution;
+				return GPSSolution.of(currentNode, explosionCount);
 			}
 			explode(currentNode);
 		}
-		solution = Optional.empty();
-		return solution;
+		return GPSSolution.failure(explosionCount);
 	}
 
 	private void explode(GPSNode<R, S> node) {
-		explosionsCount++;
+		explosionCount++;
 		if (!isBetterThanCurrentBest(node)) {
 			return;
 		}

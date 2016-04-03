@@ -1,6 +1,5 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import java.util.Optional;
 import java.util.Queue;
 
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
@@ -16,19 +15,18 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 
 	public void solve() {
 		GPSSolutionProcess<R, S> solutionProcess = buildSolutionProcess();
-		Optional<GPSNode<R, S>> solution = solutionProcess.solve();
+		GPSSolution<R, S> solution = solutionProcess.solve();
 
-		if (!solution.isPresent()) {
+		if (solution.isSuccess()) {
+			System.out.println("OK! solution found!");
+			System.out.println("Expanded nodes: "
+					+ solutionProcess.getExplosionsCount());
+			System.out.println("Solution cost: " + solution.getCost());
+			System.out.println(solution.getPath());
+		} else {
 			System.err.println("FAILED! solution not found!");
 			System.out.println("Expanded nodes: "
 					+ solutionProcess.getExplosionsCount());
-		} else {
-			GPSNode<R, S> currentNode = solution.get();
-			System.out.println("OK! solution found!");
-			System.out.println(currentNode.getSolution());
-			System.out.println("Expanded nodes: "
-					+ solutionProcess.getExplosionsCount());
-			System.out.println("Solution cost: " + currentNode.getGValue());
 		}
 	}
 

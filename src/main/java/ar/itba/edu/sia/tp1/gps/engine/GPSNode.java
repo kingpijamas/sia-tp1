@@ -1,8 +1,5 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -37,16 +34,6 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 	@Override
 	public String toString() {
 		return state.toString(); // TODO: redo!
-	}
-
-	public Iterable<GPSNode<R, S>> getSolution() { // TODO move elsewhere!
-		Deque<GPSNode<R, S>> solution = new ArrayDeque<>();
-		GPSNode<R, S> currNode = this;
-		do {
-			solution.push(currNode);
-			currNode = currNode.getParent();
-		} while (currNode != null);
-		return solution;
 	}
 
 	@Override
