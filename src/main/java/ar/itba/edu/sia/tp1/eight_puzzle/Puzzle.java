@@ -14,9 +14,9 @@ public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
 	private final PuzzleState initialState;
 	private final GPSHeuristic<Puzzle> heuristic;
 
-	public Puzzle(ProblemReader<PuzzleState> environmentReader,
+	public Puzzle(ProblemReader<PuzzleState> problemReader,
 			GPSHeuristic<Puzzle> heuristic) {
-		this.initialState = environmentReader.readInitialState();
+		this.initialState = problemReader.readInitialState();
 		this.heuristic = heuristic;
 	}
 
