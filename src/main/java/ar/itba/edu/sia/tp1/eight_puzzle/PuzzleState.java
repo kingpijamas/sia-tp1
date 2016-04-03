@@ -6,13 +6,21 @@ import ar.itba.edu.sia.tp1.utils.Copies;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 	public static final int LENGTH = 3;
 	public static final int BLANK = -1;
 
-	int[][] map = new int[LENGTH][LENGTH];
+	private final int[][] map;
 
+	public PuzzleState() {
+		this.map = new int[LENGTH][LENGTH];
+	}
+
+	@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not our code")
 	public PuzzleState(int[][] map) {
 		this.map = map;
 	}
@@ -31,7 +39,6 @@ public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 		newMap[blank.x][blank.y] = newMap[rule.destination.x][rule.destination.y];
 		newMap[rule.destination.x][rule.destination.y] = PuzzleState.BLANK;
 		return Optional.of(new PuzzleState(newMap));
-		/* return rule.evalRule(this); */
 	}
 
 	public boolean isValid(PuzzleRule rule) {
@@ -82,11 +89,13 @@ public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 		return true;
 	}
 
+	@SuppressFBWarnings(value = "EI_EXPOSE_REP", justification = "Not our code")
 	public int[][] getMap() {
 		return map;
 	}
 
 	@Override
+	@SuppressFBWarnings(value = "SBSC_USE_STRINGBUFFER_CONCATENATION", justification = "Not our code")
 	public String toString() {
 		String resp = "\n";
 		for (int[] row : map) {

@@ -4,19 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.boon.json.annotations.JsonProperty;
 
 /**
  * Created by scamisay on 02/04/16.
  */
 public class Group {
-	@JsonProperty("positions")
 	private final List<Position> positions;
-
-	@JsonProperty("operator")
 	private final Operator operator;
-
-	@JsonProperty("result")
 	private final int result;
 
 	public Group(List<Position> positions, Operator operator, int result) {

@@ -15,7 +15,6 @@ import ar.itba.edu.sia.tp1.gps.GPSState;
 public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 	private final ImmutableStructure immutableStructure;
 
-	@JsonIgnore
 	private final Board board;
 
 	public CalcudokuState(int n, List<Group> groups) {

@@ -1,16 +1,12 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.boon.json.annotations.JsonProperty;
 
 /**
  * Created by scamisay on 02/04/16.
  */
 public class Position {
-	@JsonProperty("row")
 	private final int row;
-
-	@JsonProperty("col")
 	private final int col;
 
 	public Position(int row, int col) {

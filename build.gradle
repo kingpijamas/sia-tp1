@@ -10,6 +10,10 @@ repositories {
     jcenter()
 }
 
+ext {
+	findbugs_version = '3.0.1'
+}
+
 dependencies {
 	// High performance/Low memory usage collections
 	compile 'net.sf.trove4j:trove4j:3.0.3'
@@ -18,7 +22,7 @@ dependencies {
 	compile 'io.fastjson:boon:0.33'
 
 	// Linting
-	compile 'com.google.code.findbugs:findbugs:3.0.1'
+	compile group: 'com.google.code.findbugs', name: 'findbugs', version: findbugs_version
 
 	// Misc utils
     compile 'org.apache.commons:commons-lang3:3.4'
@@ -31,4 +35,12 @@ dependencies {
 
 checkstyle {
 	toolVersion = '6.8'
+}
+
+findbugs {
+	toolVersion = findbugs_version
+	effort = "max"
+	reportLevel = "medium"
+	
+	excludeFilter = file("$rootProject.projectDir/config/findbugs/excludeFilter.xml")
 }
