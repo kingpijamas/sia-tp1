@@ -3,9 +3,9 @@ package ar.itba.edu.sia.tp1.eight_puzzle;
 import java.util.LinkedList;
 import java.util.List;
 
-import ar.itba.edu.sia.tp1.gps.ProblemReader;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
+import ar.itba.edu.sia.tp1.gps.ProblemParser;
 
 public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
 	private static final PuzzleState FINAL_STATE = new PuzzleState(new int[][] {
@@ -14,9 +14,9 @@ public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
 	private final PuzzleState initialState;
 	private final GPSHeuristic<Puzzle> heuristic;
 
-	public Puzzle(ProblemReader<PuzzleState> problemReader,
+	public Puzzle(ProblemParser<PuzzleState> problemReader,
 			GPSHeuristic<Puzzle> heuristic) {
-		this.initialState = problemReader.readInitialState();
+		this.initialState = problemReader.parse();
 		this.heuristic = heuristic;
 	}
 

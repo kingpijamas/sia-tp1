@@ -11,7 +11,7 @@ import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
  * Created by scamisay on 02/04/16.
  */
 public class CalcudokuEngine extends GPSEngine<CalcudokuRule, CalcudokuState> {
-	private final SearchStrategy searchStrategy;
+	private final SearchStrategy searchStrategy; // TODO: use!
 
 	public CalcudokuEngine(GPSProblem<CalcudokuRule, CalcudokuState> problem,
 			SearchStrategy searchStrategy) {
@@ -21,6 +21,6 @@ public class CalcudokuEngine extends GPSEngine<CalcudokuRule, CalcudokuState> {
 
 	@Override
 	protected Queue<GPSNode<CalcudokuRule, CalcudokuState>> buildOpenNodes() {
-		return null;
+		return null; // TODO
 	}
 }

@@ -1,6 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
-import org.apache.commons.lang3.builder.ToStringBuilder;
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -45,7 +45,7 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this).append("row", row).append("col", col)
+		return toStringBuilder(this).append("row", row).append("col", col)
 				.toString();
 	}
 }

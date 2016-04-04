@@ -1,9 +1,11 @@
-package ar.itba.edu.sia.tp1.calcudoku.marshall;
+package ar.itba.edu.sia.tp1.calcudoku.marshall.mapping;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import org.apache.commons.collections4.ListUtils;
 import org.boon.json.annotations.JsonInclude;
 import org.boon.json.annotations.JsonProperty;
 
@@ -11,7 +13,7 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 
-class GroupMapping {
+public class GroupMapping {
 	@JsonInclude
 	@JsonProperty("positions")
 	private List<PositionMapping> positionMappings;
@@ -19,10 +21,11 @@ class GroupMapping {
 	@JsonProperty("operator")
 	private Operator operator;
 
+	@JsonInclude
 	@JsonProperty("result")
 	private int result;
 
-	public GroupMapping() {
+	GroupMapping() {
 	}
 
 	public GroupMapping(List<PositionMapping> positions, Operator operator,
@@ -71,7 +74,14 @@ class GroupMapping {
 	}
 
 	private List<Position> unmarshall(List<PositionMapping> mappings) {
-		return mappings.stream().map(PositionMapping::unmarshall)
-				.collect(toList());
+		return ListUtils.emptyIfNull(mappings).stream()
+				.map(PositionMapping::unmarshall).collect(toList());
+	}
+
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("operator", operator)
+				.append("result", result)
+				.append("positionMappings", positionMappings).toString();
 	}
 }

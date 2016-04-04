@@ -1,17 +1,22 @@
-package ar.itba.edu.sia.tp1.calcudoku.marshall;
+package ar.itba.edu.sia.tp1.calcudoku.marshall.mapping;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+
+import org.boon.json.annotations.JsonInclude;
 import org.boon.json.annotations.JsonProperty;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 
-class PositionMapping {
+public class PositionMapping {
+	@JsonInclude
 	@JsonProperty("row")
 	private int row;
 
+	@JsonInclude
 	@JsonProperty("col")
 	private int col;
 
-	public PositionMapping() {
+	PositionMapping() {
 	}
 
 	public PositionMapping(int row, int col) {
@@ -41,5 +46,11 @@ class PositionMapping {
 
 	public Position unmarshall() {
 		return new Position(row, col);
+	}
+
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("row", row).append("col", col)
+				.toString();
 	}
 }

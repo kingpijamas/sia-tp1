@@ -4,7 +4,7 @@ import java.util.List;
 
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
-import ar.itba.edu.sia.tp1.gps.ProblemReader;
+import ar.itba.edu.sia.tp1.gps.ProblemParser;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -19,9 +19,9 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 		this.heuristic = heuristic;
 	}
 
-	public Calcudoku(ProblemReader<CalcudokuState> problemReader,
+	public Calcudoku(ProblemParser<CalcudokuState> problemReader,
 			GPSHeuristic<Calcudoku> heuristic) {
-		this(problemReader.readInitialState(), heuristic);
+		this(problemReader.parse(), heuristic);
 	}
 
 	@Override

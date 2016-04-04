@@ -1,6 +1,6 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
-import java.awt.*;
+import java.awt.Point;
 
 public enum Direction {
 	LEFT(0, -1), DOWN(1, 0), RIGHT(0, 1), UP(-1, 0);

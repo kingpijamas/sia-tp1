@@ -1,9 +1,9 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+
 import java.util.List;
 import java.util.Optional;
-
-import org.boon.json.annotations.JsonIgnore;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
@@ -68,6 +68,12 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 		return board.hashCode();
 	}
 
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("board", board)
+				.appendToString(immutableStructure.toString()).toString();
+	}
+
 	private static class ImmutableStructure {
 		final int n;
 		final List<Group> groups;
@@ -75,6 +81,12 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 		ImmutableStructure(int n, List<Group> groups) {
 			this.n = n;
 			this.groups = groups;
+		}
+
+		@Override
+		public String toString() {
+			return toStringBuilder(this).append("n", n)
+					.append("groups", groups).toString();
 		}
 	}
 }

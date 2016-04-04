@@ -1,3 +1,7 @@
+plugins {
+  id "net.saliman.cobertura" version "2.3.1"
+}
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'checkstyle'
@@ -27,10 +31,11 @@ dependencies {
 	// Misc utils
     compile 'org.apache.commons:commons-lang3:3.4'
     compile 'org.apache.commons:commons-collections4:4.1'
+    compile 'commons-io:commons-io:2.4'
 
     testCompile 'junit:junit:4.12'
+    testCompile 'org.hamcrest:java-hamcrest:2.0.0.0'
     testCompile 'org.mockito:mockito-all:1.10.19'
-    testCompile 'net.sourceforge.cobertura:cobertura:2.1.1'
 }
 
 checkstyle {
