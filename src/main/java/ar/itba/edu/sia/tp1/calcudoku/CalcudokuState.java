@@ -1,9 +1,9 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+
 import java.util.List;
 import java.util.Optional;
-
-import org.boon.json.annotations.JsonIgnore;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;

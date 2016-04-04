@@ -1,5 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 
@@ -31,5 +32,11 @@ public class CalcudokuRule implements GPSRule {
 	@Override
 	public String getName() {
 		return null; // TODO
+	}
+
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("position", position)
+				.append("value", value).toString();
 	}
 }

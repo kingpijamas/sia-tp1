@@ -1,13 +1,11 @@
 package ar.itba.edu.sia.tp1.eight_puzzle;
 
-import ar.itba.edu.sia.tp1.gps.GPSState;
-import ar.itba.edu.sia.tp1.utils.Copies;
-
-import java.awt.*;
+import java.awt.Point;
 import java.util.Arrays;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
+import ar.itba.edu.sia.tp1.gps.GPSState;
+import ar.itba.edu.sia.tp1.utils.Copies;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {

@@ -1,16 +1,18 @@
-package ar.itba.edu.sia.tp1.calcudoku.marshall;
+package ar.itba.edu.sia.tp1.calcudoku.marshall.mapping;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;
 
+import org.apache.commons.collections4.ListUtils;
 import org.boon.json.annotations.JsonInclude;
 import org.boon.json.annotations.JsonProperty;
 
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 
-class CalcudokuStateMapping {
+public class CalcudokuStateMapping {
 	@JsonProperty("n")
 	private int n;
 
@@ -18,7 +20,7 @@ class CalcudokuStateMapping {
 	@JsonProperty("groups")
 	private List<GroupMapping> groupMappings;
 
-	public CalcudokuStateMapping() {
+	CalcudokuStateMapping() {
 	}
 
 	public CalcudokuStateMapping(CalcudokuState state) {
@@ -55,7 +57,13 @@ class CalcudokuStateMapping {
 	}
 
 	private List<Group> unmarshall(List<GroupMapping> mappings) {
-		return mappings.stream().map(GroupMapping::unmarshall)
-				.collect(toList());
+		return ListUtils.emptyIfNull(mappings).stream()
+				.map(GroupMapping::unmarshall).collect(toList());
+	}
+
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("n", n)
+				.append("groupMappings", groupMappings).toString();
 	}
 }
