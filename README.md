@@ -9,11 +9,8 @@
 - [ ] hacer una interfaz heuristica+
 
 ## Heuristicas (función h):
-- [ ] contar cantidad de grupos no resueltos.(es admisible).
-- [ ] contar filas imcompletas (es admisible)
-- [ ] contar columnas incompletas (es admisible).
-- PROHIBIDA: contar la cantidad de casilleros que faltan completar(haría dfs simpre y no es la idea de la materia.
-....
++ piso o techo de {min {max(filas,grupos)/2,max(columnas,grupos)/2}}
+
 
 ## Estructura de un estado(del calcudoku)
 + la matriz de bits que representa el tablero.
@@ -21,14 +18,18 @@
 + lista de grupos. Las misma es final y no se copia cuando se copian estados (se comparte, no tiene sentido copiarlos por deep copy):
 
 
+
 ## Estructura de un grupo
 + result
 + operador (MINUS,PLUS,MULTIPLY,DIVIDE,IDENTITY); "Identity" es simplemente el valor resultado.Este valor es un enum
 + Lista de posiciones (i,j) de casilleros que forman el grupo.
 
-## Regla
+## Reglas
 
+Se swapea cualquiera con cualquiera.s Las reglas se crean una sola vez al comienzo.Se descartan reglas simetricas. 
 
+## Llenado del tablero
+Se llena todo el tablero por fila no en forma aleatoria. Se completa numeros del 1 al N en primer fila, en la siguiente del 2 al N y por ultimo el 1. ESTO ES ACEPTABLE POR LA CATEDRA.
 
 ## Parser
 Para generar el tablero inicial, parsea  un string y devuelve el estado inicial. El estado inicial tiene el bitset en cero todo.
@@ -46,8 +47,13 @@ Para generar el tablero inicial, parsea  un string y devuelve el estado inicial.
 
 
 ## Preguntar:
-+ heuristica de contar cantidad de grupos que no estan resueltos, en el peor de los casos se tiene grupos de a un elemento. En ese caso, la funcion h coincide con h* . ¿eso esta bien? 
-+ esta bien que el conjunto de grupos no se copie en profundidad??
++ heuristica de contar cantidad de grupos que no estan resueltos, en el peor de los casos se tiene grupos de a un elemento. En ese caso, la funcion h coincide con h* . ¿eso esta bien? Si
++ esta bien que el conjunto de grupos no se copie en profundidad?? SE, QUE SEA final static.
++ ¿puede el estado saber el siguiente lugar a completar?NO
+
+## Busquedas
++ dfs, bfs: desinformadas (no usan la función heuristica).
++ A*, iterativo: informadas ( usan la funcion heuristica).
 
 ## TODO
 - Implementar un EnvironmentReader que parsee desde archivoE
