@@ -1,6 +1,12 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
+import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
+
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.BitSet;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -28,38 +34,54 @@ import java.util.BitSet;
 public class Board {
 
 	public static void main(String []args){
-		System.out.print(1);
-		int n = 3;
-		Board board = new Board(n);
+        int n = 3;
 
-		board.put(new Position(0,0),2);
-		board.put(new Position(0,1),1);
-		board.put(new Position(0,2),3);
+        List<Group> groups = new ArrayList<>();
+        Group gSUm = new Group(
+                Arrays.asList(new Position(0,0),new Position(0,1)
+                        ,new Position(1,0),new Position(2,0))
+                , Operator.PLUS, 7);
+        //groups.add(gSUm);
 
-		board.put(new Position(1,0),1);
-		board.put(new Position(1,1),3);
-		board.put(new Position(1,2),2);
+        Group gdiv = new Group(
+                Arrays.asList(new Position(2,1),new Position(2,2))
+                , Operator.DIVIDE, 2);
+        groups.add(gdiv);
 
-		board.put(new Position(2,0),3);
-		board.put(new Position(2,1),2);
-		board.put(new Position(2,2),1);
 
-		board.isValid();
+
+        Board board = new Board(n, groups);
+
+        board.put(new Position(0,0),2);
+        board.put(new Position(0,1),1);
+        board.put(new Position(0,2),3);
+
+        board.put(new Position(1,0),1);
+        board.put(new Position(1,1),3);
+        board.put(new Position(1,2),2);
+
+        board.put(new Position(2,0),3);
+        board.put(new Position(2,1),2);
+        board.put(new Position(2,2),1);
+
+        board.isValid();
 		board.toString();
 	}
 
 	private final BitSet data;
-
 	private final int n;
+	private final ImmutableStructure immutableStructure;
 
-	public Board(int n) {
+	public Board(int n,List<Group> groups) {
 		this.n = n;
 		data = new BitSet(n * n * n);
+		this.immutableStructure = new ImmutableStructure(this.n, groups);
 	}
 
 	private Board(Board baseBoard) {
 		this.n = baseBoard.getN();
 		this.data = baseBoard.data.get(0, baseBoard.data.size());
+		this.immutableStructure = baseBoard.immutableStructure;
 	}
 
 	public Board deepCopy() {
@@ -91,14 +113,30 @@ public class Board {
 			return false;
 		}
 
-		/*todo: implement this
 		if(!areGroupsValid()){
 			return false;
-		}*/
+		}
 		return true;
 	}
 
-	/**
+	private boolean areGroupsValid() {
+		for (Group aGroup : getCompleteGroups()) {
+			if (!aGroup.isCorrect(getvaluesForGroup(aGroup))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+    private List<Integer> getvaluesForGroup(Group aGroup) {
+        return aGroup.getPositions()
+                .stream()
+                .map(aPosition -> getCellValue(aPosition))
+                .collect(Collectors.toList());
+    }
+
+
+    /**
 	 * The binary OR between all elements of each col must be equal to n 1s
 	 * @return
 	 */
@@ -178,6 +216,12 @@ public class Board {
 			}
 			sb.append("\n");
 		}
+
+        sb.append("\n\nGroups:\n");
+        for(Group aGroup : immutableStructure.groups){
+            sb.append(aGroup.toString() + "\n");
+        }
+
 		return sb.toString();
 	}
 
@@ -205,5 +249,39 @@ public class Board {
 	@Override
 	public int hashCode() {
 		return data.hashCode();
+	}
+
+	public List<Group> getGroups() {
+		return immutableStructure.groups;
+	}
+
+	public List<Group> getCompleteGroups() {
+        return immutableStructure.groups
+                .stream()
+                .filter(aGroup -> isACompleteGroup(aGroup))
+                .collect(Collectors.toList());
+	}
+
+    private boolean isACompleteGroup(Group aGroup) {
+        for(Position aPosition : aGroup.getPositions()){
+            if(getCellValue(aPosition) == null){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private Integer getCellValue(Position aPosition) {
+        return getCellValue(aPosition.getRow(), aPosition.getCol());
+    }
+
+    static class ImmutableStructure {
+		final int n;
+		final List<Group> groups;
+
+		ImmutableStructure(int n, List<Group> groups) {
+			this.n = n;
+			this.groups = groups;
+		}
 	}
 }

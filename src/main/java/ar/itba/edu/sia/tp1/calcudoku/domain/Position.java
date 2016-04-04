@@ -45,7 +45,8 @@ public class Position {
 
 	@Override
 	public String toString() {
-		return new ToStringBuilder(this).append("row", row).append("col", col)
-				.toString();
+		return String.format("(%d,%d)", row, col);
+		/*return new ToStringBuilder(this).append("row", row).append("col", col)
+				.toString();*/
 	}
 }

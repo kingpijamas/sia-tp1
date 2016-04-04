@@ -13,26 +13,23 @@ import ar.itba.edu.sia.tp1.gps.GPSState;
  * Created by scamisay on 02/04/16.
  */
 public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
-	private final ImmutableStructure immutableStructure;
 
 	private final Board board;
 
 	public CalcudokuState(int n, List<Group> groups) {
-		this.immutableStructure = new ImmutableStructure(n, groups);
-		this.board = new Board(n);
+		this.board = new Board(n, groups);
 	}
 
 	private CalcudokuState(CalcudokuState previousState) {
-		this.immutableStructure = previousState.immutableStructure;
 		this.board = previousState.board.deepCopy();
 	}
 
 	public int getN() {
-		return immutableStructure.n;
+		return board.getN();
 	}
 
 	public List<Group> getGroups() {
-		return immutableStructure.groups;
+		return board.getGroups();
 	}
 
 	@Override
@@ -68,13 +65,4 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 		return board.hashCode();
 	}
 
-	private static class ImmutableStructure {
-		final int n;
-		final List<Group> groups;
-
-		ImmutableStructure(int n, List<Group> groups) {
-			this.n = n;
-			this.groups = groups;
-		}
-	}
 }
