@@ -1,7 +1,5 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -14,55 +12,60 @@ import ar.itba.edu.sia.tp1.gps.GPSState;
  */
 public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 
-	private final Board board;
+    private final Board board;
 
-	public CalcudokuState(int n, List<Group> groups) {
-		this.board = new Board(n, groups);
-	}
+    public CalcudokuState(Board board) {
+        this.board = board;
+    }
 
-	private CalcudokuState(CalcudokuState previousState) {
-		this.board = previousState.board.deepCopy();
-	}
+    private CalcudokuState(CalcudokuState previousState) {
+        this.board = previousState.board.deepCopy();
+    }
 
-	public int getN() {
-		return board.getN();
-	}
+    public int getN() {
+        return board.getN();
+    }
 
-	public List<Group> getGroups() {
-		return board.getGroups();
-	}
+    public List<Group> getGroups() {
+        return board.getGroups();
+    }
 
-	@Override
-	public Optional<CalcudokuState> apply(CalcudokuRule rule) {
-		CalcudokuState newState = new CalcudokuState(this);
-		/* newState.board.put(rule.getPosition(), rule.getValue()); */
+    @Override
+    public Optional<CalcudokuState> apply(CalcudokuRule rule) {
+        CalcudokuState newState = new CalcudokuState(this);
+        /* newState.board.put(rule.getPosition(), rule.getValue()); */
 
-		if (!newState.isValid()) {
-			return Optional.empty();
-		}
-		return Optional.of(newState);
-	}
+        if (!newState.isValid()) {
+            return Optional.empty();
+        }
+        return Optional.of(newState);
+    }
 
-	@Override
-	public boolean isValid() {
-		return board.isValid();
-	}
+    @Override
+    public boolean isValid() {
+        // IMPORTANT: assuming a complete board
+        return board.isValid();
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o)
-			return true;
-		if (!(o instanceof CalcudokuState))
-			return false;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (!(o instanceof CalcudokuState))
+            return false;
 
-		CalcudokuState that = (CalcudokuState) o;
+        CalcudokuState that = (CalcudokuState) o;
 
-		return board.equals(that.board);
-	}
+        return board.equals(that.board);
+    }
 
-	@Override
-	public int hashCode() {
-		return board.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return board.hashCode();
+    }
+
+    public Board getBoard() {
+        return board;
+    }
 
 }

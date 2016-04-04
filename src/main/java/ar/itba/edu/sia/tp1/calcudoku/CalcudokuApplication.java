@@ -1,16 +1,14 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
-import static java.util.Arrays.asList;
-
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
-import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonSerializer;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
@@ -18,32 +16,59 @@ import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
  * Created by scamisay on 02/04/16.
  */
 public class CalcudokuApplication {
-	public static void main(String[] args) throws IOException {
-		List<Position> positions = asList(position(0, 0), position(0, 1),
-				position(0, 2));
-		List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
-		CalcudokuState initialState = new CalcudokuState(3, groups);
+    public static void main(String[] args) throws IOException {
+        // List<Position> positions = asList(position(0, 0), position(0, 1),
+        // position(0, 2));
+        // List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
+        // try (FileOutputStream fis = new FileOutputStream(new
+        // File("pepe.json"))) {
+        // CalcudokuJsonSerializer writer = new CalcudokuJsonSerializer(fis);
+        // writer.serialize(calcudoku);
+        // }
 
-		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
+        int n = 3;
 
-		Calcudoku calcudoku = new Calcudoku(initialState, heuristic);
+        List<Group> groups = new ArrayList<>();
+        Group gSum = new Group(
+                Arrays.asList(new Position(0, 0), new Position(0, 1), new Position(1, 0), new Position(2, 0)),
+                Operator.PLUS, 7);
+        // groups.add(gSum);
 
-		try (FileOutputStream fis = new FileOutputStream(new File("pepe.json"))) {
-			CalcudokuJsonSerializer writer = new CalcudokuJsonSerializer(fis);
-			writer.serialize(calcudoku);
-		}
+        Group gdiv = new Group(Arrays.asList(new Position(2, 1), new Position(2, 2)), Operator.PLUS, 2);
+        groups.add(gdiv);
 
-		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				SearchStrategy.BFS);
+        Board board = new Board(n, groups);
 
-		try {
-			// engine.solve();
-		} catch (StackOverflowError e) {
-			System.out.println("Solution (if any) too deep for stack.");
-		}
-	}
+        board.put(new Position(0, 0), 2);
+        board.put(new Position(0, 1), 1);
+        board.put(new Position(0, 2), 3);
 
-	private static Position position(int row, int col) {
-		return new Position(row, col);
-	}
+        board.put(new Position(1, 0), 1);
+        board.put(new Position(1, 1), 3);
+        board.put(new Position(1, 2), 2);
+
+        board.put(new Position(2, 0), 3);
+        board.put(new Position(2, 1), 2);
+        board.put(new Position(2, 2), 1);
+
+        board.isValid();
+        board.toString();
+
+        GPSHeuristic<Calcudoku> heuristic = problem -> 1;
+        Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board), heuristic);
+        CalcudokuState state = calcudoku.getInitialState();
+        System.out.println(state.getBoard().toString());
+
+        CalcudokuEngine engine = new CalcudokuEngine(calcudoku, SearchStrategy.BFS);
+
+        try {
+            engine.solve();
+        } catch (StackOverflowError e) {
+            System.out.println("Solution (if any) too deep for stack.");
+        }
+    }
+
+    private static Position position(int row, int col) {
+        return new Position(row, col);
+    }
 }

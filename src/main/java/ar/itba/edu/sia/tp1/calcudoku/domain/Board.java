@@ -1,7 +1,5 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
-import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.BitSet;
@@ -13,16 +11,12 @@ import java.util.stream.Collectors;
  *
  * Tablero Alto Nivel
  *
- * 2	1	3
- * 1	3	2
- * 3	2	1
+ * 2 1 3 1 3 2 3 2 1
  *
  *
  * Tablero en Binario
  *
- * 010 100 001
- * 100 001 010
- * 001 010 100
+ * 010 100 001 100 001 010 001 010 100
  *
  *
  * Tablero en BitSet
@@ -33,238 +27,231 @@ import java.util.stream.Collectors;
  */
 public class Board {
 
-	public static void main(String []args){
+    public static void main(String[] args) {
         int n = 3;
 
         List<Group> groups = new ArrayList<>();
-        Group gSUm = new Group(
-                Arrays.asList(new Position(0,0),new Position(0,1)
-                        ,new Position(1,0),new Position(2,0))
-                , Operator.PLUS, 7);
-        //groups.add(gSUm);
+        Group gSum = new Group(
+                Arrays.asList(new Position(0, 0), new Position(0, 1), new Position(1, 0), new Position(2, 0)),
+                Operator.PLUS, 7);
+        // groups.add(gSum);
 
-        Group gdiv = new Group(
-                Arrays.asList(new Position(2,1),new Position(2,2))
-                , Operator.DIVIDE, 2);
+        Group gdiv = new Group(Arrays.asList(new Position(2, 1), new Position(2, 2)), Operator.DIVIDE, 2);
         groups.add(gdiv);
-
-
 
         Board board = new Board(n, groups);
 
-        board.put(new Position(0,0),2);
-        board.put(new Position(0,1),1);
-        board.put(new Position(0,2),3);
+        board.put(new Position(0, 0), 2);
+        board.put(new Position(0, 1), 1);
+        board.put(new Position(0, 2), 3);
 
-        board.put(new Position(1,0),1);
-        board.put(new Position(1,1),3);
-        board.put(new Position(1,2),2);
+        board.put(new Position(1, 0), 1);
+        board.put(new Position(1, 1), 3);
+        board.put(new Position(1, 2), 2);
 
-        board.put(new Position(2,0),3);
-        board.put(new Position(2,1),2);
-        board.put(new Position(2,2),1);
+        board.put(new Position(2, 0), 3);
+        board.put(new Position(2, 1), 2);
+        board.put(new Position(2, 2), 1);
 
         board.isValid();
-		board.toString();
-	}
-
-	private final BitSet data;
-	private final int n;
-	private final ImmutableStructure immutableStructure;
-
-	public Board(int n,List<Group> groups) {
-		this.n = n;
-		data = new BitSet(n * n * n);
-		this.immutableStructure = new ImmutableStructure(this.n, groups);
-	}
-
-	private Board(Board baseBoard) {
-		this.n = baseBoard.getN();
-		this.data = baseBoard.data.get(0, baseBoard.data.size());
-		this.immutableStructure = baseBoard.immutableStructure;
-	}
-
-	public Board deepCopy() {
-		return new Board(this);
-	}
-
-	/**
-	 * Precondicion: n >= 1 && 0 < value <= n
-	 * @param position
-	 * @param value
-     */
-	public void put(Position position, int value) {
-		// representation of value in n bits
-		BitSet bitValue = new BitSet(n);
-
-		//index starts at 0
-		bitValue.set(value-1);
-
-		putBitSetValue(position, bitValue);
-
-	}
-
-	public boolean isValid() {
-		if(!areRowsValid()){
-			return false;
-		}
-
-		if(!areColsValid()){
-			return false;
-		}
-
-		if(!areGroupsValid()){
-			return false;
-		}
-		return true;
-	}
-
-	private boolean areGroupsValid() {
-		for (Group aGroup : getCompleteGroups()) {
-			if (!aGroup.isCorrect(getvaluesForGroup(aGroup))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-    private List<Integer> getvaluesForGroup(Group aGroup) {
-        return aGroup.getPositions()
-                .stream()
-                .map(aPosition -> getCellValue(aPosition))
-                .collect(Collectors.toList());
+        board.toString();
     }
 
+    private final BitSet data;
+    private final int n;
+    private final List<Group> groups;
+
+    public Board(int n, List<Group> groups) {
+        this.n = n;
+        this.groups = groups;
+        data = new BitSet(n * n * n);
+    }
+
+    private Board(Board baseBoard) {
+        this.n = baseBoard.n;
+        this.groups = baseBoard.groups;
+        this.data = baseBoard.data.get(0, baseBoard.data.size());
+    }
+
+    public Board deepCopy() {
+        return new Board(this);
+    }
 
     /**
-	 * The binary OR between all elements of each col must be equal to n 1s
-	 * @return
-	 */
-	private boolean areColsValid() {
-		BitSet op = new BitSet(n);
-		for(int j = 0 ; j < n; j++){
-			for(int i = 0; i < n; i++){
-				op.or(getCell(i,j));
-			}
-
-			//cardinality counts the number of 1s in the BitSet
-			if(op.cardinality() < n){
-				return false;
-			}
-			op.clear();
-		}
-		return true;
-	}
-
-	/**
-	 * The binary OR between all elements of each row must be equal to n 1s
-	 * @return
+     * Precondicion: n >= 1 && 0 < value <= n
+     * 
+     * @param position
+     * @param value
      */
-	private boolean areRowsValid() {
-		BitSet op = new BitSet(n);
-		for(int i = 0 ; i < n; i++){
-			for(int j = 0; j < n; j++){
-				op.or(getCell(i,j));
-			}
+    public void put(Position position, int value) {
+        // representation of value in n bits
+        BitSet bitValue = new BitSet(n);
 
-			//cardinality counts the number of 1s in the BitSet
-			if(op.cardinality() < n){
-				return false;
-			}
-			op.clear();
-		}
-		return true;
-	}
+        // index starts at 0
+        bitValue.set(value - 1);
 
-	private BitSet getCell(int i, int j) {
-		int beginning = getBeginningOfCell(new Position(i,j));
-		return data.get(beginning, beginning + n);
-	}
+        putBitSetValue(position, bitValue);
+    }
 
-	public int getN() {
-		return n;
-	}
+    public boolean isValid() {
+        if (!areRowsValid()) {
+            return false;
+        }
 
-	/**
-	 * put the 'bitvalue' at the index given by 'position' in data
-	 * @param position
-	 * @param bitValue
+        if (!areColsValid()) {
+            return false;
+        }
+
+        if (!areGroupsValid()) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean areGroupsValid() {
+        for (Group aGroup : getCompleteGroups()) {
+            if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private List<Integer> getValuesForGroup(Group aGroup) {
+        return aGroup.getPositions().stream().map(aPosition -> getCellValue(aPosition)).collect(Collectors.toList());
+    }
+
+    /**
+     * The binary OR between all elements of each col must be equal to n 1s
+     * 
+     * @return
      */
-	private void putBitSetValue(Position position, BitSet bitValue) {
-		int beginning = getBeginningOfCell(position);
+    private boolean areColsValid() {
+        BitSet op = new BitSet(n);
+        for (int j = 0; j < n; j++) {
+            for (int i = 0; i < n; i++) {
+                op.or(getCell(i, j));
+            }
 
-		int dataIndex;
-		int i;
-		for(dataIndex = beginning, i=0 ; dataIndex < beginning + n; dataIndex++, i++){
-			data.set(dataIndex, bitValue.get(i));
-		}
-	}
+            // cardinality counts the number of 1s in the BitSet
+            if (op.cardinality() < n) {
+                return false;
+            }
+            op.clear();
+        }
+        return true;
+    }
 
-	/**
-	 * devuelve index en el bitset para el inicio del dato en el casillero
-	 */
-	private int getBeginningOfCell(Position position){
-		return position.getCol()*n + position.getRow()*n*n;
-	}
+    /**
+     * The binary OR between all elements of each row must be equal to n 1s
+     * 
+     * @return
+     */
+    private boolean areRowsValid() {
+        BitSet op = new BitSet(n);
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                op.or(getCell(i, j));
+            }
 
-	@Override
-	public String toString() {
-		StringBuffer sb = new StringBuffer();
-		for(int i = 0 ; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				sb.append(getCellValue(i,j) + "\t");
-			}
-			sb.append("\n");
-		}
+            // cardinality counts the number of 1s in the BitSet
+            if (op.cardinality() < n) {
+                return false;
+            }
+            op.clear();
+        }
+        return true;
+    }
+
+    private BitSet getCell(int i, int j) {
+        int beginning = getBeginningOfCell(new Position(i, j));
+        return data.get(beginning, beginning + n);
+    }
+
+    public int getN() {
+        return n;
+    }
+
+    /**
+     * put the 'bitvalue' at the index given by 'position' in data
+     * 
+     * @param position
+     * @param bitValue
+     */
+    private void putBitSetValue(Position position, BitSet bitValue) {
+        int beginning = getBeginningOfCell(position);
+
+        int dataIndex;
+        int i;
+        for (dataIndex = beginning, i = 0; dataIndex < beginning + n; dataIndex++, i++) {
+            data.set(dataIndex, bitValue.get(i));
+        }
+    }
+
+    /**
+     * devuelve index en el bitset para el inicio del dato en el casillero
+     */
+    private int getBeginningOfCell(Position position) {
+        return position.getCol() * n + position.getRow() * n * n;
+    }
+
+    private Integer getCellValue(int i, int j) {
+        BitSet cell = getCell(i, j);
+        for (int index = 0; index < n; index++) {
+            if (cell.get(index)) {
+                return index + 1;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+
+        Board board = (Board) o;
+
+        return data.equals(board.data);
+
+    }
+
+    @Override
+    public int hashCode() {
+        return data.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                sb.append(getCellValue(i, j) + "\t");
+            }
+            sb.append("\n");
+        }
 
         sb.append("\n\nGroups:\n");
-        for(Group aGroup : immutableStructure.groups){
+        for (Group aGroup : groups) {
             sb.append(aGroup.toString() + "\n");
         }
 
-		return sb.toString();
-	}
+        return sb.toString();
+    }
 
-	private Integer getCellValue(int i, int j) {
-		BitSet cell = getCell(i,j);
-		for(int index = 0; index < n ; index++){
-			if(cell.get(index)){
-				return index + 1;
-			}
-		}
-		return null;
-	}
+    public List<Group> getGroups() {
+        return groups;
+    }
 
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-
-		Board board = (Board) o;
-
-		return data.equals(board.data);
-
-	}
-
-	@Override
-	public int hashCode() {
-		return data.hashCode();
-	}
-
-	public List<Group> getGroups() {
-		return immutableStructure.groups;
-	}
-
-	public List<Group> getCompleteGroups() {
-        return immutableStructure.groups
-                .stream()
-                .filter(aGroup -> isACompleteGroup(aGroup))
-                .collect(Collectors.toList());
-	}
+    public List<Group> getCompleteGroups() {
+        return groups.stream().filter(aGroup -> isACompleteGroup(aGroup)).collect(Collectors.toList());
+    }
 
     private boolean isACompleteGroup(Group aGroup) {
-        for(Position aPosition : aGroup.getPositions()){
-            if(getCellValue(aPosition) == null){
+        for (Position aPosition : aGroup.getPositions()) {
+            if (getCellValue(aPosition) == null) {
                 return false;
             }
         }
@@ -274,14 +261,4 @@ public class Board {
     private Integer getCellValue(Position aPosition) {
         return getCellValue(aPosition.getRow(), aPosition.getCol());
     }
-
-    static class ImmutableStructure {
-		final int n;
-		final List<Group> groups;
-
-		ImmutableStructure(int n, List<Group> groups) {
-			this.n = n;
-			this.groups = groups;
-		}
-	}
 }

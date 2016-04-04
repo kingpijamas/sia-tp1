@@ -22,7 +22,7 @@ public class CalcudokuJsonSerializer implements
 		this.os = os;
 	}
 
-	@Override
+    @Override
 	public void serialize(CalcudokuState initialState) {
 		CalcudokuStateMapping mapping = new CalcudokuStateMapping(initialState);
 		mapper.writeValue(os, mapping);

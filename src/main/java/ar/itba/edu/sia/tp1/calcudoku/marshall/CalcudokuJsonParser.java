@@ -10,19 +10,17 @@ import ar.itba.edu.sia.tp1.calcudoku.marshall.mapping.CalcudokuStateMapping;
 import ar.itba.edu.sia.tp1.gps.ProblemParser;
 
 public class CalcudokuJsonParser implements ProblemParser<CalcudokuState> {
-	private static final ObjectMapper mapper = JsonFactory
-			.createUseAnnotations(false);
+    private static final ObjectMapper mapper = JsonFactory.createUseAnnotations(false);
 
-	private final InputStream is;
+    private final InputStream is;
 
-	public CalcudokuJsonParser(InputStream is) {
-		this.is = is;
-	}
+    public CalcudokuJsonParser(InputStream is) {
+        this.is = is;
+    }
 
-	@Override
-	public CalcudokuState parse() {
-		CalcudokuStateMapping stateMapping = mapper.readValue(is,
-				CalcudokuStateMapping.class);
-		return stateMapping.unmarshall();
-	}
+    @Override
+    public CalcudokuState parse() {
+        CalcudokuStateMapping stateMapping = mapper.readValue(is, CalcudokuStateMapping.class);
+        return stateMapping.unmarshall();
+    }
 }
