@@ -21,9 +21,4 @@ public class PuzzleRule implements GPSRule {
 	public Integer getCost() {
 		return 1;
 	}
-
-	@Override
-	public String getName() {
-		return "Move blank space " + direction.toString();
-	}
 }

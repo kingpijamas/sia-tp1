@@ -11,8 +11,9 @@ import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.mapping.CalcudokuStateMapping;
 import ar.itba.edu.sia.tp1.gps.ProblemSerializer;
 
-public class CalcudokuJsonSerializer implements
-		ProblemSerializer<Calcudoku, CalcudokuRule, CalcudokuState> {
+public class CalcudokuJsonSerializer
+		implements
+			ProblemSerializer<Calcudoku, CalcudokuRule, CalcudokuState> {
 	private static final ObjectMapper mapper = JsonFactory
 			.createUseAnnotations(false);
 
@@ -22,7 +23,7 @@ public class CalcudokuJsonSerializer implements
 		this.os = os;
 	}
 
-    @Override
+	@Override
 	public void serialize(CalcudokuState initialState) {
 		CalcudokuStateMapping mapping = new CalcudokuStateMapping(initialState);
 		mapper.writeValue(os, mapping);

@@ -12,60 +12,58 @@ import ar.itba.edu.sia.tp1.gps.GPSState;
  */
 public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 
-    private final Board board;
+	private final Board board;
 
-    public CalcudokuState(Board board) {
-        this.board = board;
-    }
+	public CalcudokuState(Board board) {
+		this.board = board;
+	}
 
-    private CalcudokuState(CalcudokuState previousState) {
-        this.board = previousState.board.deepCopy();
-    }
+	private CalcudokuState(CalcudokuState previousState) {
+		this.board = previousState.board.deepCopy();
+	}
 
-    public int getN() {
-        return board.getN();
-    }
+	public int getN() {
+		return board.getN();
+	}
 
-    public List<Group> getGroups() {
-        return board.getGroups();
-    }
+	public Board getBoard() {
+		return board;
+	}
 
-    @Override
-    public Optional<CalcudokuState> apply(CalcudokuRule rule) {
-        CalcudokuState newState = new CalcudokuState(this);
-        /* newState.board.put(rule.getPosition(), rule.getValue()); */
+	public List<Group> getGroups() {
+		return board.getGroups();
+	}
 
-        if (!newState.isValid()) {
-            return Optional.empty();
-        }
-        return Optional.of(newState);
-    }
+	@Override
+	public Optional<CalcudokuState> apply(CalcudokuRule rule) {
+		CalcudokuState newState = new CalcudokuState(this);
+		newState.board.swap(rule.getFrom(), rule.getTo());
 
-    @Override
-    public boolean isValid() {
-        // IMPORTANT: assuming a complete board
-        return board.isValid();
-    }
+		// if (!newState.isValid()) {
+		// return Optional.empty();
+		// }
+		return Optional.of(newState);
+	}
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (!(o instanceof CalcudokuState))
-            return false;
+	@Override
+	public boolean isValid() {
+		// IMPORTANT: assuming a complete board
+		return board.isValid();
+	}
 
-        CalcudokuState that = (CalcudokuState) o;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (!(o instanceof CalcudokuState))
+			return false;
 
-        return board.equals(that.board);
-    }
+		CalcudokuState that = (CalcudokuState) o;
+		return board.equals(that.board);
+	}
 
-    @Override
-    public int hashCode() {
-        return board.hashCode();
-    }
-
-    public Board getBoard() {
-        return board;
-    }
-
+	@Override
+	public int hashCode() {
+		return board.hashCode();
+	}
 }

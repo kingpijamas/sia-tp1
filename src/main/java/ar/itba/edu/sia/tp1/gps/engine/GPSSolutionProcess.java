@@ -1,13 +1,12 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
-
 import java.util.Optional;
 import java.util.Queue;
 
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
+import gnu.trove.map.hash.TObjectIntHashMap;
 
 class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	// TODO: merge back into GPSEngine
@@ -18,7 +17,8 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 
 	private long explosionCount = 0;
 
-	GPSSolutionProcess(GPSProblem<R, S> problem, Queue<GPSNode<R, S>> openNodes) {
+	GPSSolutionProcess(GPSProblem<R, S> problem,
+			Queue<GPSNode<R, S>> openNodes) {
 		this.problem = problem;
 		this.openNodes = openNodes;
 		openNodes.add(new GPSNode<>(problem.getInitialState(), 0));

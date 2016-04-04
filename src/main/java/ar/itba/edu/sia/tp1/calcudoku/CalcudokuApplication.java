@@ -16,59 +16,64 @@ import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
  * Created by scamisay on 02/04/16.
  */
 public class CalcudokuApplication {
-    public static void main(String[] args) throws IOException {
-        // List<Position> positions = asList(position(0, 0), position(0, 1),
-        // position(0, 2));
-        // List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
-        // try (FileOutputStream fis = new FileOutputStream(new
-        // File("pepe.json"))) {
-        // CalcudokuJsonSerializer writer = new CalcudokuJsonSerializer(fis);
-        // writer.serialize(calcudoku);
-        // }
+	public static void main(String[] args) throws IOException {
+		// List<Position> positions = asList(position(0, 0), position(0, 1),
+		// position(0, 2));
+		// List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
+		// try (FileOutputStream fis = new FileOutputStream(new
+		// File("pepe.json"))) {
+		// CalcudokuJsonSerializer writer = new CalcudokuJsonSerializer(fis);
+		// writer.serialize(calcudoku);
+		// }
 
-        int n = 3;
+		int n = 3;
 
-        List<Group> groups = new ArrayList<>();
-        Group gSum = new Group(
-                Arrays.asList(new Position(0, 0), new Position(0, 1), new Position(1, 0), new Position(2, 0)),
-                Operator.PLUS, 7);
-        // groups.add(gSum);
+		List<Group> groups = new ArrayList<>();
+		Group gSum = new Group(
+				Arrays.asList(new Position(0, 0), new Position(0, 1),
+						new Position(1, 0), new Position(2, 0)),
+				Operator.PLUS, 7);
+		// groups.add(gSum);
 
-        Group gdiv = new Group(Arrays.asList(new Position(2, 1), new Position(2, 2)), Operator.PLUS, 2);
-        groups.add(gdiv);
+		Group gdiv = new Group(
+				Arrays.asList(new Position(2, 1), new Position(2, 2)),
+				Operator.PLUS, 2);
+		groups.add(gdiv);
 
-        Board board = new Board(n, groups);
+		Board board = new Board(n, groups);
 
-        board.put(new Position(0, 0), 2);
-        board.put(new Position(0, 1), 1);
-        board.put(new Position(0, 2), 3);
+		board.put(new Position(0, 0), 2);
+		board.put(new Position(0, 1), 1);
+		board.put(new Position(0, 2), 3);
 
-        board.put(new Position(1, 0), 1);
-        board.put(new Position(1, 1), 3);
-        board.put(new Position(1, 2), 2);
+		board.put(new Position(1, 0), 1);
+		board.put(new Position(1, 1), 3);
+		board.put(new Position(1, 2), 2);
 
-        board.put(new Position(2, 0), 3);
-        board.put(new Position(2, 1), 2);
-        board.put(new Position(2, 2), 1);
+		board.put(new Position(2, 0), 3);
+		board.put(new Position(2, 1), 2);
+		board.put(new Position(2, 2), 1);
 
-        board.isValid();
-        board.toString();
+		board.isValid();
+		board.toString();
 
-        GPSHeuristic<Calcudoku> heuristic = problem -> 1;
-        Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board), heuristic);
-        CalcudokuState state = calcudoku.getInitialState();
-        System.out.println(state.getBoard().toString());
+		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
+		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
+				heuristic);
+		CalcudokuState state = calcudoku.getInitialState();
+		System.out.println(state.getBoard().toString());
 
-        CalcudokuEngine engine = new CalcudokuEngine(calcudoku, SearchStrategy.BFS);
+		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
+				SearchStrategy.BFS);
 
-        try {
-            engine.solve();
-        } catch (StackOverflowError e) {
-            System.out.println("Solution (if any) too deep for stack.");
-        }
-    }
+		try {
+			engine.solve();
+		} catch (StackOverflowError e) {
+			System.out.println("Solution (if any) too deep for stack.");
+		}
+	}
 
-    private static Position position(int row, int col) {
-        return new Position(row, col);
-    }
+	private static Position position(int row, int col) {
+		return new Position(row, col);
+	}
 }

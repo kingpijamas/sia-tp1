@@ -43,7 +43,8 @@ public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 		Point destination = rule.destination;
 		return !(destination.getX() < 0
 				|| destination.getX() >= PuzzleState.LENGTH
-				|| destination.getY() < 0 || destination.getY() >= PuzzleState.LENGTH);
+				|| destination.getY() < 0
+				|| destination.getY() >= PuzzleState.LENGTH);
 	}
 
 	public Point getBlankCoords() {

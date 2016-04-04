@@ -8,8 +8,8 @@ import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.ProblemParser;
 
 public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
-	private static final PuzzleState FINAL_STATE = new PuzzleState(new int[][] {
-			{ 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, -1 } });
+	private static final PuzzleState FINAL_STATE = new PuzzleState(
+			new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, -1}});
 
 	private final PuzzleState initialState;
 	private final GPSHeuristic<Puzzle> heuristic;
