@@ -1,5 +1,7 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
+import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -37,17 +39,15 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 	@Override
 	public Optional<CalcudokuState> apply(CalcudokuRule rule) {
 		CalcudokuState newState = new CalcudokuState(this);
-		newState.board.swap(rule.getFrom(), rule.getTo());
+		newState.board.swapCellValues(rule.getFrom(), rule.getTo());
 
-		// if (!newState.isValid()) {
-		// return Optional.empty();
-		// }
+		// IMPORTANT: non-empty Optional to comply with heuristic reparation
 		return Optional.of(newState);
 	}
 
 	@Override
 	public boolean isValid() {
-		// IMPORTANT: assuming a complete board
+		// IMPORTANT: assuming a complete board (heuristic reparation)
 		return board.isValid();
 	}
 
@@ -65,5 +65,10 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 	@Override
 	public int hashCode() {
 		return board.hashCode();
+	}
+
+	@Override
+	public String toString() {
+		return toStringBuilder(this).append("board", board).toString();
 	}
 }

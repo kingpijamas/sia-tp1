@@ -3,6 +3,9 @@ package ar.itba.edu.sia.tp1.gps.engine;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.stream.Collectors;
+
+import org.apache.commons.collections4.IterableUtils;
 
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
@@ -26,7 +29,10 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 			System.out.println(
 					"Expanded nodes: " + solutionProcess.getExplosionsCount());
 			System.out.println("Solution cost: " + solution.getCost());
-			System.out.println(solution.getPath());
+			System.out.println("\nSolution path (chronological order):\n"
+					+ IterableUtils.toList(solution.getPath()).stream()
+							.map(GPSNode::toString)
+							.collect(Collectors.joining("\n")));
 		} else {
 			System.err.println("FAILED! solution not found!");
 			System.out.println(

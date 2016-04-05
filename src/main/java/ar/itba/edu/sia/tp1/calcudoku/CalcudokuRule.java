@@ -61,8 +61,8 @@ public class CalcudokuRule implements GPSRule {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((from == null) ? 0 : from.hashCode());
-		result = prime * result + ((to == null) ? 0 : to.hashCode());
+		result = prime * result + from.hashCode();
+		result = prime * result + to.hashCode();
 		return result;
 	}
 

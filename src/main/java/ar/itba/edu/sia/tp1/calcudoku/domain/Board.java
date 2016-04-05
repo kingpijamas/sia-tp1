@@ -31,10 +31,10 @@ public class Board {
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
-		Group gSum = new Group(
-				Arrays.asList(new Position(0, 0), new Position(0, 1),
-						new Position(1, 0), new Position(2, 0)),
-				Operator.PLUS, 7);
+		// Group gSum = new Group(
+		// Arrays.asList(new Position(0, 0), new Position(0, 1),
+		// new Position(1, 0), new Position(2, 0)),
+		// Operator.PLUS, 7);
 		// groups.add(gSum);
 
 		Group gdiv = new Group(
@@ -57,7 +57,7 @@ public class Board {
 		board.put(new Position(2, 2), 1);
 
 		board.isValid();
-		board.toString();
+		board.fullToString();
 	}
 
 	private final BitSet data;
@@ -135,7 +135,10 @@ public class Board {
 		BitSet op = new BitSet(n);
 		for (int j = 0; j < n; j++) {
 			for (int i = 0; i < n; i++) {
-				op.or(getCell(i, j));
+				op.or(getCell(i, j)); // FIXME: identico al de abajo, solo
+										// cambia el orden de los fors cambia el
+										// orden de los fors (alguno tiene que
+										// estar mal)
 			}
 
 			// cardinality counts the number of 1s in the BitSet
@@ -156,7 +159,10 @@ public class Board {
 		BitSet op = new BitSet(n);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				op.or(getCell(i, j));
+				op.or(getCell(i, j)); // FIXME: identico al de arriba, solo
+										// cambia el orden de los fors cambia el
+										// orden de los fors (alguno tiene que
+										// estar mal)
 			}
 
 			// cardinality counts the number of 1s in the BitSet
@@ -186,11 +192,8 @@ public class Board {
 	private void putBitSetValue(Position position, BitSet bitValue) {
 		int beginning = getBeginningOfCell(position);
 
-		int dataIndex;
-		int i;
-		for (dataIndex = beginning, i = 0; dataIndex < beginning
-				+ n; dataIndex++, i++) {
-			data.set(dataIndex, bitValue.get(i));
+		for (int i = 0; i < n; i++) {
+			data.set(beginning + i, bitValue.get(i));
 		}
 	}
 
@@ -215,10 +218,30 @@ public class Board {
 		return getCellValue(aPosition.getRow(), aPosition.getCol());
 	}
 
-	public void swap(Position from, Position to) {
+	public void swapCellValues(Position from, Position to) {
 		int aux = getCellValue(to);
 		put(to, getCellValue(from));
 		put(from, aux);
+	}
+
+	public List<Group> getGroups() {
+		return groups;
+	}
+
+	public List<Group> getCompleteGroups() { // FIXME: don't use Streams for
+												// code that'll be called too
+												// often
+		return groups.stream().filter(aGroup -> isACompleteGroup(aGroup))
+				.collect(Collectors.toList());
+	}
+
+	private boolean isACompleteGroup(Group aGroup) {
+		for (Position aPosition : aGroup.getPositions()) {
+			if (getCellValue(aPosition) == null) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -241,10 +264,27 @@ public class Board {
 
 	@Override
 	public String toString() {
+		StringBuffer sb = new StringBuffer("\n");
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				sb.append(getCellValue(i, j));
+				if (j < n - 1) {
+					sb.append(" ");
+				}
+			}
+			sb.append("\n");
+		}
+		return sb.toString();
+	}
+
+	public String fullToString() {
 		StringBuffer sb = new StringBuffer();
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				sb.append(getCellValue(i, j) + "\t");
+				sb.append(getCellValue(i, j));
+				if (j < n - 1) {
+					sb.append("\t");
+				}
 			}
 			sb.append("\n");
 		}
@@ -255,23 +295,5 @@ public class Board {
 		}
 
 		return sb.toString();
-	}
-
-	public List<Group> getGroups() {
-		return groups;
-	}
-
-	public List<Group> getCompleteGroups() {
-		return groups.stream().filter(aGroup -> isACompleteGroup(aGroup))
-				.collect(Collectors.toList());
-	}
-
-	private boolean isACompleteGroup(Group aGroup) {
-		for (Position aPosition : aGroup.getPositions()) {
-			if (getCellValue(aPosition) == null) {
-				return false;
-			}
-		}
-		return true;
 	}
 }

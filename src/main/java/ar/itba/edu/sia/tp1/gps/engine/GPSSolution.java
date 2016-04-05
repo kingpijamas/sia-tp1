@@ -8,7 +8,7 @@ import org.apache.commons.collections4.IterableUtils;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 
-class GPSSolution<R extends GPSRule, S extends GPSState<R, S>> {
+public class GPSSolution<R extends GPSRule, S extends GPSState<R, S>> {
 	private final Iterable<GPSNode<R, S>> path;
 	private final long explosionCount;
 	private final Integer cost;
@@ -29,26 +29,26 @@ class GPSSolution<R extends GPSRule, S extends GPSState<R, S>> {
 		this.cost = lastNode == null ? null : lastNode.getGValue();
 	}
 
-	boolean isSuccess() {
+	public boolean isSuccess() {
 		return path.iterator().hasNext();
 	}
 
-	boolean isFailure() {
+	public boolean isFailure() {
 		return !isSuccess();
 	}
 
-	long getExplosionCount() {
+	public long getExplosionCount() {
 		return explosionCount;
 	}
 
-	int getCost() {
+	public int getCost() {
 		if (cost == null) {
 			throw new IllegalStateException();
 		}
 		return cost;
 	}
 
-	Iterable<GPSNode<R, S>> getPath() {
+	public Iterable<GPSNode<R, S>> getPath() {
 		return path;
 	}
 

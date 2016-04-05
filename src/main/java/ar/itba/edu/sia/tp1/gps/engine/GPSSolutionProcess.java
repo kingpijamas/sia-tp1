@@ -45,15 +45,16 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 			return;
 		}
 		updateBest(node);
-		if (problem.getRules() == null) { // XXX
-			System.err.println("No rules!");
-			return;
-		}
+		// if (problem.getRules() == null) { // XXX
+		// System.err.println("No rules!");
+		// return;
+		// }
 		for (R rule : problem.getRules()) {
 			Optional<S> newStateOpt = node.getState().apply(rule);
 
 			if (newStateOpt.isPresent()) {
 				S newState = newStateOpt.get();
+
 				int newGValue = node.getGValue() + rule.getCost();
 				if (isBetterThanCurrentBest(newState, newGValue)) {
 					GPSNode<R, S> newNode = new GPSNode<>(node, newState,
@@ -69,7 +70,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 		return isBetterThanCurrentBest(node.getState(), node.getGValue());
 	}
 
-	private boolean isBetterThanCurrentBest(S state, Integer cost) {
+	private boolean isBetterThanCurrentBest(S state, int cost) {
 		return !bestCosts.containsKey(state) || cost < bestCosts.get(state);
 	}
 

@@ -29,42 +29,41 @@ public class CalcudokuApplication {
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
-		Group gSum = new Group(
-				Arrays.asList(new Position(0, 0), new Position(0, 1),
-						new Position(1, 0), new Position(2, 0)),
-				Operator.PLUS, 7);
+		// Group gSum = new Group(
+		// Arrays.asList(new Position(0, 0), new Position(0, 1),
+		// new Position(1, 0), new Position(2, 0)),
+		// Operator.PLUS, 7);
 		// groups.add(gSum);
 
-		Group gdiv = new Group(
-				Arrays.asList(new Position(2, 1), new Position(2, 2)),
-				Operator.PLUS, 2);
+		Group gdiv = new Group(Arrays.asList(position(2, 1), position(2, 2)),
+				Operator.PLUS, 3);
 		groups.add(gdiv);
 
 		Board board = new Board(n, groups);
 
-		board.put(new Position(0, 0), 2);
-		board.put(new Position(0, 1), 1);
-		board.put(new Position(0, 2), 3);
+		board.put(position(0, 0), 2);
+		board.put(position(0, 1), 1);
+		board.put(position(0, 2), 3);
 
-		board.put(new Position(1, 0), 1);
-		board.put(new Position(1, 1), 3);
-		board.put(new Position(1, 2), 2);
+		board.put(position(1, 0), 1);
+		board.put(position(1, 1), 3);
+		board.put(position(1, 2), 2);
 
-		board.put(new Position(2, 0), 3);
-		board.put(new Position(2, 1), 2);
-		board.put(new Position(2, 2), 1);
+		board.put(position(2, 0), 3);
+		board.put(position(2, 1), 2);
+		board.put(position(2, 2), 1);
 
 		board.isValid();
-		board.toString();
+		board.fullToString();
 
 		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
 				heuristic);
 		CalcudokuState state = calcudoku.getInitialState();
-		System.out.println(state.getBoard().toString());
+		System.out.println(state.getBoard().fullToString());
 
 		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				SearchStrategy.BFS);
+				SearchStrategy.DFS);
 
 		try {
 			engine.solve();
