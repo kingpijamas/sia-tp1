@@ -42,6 +42,11 @@ public class Board {
 				Operator.DIVIDE, 2);
 		groups.add(gdiv);
 
+        Group gsub = new Group(
+                Arrays.asList(new Position(1, 1), new Position(1, 2)),
+                Operator.MINUS, 1);
+        groups.add(gsub);
+
 		Board board = new Board(n, groups);
 
 		board.put(new Position(0, 0), 2);

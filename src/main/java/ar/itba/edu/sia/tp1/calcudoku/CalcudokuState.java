@@ -20,6 +20,11 @@ public class CalcudokuState extends GPSState<CalcudokuRule, CalcudokuState> {
 		this.board = board;
 	}
 
+	//TODO: se usa pero analizar si no conviene dejar solo el constructor contructor: CalcudokuState(Board board)
+	public CalcudokuState(int n, List<Group> groups) {
+		this.board = new Board(n, groups);
+	}
+
 	private CalcudokuState(CalcudokuState previousState) {
 		this.board = previousState.board.deepCopy();
 	}

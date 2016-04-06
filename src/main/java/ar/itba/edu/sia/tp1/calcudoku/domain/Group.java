@@ -48,36 +48,39 @@ public class Group {
 		return false;
 	}
 
-	// todo: implement
+    /**
+     * As result is always positive then 'values' is sorted desc and values are substracted in that order.
+     * It is true if the substraction equals 'result'
+     * @param values
+     * @return
+     */
 	private boolean isCorrectMinus(List<Integer> values) {
-		return false;
+        Collections.sort(values);
+        Collections.reverse(values);
+
+        Integer substraction = 0;
+        Iterator<Integer> it = values.iterator();
+        if(it.hasNext()){
+            substraction = it.next();
+        }
+
+        while (it.hasNext()){
+            substraction -= it.next();
+        }
+		return result == substraction;
 	}
 
-	// todo: redefinir e implementar porque no siempre seria como en el ejemplo
 	/**
-	 * values = {result, 1, 1, ...}
+	 * values = {a, b} and a % b = 0 and r = a / b
 	 * 
 	 * @param values
 	 * @return
 	 */
 	private boolean isCorrectDivide(List<Integer> values) {
-		Iterator<Integer> it = values.iterator();
-		while (it.hasNext()) {
-			Integer aValue = it.next();
-			if (!aValue.equals(result) && !aValue.equals(1)) {
-				return false;
-			}
-			if (aValue.equals(result)) {
-				break;
-			}
-		}
-
-		while (it.hasNext()) {
-			if (!it.next().equals(1)) {
-				return false;
-			}
-		}
-		return true;
+        Collections.sort(values);
+        Integer greaterValue = values.get(1);
+        Integer lesserValue = values.get(0);
+        return  greaterValue % lesserValue == 0 && result == (greaterValue / lesserValue);
 	}
 
 	private boolean isCorrectMultiply(List<Integer> values) {

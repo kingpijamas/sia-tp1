@@ -9,6 +9,7 @@ import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 public class Application {
 
 	public static void main(String[] args) {
+		System.out.print(1);
 		Puzzle puzzle = new Puzzle(new StdInPuzzleReader(), problem -> 1);
 		GPSEngine<PuzzleRule, PuzzleState> engine = new PuzzleEngine(puzzle,
 				SearchStrategy.DFS);

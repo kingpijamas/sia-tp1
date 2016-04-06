@@ -24,6 +24,21 @@ public class CalcudokuRule implements GPSRule {
 		return Integer.compare(pos1.getCol(), pos2.getCol());
 	};
 
+	/**
+	 * r =((n.^2).*((n.^2)-1))/2
+	 *
+	 * n = 1    2    3    4     5     6      7      8      9     10
+	 * r = 0    6   36  120   300   630   1176   2016   3240   4950
+	 *
+	 *
+	 * para testear:
+	 *
+	 * int n=3;
+	 * CalcudokuRule.buildRules(n).size() == (new Double((Math.pow(n,2)*(Math.pow(n,2)-1))/2)).intValue();
+	 *
+	 * @param n
+	 * @return
+     */
 	public static List<CalcudokuRule> buildRules(int n) {
 		Set<CalcudokuRule> ruleSet = new HashSet<>();
 		for (int row1 = 0; row1 < n; row1++) {

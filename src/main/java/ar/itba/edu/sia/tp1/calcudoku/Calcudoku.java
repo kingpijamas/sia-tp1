@@ -38,7 +38,12 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 
 	@Override
 	public CalcudokuState getInitialState() {
-		fillWithRandomValues(initialState.getBoard());
+		/**
+		 *TODO: el randomizador deberia pertenecer a una implementacion de parser donde solo reciva el N como parametro.
+		 * Porque me puede interesar probar un estado inicial predeterminado
+		 */
+
+/*		fillWithRandomValues(initialState.getBoard());*/
 		return initialState;
 	}
 

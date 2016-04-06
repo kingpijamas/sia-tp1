@@ -26,6 +26,51 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
+		Board board = getBoard2X2();
+
+		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
+		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
+				heuristic);
+
+CalcudokuState state = calcudoku.getInitialState();
+System.out.println(state.getBoard().fullToString());
+
+		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
+				SearchStrategy.DFS);
+
+		try {
+			engine.solve();
+		} catch (StackOverflowError e) {
+			System.out.println("Solution (if any) too deep for stack.");
+		}
+	}
+
+	private static Position position(int row, int col) {
+		return new Position(row, col);
+	}
+
+	//ONE swap to complete
+	private static Board getBoard2X2(){
+		int n = 2;
+
+		List<Group> groups = new ArrayList<>();
+		Group gsum = new Group(Arrays.asList(position(0, 0), position(0, 1)),
+				Operator.PLUS, 3);
+		groups.add(gsum);
+
+		Board board = new Board(n, groups);
+
+		board.put(position(0, 0), 1);
+		board.put(position(0, 1), 2);
+
+		board.put(position(1, 0), 1);
+		board.put(position(1, 1), 2);
+
+		return board;
+	}
+
+	//ONE swap to complete
+	private static Board getBoard3X3(){
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
@@ -41,8 +86,8 @@ public class CalcudokuApplication {
 
 		Board board = new Board(n, groups);
 
-		board.put(position(0, 0), 2);
-		board.put(position(0, 1), 1);
+		board.put(position(0, 0), 1);
+		board.put(position(0, 1), 2);
 		board.put(position(0, 2), 3);
 
 		board.put(position(1, 0), 1);
@@ -52,27 +97,6 @@ public class CalcudokuApplication {
 		board.put(position(2, 0), 3);
 		board.put(position(2, 1), 2);
 		board.put(position(2, 2), 1);
-
-		board.isValid();
-		board.fullToString();
-
-		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
-		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
-				heuristic);
-		CalcudokuState state = calcudoku.getInitialState();
-		System.out.println(state.getBoard().fullToString());
-
-		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				SearchStrategy.DFS);
-
-		try {
-			engine.solve();
-		} catch (StackOverflowError e) {
-			System.out.println("Solution (if any) too deep for stack.");
-		}
-	}
-
-	private static Position position(int row, int col) {
-		return new Position(row, col);
+		return board;
 	}
 }
