@@ -44,11 +44,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 		if (!isBetterThanCurrentBest(node)) {
 			return;
 		}
-		updateBest(node);
-		// if (problem.getRules() == null) { // XXX
-		// System.err.println("No rules!");
-		// return;
-		// }
+		updateBestCost(node);
 		for (R rule : problem.getRules()) {
 			Optional<S> newStateOpt = node.getState().apply(rule);
 
@@ -66,15 +62,18 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 		return;
 	}
 
+	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
 	private boolean isBetterThanCurrentBest(GPSNode<R, S> node) {
 		return isBetterThanCurrentBest(node.getState(), node.getGValue());
 	}
 
+	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
 	private boolean isBetterThanCurrentBest(S state, int cost) {
 		return !bestCosts.containsKey(state) || cost < bestCosts.get(state);
 	}
 
-	private void updateBest(GPSNode<R, S> node) {
+	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
+	private void updateBestCost(GPSNode<R, S> node) {
 		bestCosts.put(node.getState(), node.getGValue());
 	}
 }

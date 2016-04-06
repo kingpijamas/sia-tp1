@@ -29,7 +29,8 @@
 Se swapea cualquiera con cualquiera.s Las reglas se crean una sola vez al comienzo.Se descartan reglas simetricas. 
 
 ## Llenado del tablero
-Se llena todo el tablero por fila no en forma aleatoria. Se completa numeros del 1 al N en primer fila, en la siguiente del 2 al N y por ultimo el 1. ESTO ES ACEPTABLE POR LA CATEDRA.
+Se llena todo el tablero por fila en forma aleatoria. Se completa numeros del 1 al N en primer fila ordenadas al azar, en la siguiente del 2 al N y por ultimo el 1.. ESTO ES ACEPTABLE POR LA CATEDRA.
+Luego swapeos por fila solo.
 
 ## Parser
 Para generar el tablero inicial, parsea  un string y devuelve el estado inicial. El estado inicial tiene el bitset en cero todo.
@@ -52,9 +53,12 @@ Para generar el tablero inicial, parsea  un string y devuelve el estado inicial.
 + ¿puede el estado saber el siguiente lugar a completar?NO
 
 ## Busquedas
-+ dfs, bfs: desinformadas (no usan la función heuristica).
-+ A*, iterativo: informadas ( usan la funcion heuristica).
-
++ desinformadas (no usan la función heuristica).
+	*bfs
+	*dfs
++ informadas ( usan la funcion heuristica).
+	* A*.[listo.]
+	* iterativo (IDDFS): en gpsengine.getComparator hacer lo mismo que en dfs. Luego en GPSSolutionProcess.explode hacer que cuando se levanta el nodo de mayor costo,si su costo es k parar! Los datos que se tenían se tiran (version pura del algoritmo), y se hace todo de nuevo para el siguiente valor de k. Aumentar k de a una unidad  
 ## TODO
 - Implementar un EnvironmentReader que parsee desde archivoE
 - Implementar el board con binarios + API

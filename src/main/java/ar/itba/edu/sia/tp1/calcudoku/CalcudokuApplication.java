@@ -32,8 +32,8 @@ public class CalcudokuApplication {
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
 				heuristic);
 
-CalcudokuState state = calcudoku.getInitialState();
-System.out.println(state.getBoard().fullToString());
+		CalcudokuState state = calcudoku.getInitialState();
+		System.out.println(state.getBoard().fullToString());
 
 		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
 				SearchStrategy.DFS);
