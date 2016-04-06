@@ -16,34 +16,35 @@ import ar.itba.edu.sia.tp1.gps.ProblemParser;
 public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 	private final CalcudokuState initialState;
 	private final List<CalcudokuRule> rules;
-	private final GPSHeuristic<Calcudoku> heuristic;
+	private final GPSHeuristic<CalcudokuState> heuristic;
 
-	public Calcudoku(Board board, GPSHeuristic<Calcudoku> heuristic) {
+	public Calcudoku(Board board, GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = new CalcudokuState(board);
 		this.rules = CalcudokuRule.buildRules(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
 	public Calcudoku(CalcudokuState initialState,
-			GPSHeuristic<Calcudoku> heuristic) {
+			GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = initialState;
 		this.rules = CalcudokuRule.buildRules(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
 	public Calcudoku(ProblemParser<CalcudokuState> problemReader,
-			GPSHeuristic<Calcudoku> heuristic) {
+			GPSHeuristic<CalcudokuState> heuristic) {
 		this(problemReader.parse(), heuristic);
 	}
 
 	@Override
 	public CalcudokuState getInitialState() {
 		/**
-		 *TODO: el randomizador deberia pertenecer a una implementacion de parser donde solo reciva el N como parametro.
-		 * Porque me puede interesar probar un estado inicial predeterminado
+		 * TODO: el randomizador deberia pertenecer a una implementacion de
+		 * parser donde solo reciba el N como parametro. Porque me puede
+		 * interesar probar un estado inicial predeterminado
 		 */
 
-/*		fillWithRandomValues(initialState.getBoard());*/
+		/* fillWithRandomValues(initialState.getBoard()); */
 		return initialState;
 	}
 
@@ -59,10 +60,11 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 
 	@Override
 	public int getHValue(CalcudokuState state) {
-		return 0; // TODO
+		return heuristic.getValue(state);
 	}
 
-	private void fillWithRandomValues(Board board) {
+	public void fillBoardWithRandomValues() {
+		Board board = initialState.getBoard();
 		int n = board.getN();
 
 		List<Integer> values = new ArrayList<>(n * n);

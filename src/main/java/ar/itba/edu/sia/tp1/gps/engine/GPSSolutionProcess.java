@@ -21,11 +21,9 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 			Queue<GPSNode<R, S>> openNodes) {
 		this.problem = problem;
 		this.openNodes = openNodes;
-		openNodes.add(new GPSNode<>(problem.getInitialState(), 0));
-	}
-
-	long getExplosionsCount() {
-		return explosionCount;
+		S initialState = problem.getInitialState();
+		int initialHValue = getHValue(initialState); // should always be 0
+		openNodes.add(new GPSNode<>(null, initialState, 0, initialHValue));
 	}
 
 	GPSSolution<R, S> solve() {
@@ -50,16 +48,22 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 
 			if (newStateOpt.isPresent()) {
 				S newState = newStateOpt.get();
-
 				int newGValue = node.getGValue() + rule.getCost();
+
 				if (isBetterThanCurrentBest(newState, newGValue)) {
-					GPSNode<R, S> newNode = new GPSNode<>(node, newState,
-							newGValue);
+					int newHValue = getHValue(newState);
+
+					GPSNode<R, S> newNode = new GPSNode<>(node, rule, newState,
+							newGValue, newHValue);
 					openNodes.add(newNode);
 				}
 			}
 		}
 		return;
+	}
+
+	private int getHValue(S state) {
+		return problem.getHValue(state);
 	}
 
 	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)

@@ -26,11 +26,12 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-		Board board = getBoard2X2();
+		Board board = new Board(3, Arrays.asList()); //getBoard3X3();
 
-		GPSHeuristic<Calcudoku> heuristic = problem -> 1;
+		GPSHeuristic<CalcudokuState> heuristic = state -> 1;
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
 				heuristic);
+		calcudoku.fillBoardWithRandomValues();
 
 		CalcudokuState state = calcudoku.getInitialState();
 		System.out.println(state.getBoard().fullToString());

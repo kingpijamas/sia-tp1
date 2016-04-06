@@ -10,7 +10,7 @@ public class Application {
 
 	public static void main(String[] args) {
 		System.out.print(1);
-		Puzzle puzzle = new Puzzle(new StdInPuzzleReader(), problem -> 1);
+		Puzzle puzzle = new Puzzle(new StdInPuzzleReader(), state -> 1);
 		GPSEngine<PuzzleRule, PuzzleState> engine = new PuzzleEngine(puzzle,
 				SearchStrategy.DFS);
 		try {

@@ -12,10 +12,10 @@ public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
 			new int[][]{{1, 2, 3}, {4, 5, 6}, {7, 8, -1}});
 
 	private final PuzzleState initialState;
-	private final GPSHeuristic<Puzzle> heuristic;
+	private final GPSHeuristic<PuzzleState> heuristic;
 
 	public Puzzle(ProblemParser<PuzzleState> problemReader,
-			GPSHeuristic<Puzzle> heuristic) {
+			GPSHeuristic<PuzzleState> heuristic) {
 		this.initialState = problemReader.parse();
 		this.heuristic = heuristic;
 	}
@@ -42,6 +42,6 @@ public class Puzzle implements GPSProblem<PuzzleRule, PuzzleState> {
 	// Valor Heurística para A*
 	@Override
 	public int getHValue(PuzzleState state) {
-		return heuristic.getValue(this);
+		return heuristic.getValue(state);
 	}
 }

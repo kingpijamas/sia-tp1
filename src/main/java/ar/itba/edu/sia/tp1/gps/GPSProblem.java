@@ -37,5 +37,7 @@ public interface GPSProblem<R extends GPSRule, S extends GPSState<R, S>> {
 	 *            The state where the Heuristic should be computed.
 	 * @return The value of the Heuristic.
 	 */
-	int getHValue(S state);
+	default int getHValue(S state) {
+		return 1;
+	}
 }

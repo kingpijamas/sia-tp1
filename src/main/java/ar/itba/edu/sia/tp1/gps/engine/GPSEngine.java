@@ -26,8 +26,8 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 
 		if (solution.isSuccess()) {
 			System.out.println("OK! solution found!");
-			System.out.println(
-					"Expanded nodes: " + solutionProcess.getExplosionsCount());
+			System.out
+					.println("Expanded nodes: " + solution.getExplosionCount());
 			System.out.println("Solution cost: " + solution.getCost());
 			System.out.println("\nSolution path (chronological order):\n"
 					+ IterableUtils.toList(solution.getPath()).stream()
@@ -35,8 +35,8 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 							.collect(Collectors.joining("\n")));
 		} else {
 			System.err.println("FAILED! solution not found!");
-			System.out.println(
-					"Expanded nodes: " + solutionProcess.getExplosionsCount());
+			System.out
+					.println("Expanded nodes: " + solution.getExplosionCount());
 		}
 	}
 
@@ -45,28 +45,26 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 	}
 
 	protected Queue<GPSNode<R, S>> buildOpenNodes() {
-		return new PriorityQueue<>(getStateComparator(searchStrategy));
+		return new PriorityQueue<>(getNodeComparator(searchStrategy));
 	}
 
-	private Comparator<GPSNode<R, S>> getStateComparator(
+	private Comparator<GPSNode<R, S>> getNodeComparator(
 			SearchStrategy strategy) {
-		// TODO: concat the (informed) comparators to heuristic comparators!
 		switch (strategy) {
 			case BFS :
-				return (s1, s2) -> Integer.compare(s1.getGValue(),
-						s2.getGValue());
+				return (n1, n2) -> Integer.compare(n1.getGValue(),
+						n2.getGValue());
 			case DFS :
-				return (s1, s2) -> Integer.compare(s2.getGValue(),
-						s1.getGValue());
+				// break through
 			case IDDFS :
-				// TODO IDDFS Condition
-				return (s1, s2) -> 0;
+				return (n1, n2) -> Integer.compare(n2.getGValue(),
+						n1.getGValue());
 			case GREEDY :
-				// TODO Greedy Condition
-				return (s1, s2) -> 0;
+				return (n1, n2) -> Integer.compare(n1.getHValue(),
+						n2.getHValue());
 			case A_STAR :
-				// TODO AStar Condition
-				return (s1, s2) -> 0;
+				return (n1, n2) -> Integer.compare(n1.getFValue(),
+						n2.getFValue());
 			default :
 				throw new IllegalStateException("Unknown search strategy");
 		}

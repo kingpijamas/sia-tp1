@@ -42,10 +42,10 @@ public class Board {
 				Operator.DIVIDE, 2);
 		groups.add(gdiv);
 
-        Group gsub = new Group(
-                Arrays.asList(new Position(1, 1), new Position(1, 2)),
-                Operator.MINUS, 1);
-        groups.add(gsub);
+		Group gsub = new Group(
+				Arrays.asList(new Position(1, 1), new Position(1, 2)),
+				Operator.MINUS, 1);
+		groups.add(gsub);
 
 		Board board = new Board(n, groups);
 
@@ -102,18 +102,7 @@ public class Board {
 	}
 
 	public boolean isValid() {
-		if (!areRowsValid()) {
-			return false;
-		}
-
-		if (!areColsValid()) {
-			return false;
-		}
-
-		if (!areGroupsValid()) {
-			return false;
-		}
-		return true;
+		return areRowsValid() && areColsValid() && areGroupsValid();
 	}
 
 	private boolean areGroupsValid() {
@@ -140,10 +129,7 @@ public class Board {
 		BitSet op = new BitSet(n);
 		for (int j = 0; j < n; j++) {
 			for (int i = 0; i < n; i++) {
-				op.or(getCell(i, j)); // FIXME: identico al de abajo, solo
-										// cambia el orden de los fors cambia el
-										// orden de los fors (alguno tiene que
-										// estar mal)
+				op.or(getCell(i, j));
 			}
 
 			// cardinality counts the number of 1s in the BitSet
@@ -164,10 +150,7 @@ public class Board {
 		BitSet op = new BitSet(n);
 		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
-				op.or(getCell(i, j)); // FIXME: identico al de arriba, solo
-										// cambia el orden de los fors cambia el
-										// orden de los fors (alguno tiene que
-										// estar mal)
+				op.or(getCell(i, j));
 			}
 
 			// cardinality counts the number of 1s in the BitSet
