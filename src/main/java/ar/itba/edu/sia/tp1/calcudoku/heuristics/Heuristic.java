@@ -6,8 +6,8 @@ public abstract class Heuristic {
 
 	
 	public int getH(Board board){
-		int incorrect_groups=0;
-		int incorrect_columns=0;
+		int incorrect_groups=board.invalidGroupsCount();
+		int incorrect_columns=board.invalidColumnsCount();
 		return getH(incorrect_groups,incorrect_columns);
 		
 	}

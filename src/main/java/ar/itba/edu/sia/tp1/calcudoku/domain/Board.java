@@ -113,6 +113,38 @@ public class Board {
 		}
 		return true;
 	}
+	
+	// cantidad de grupos inválidos
+	public int  invalidGroupsCount() {
+		int count=0;
+		for (Group aGroup : getCompleteGroups()) {
+			if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
+				count++;
+			}
+		}
+		return count;
+	}
+	// cantida de columnas inválidas
+	public int invalidColumnsCount(){
+		BitSet op = new BitSet(n);
+		int count=0;
+		for (int j = 0; j < n; j++) {
+			for (int i = 0; i < n; i++) {
+				op.or(getCell(i, j));
+			}
+
+			// cardinality counts the number of 1s in the BitSet
+			if (op.cardinality() < n) {
+				count++;
+			}
+			op.clear();
+		}
+		return count;
+
+		
+	}
+	
+	
 
 	private List<Integer> getValuesForGroup(Group aGroup) {
 		return aGroup.getPositions().stream()

@@ -1,0 +1,23 @@
+{
+"n":2,
+"groups":[
+			{"positions":[{"row":0,"col":0}],
+			"operator":"'id'",
+			"result":2
+			},
+			{"positions":[{"row":0,"col":1}],
+			"operator":"'id'",
+			"result":1
+			},
+			{"positions":[{"row":1,"col":1}],
+			"operator":"'id'",
+			"result":2
+			},
+			{"positions":[{"row":1,"col":0}],
+			"operator":"'id'",
+			"result":1
+			}
+			
+		]
+
+}
