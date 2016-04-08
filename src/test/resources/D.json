@@ -1,11 +1,11 @@
 {
 "n":2,
 "groups":[
-			{"positions":[{"row":0,"col":0},{"row":0,"col":1}],
+			{"positions":[{"row":0,"col":0},{"row":1,"col":0}],
 			"operator":"PLUS",
 			"result":3
 			},
-			{"positions":[{"row":1,"col":0}],
+			{"positions":[{"row":0,"col":1}],
 			"operator":"IDENTITY",
 			"result":2
 			},

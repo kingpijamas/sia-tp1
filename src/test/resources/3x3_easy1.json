@@ -1,0 +1,27 @@
+{
+"n":3,
+"groups":[
+			{"positions":[{"row":0,"col":0}],
+			"operator":"IDENTITY",
+			"result":3
+			},
+			{"positions":[{"row":0,"col":1},{"row":0,"col":2}],
+			"operator":"DIVIDE",
+			"result":2
+			},
+			{"positions":[{"row":1,"col":0},{"row":1,"col":1}],
+			"operator":"MULTIPLY",
+			"result":6
+			},
+			{"positions":[{"row":1,"col":2},{"row":2,"col":2}],
+			"operator":"MINUS",
+			"result":2
+			},
+			{"positions":[{"row":2,"col":0},{"row":2,"col":1}],
+			"operator":"DIVIDE",
+			"result":2
+			}
+			
+		]
+
+}

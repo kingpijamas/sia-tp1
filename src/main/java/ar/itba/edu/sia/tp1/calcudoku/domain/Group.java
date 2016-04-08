@@ -84,7 +84,7 @@ public class Group {
 	}
 
 	private boolean isCorrectMultiply(List<Integer> values) {
-		Integer prod = 0;
+		Integer prod = 1;
 		for (Integer aValue : values) {
 			prod *= aValue;
 		}
