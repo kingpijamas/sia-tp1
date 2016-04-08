@@ -16,8 +16,7 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 	private final GPSProblem<R, S> problem;
 	private final int maxSolutionDepth;
 
-	public GPSEngine(GPSProblem<R, S> problem, SearchStrategy searchStrategy,
-			int maxSolutionDepth) {
+	public GPSEngine(GPSProblem<R, S> problem, SearchStrategy searchStrategy, int maxSolutionDepth) {
 		this.problem = problem;
 		this.searchStrategy = searchStrategy;
 		this.maxSolutionDepth = maxSolutionDepth;
@@ -29,24 +28,19 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 
 		if (solution.isSuccess()) {
 			System.out.println("OK! solution found!");
-			System.out.println("Expanded nodes: "
-					+ solution.getExplosionCount());
+			System.out.println("Expanded nodes: " + solution.getExplosionCount());
 			System.out.println("Solution cost: " + solution.getCost());
-			System.out.println("\nSolution path (chronological order):\n"
-					+ IterableUtils.toList(solution.getPath()).stream()
-							.map(GPSNode::toString)
-							.collect(Collectors.joining("\n")));
+			System.out.println("\nSolution path (chronological order):\n" + IterableUtils.toList(solution.getPath())
+					.stream().map(GPSNode::toString).collect(Collectors.joining("\n")));
 		} else {
 			System.err.println("FAILED! solution not found!");
-			System.out.println("Expanded nodes: "
-					+ solution.getExplosionCount());
+			System.out.println("Expanded nodes: " + solution.getExplosionCount());
 		}
 		return solution;
 	}
 
 	private GPSSolutionProcess<R, S> buildSolutionProcess() {
-		return new GPSSolutionProcess<>(problem, () -> buildOpenNodes(),
-				searchStrategy, maxSolutionDepth);
+		return new GPSSolutionProcess<>(problem, () -> buildOpenNodes(), searchStrategy, maxSolutionDepth);
 	}
 
 	protected Queue<GPSNode<R, S>> buildOpenNodes() {
