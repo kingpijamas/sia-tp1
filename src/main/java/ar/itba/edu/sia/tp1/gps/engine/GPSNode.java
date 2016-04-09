@@ -54,36 +54,22 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 		int result = 1;
 		result = prime * result + gValue;
 		result = prime * result + hValue;
-		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
-		result = prime * result + ((rule == null) ? 0 : rule.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
 		return result;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	@SuppressFBWarnings(value = "HE_EQUALS_USE_HASHCODE", justification = "Eclipse knows what it's doing")
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
 		if (obj == null)
 			return false;
-		if (!(obj instanceof GPSNode))
+		if (getClass() != obj.getClass())
 			return false;
 		GPSNode<R, S> other = (GPSNode<R, S>) obj;
 		if (gValue != other.gValue)
 			return false;
 		if (hValue != other.hValue)
-			return false;
-		if (parent == null) {
-			if (other.parent != null)
-				return false;
-		} else if (!parent.equals(other.parent))
-			return false;
-		if (rule == null) {
-			if (other.rule != null)
-				return false;
-		} else if (!rule.equals(other.rule))
 			return false;
 		if (state == null) {
 			if (other.state != null)

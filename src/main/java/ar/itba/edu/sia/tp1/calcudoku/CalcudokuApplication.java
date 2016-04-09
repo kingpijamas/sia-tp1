@@ -27,7 +27,9 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-		Board board = new Board(3, Arrays.asList()); //getBoard3X3();
+		int n = 6;
+		Board board = new Board(n, Arrays.asList()); // getBoard3X3();
+		// Board board = getBoard6X6FromJson();
 
 		GPSHeuristic<CalcudokuState> heuristic = state -> 1;
 		
