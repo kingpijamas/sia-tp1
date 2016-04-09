@@ -16,6 +16,7 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.calcudoku.heuristics.H1;
 import ar.itba.edu.sia.tp1.calcudoku.heuristics.H2;
 import ar.itba.edu.sia.tp1.calcudoku.heuristics.H3;
+import ar.itba.edu.sia.tp1.calcudoku.heuristics.H4;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSNode;
@@ -37,11 +38,12 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-		int n = 5;
-		Board board = new Board(n, Arrays.asList()); //getBoard3X3();
-		//Board board = getBoard6X6FromJson();
 
-		GPSHeuristic<CalcudokuState> heuristic = new H3();
+		Board board = new Board(6, Arrays.asList()); //getBoard3X3();
+		//Board board = getBoard6X6FromJson();
+		int n = board.getN();
+
+		GPSHeuristic<CalcudokuState> heuristic = new H1();
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
 				heuristic);
 		calcudoku.fillBoardWithRandomValuesInRows();
@@ -239,7 +241,7 @@ public class CalcudokuApplication {
 
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(initialBoard),
 				h);
-		calcudoku.fillBoardWithRandomValues();
+		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
 		System.out.println(state.getBoard().fullToString());
