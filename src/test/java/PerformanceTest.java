@@ -84,7 +84,7 @@ public class PerformanceTest extends GenericTest {
 		if (solution != null) {
 			long exposions = solution.getExplosionCount();
 			long swaps = solution.getCost();
-			String str = String.format("%s; %d; %d; %d", strategy.toString(),
+			String str = String.format("%s, %d, %d, %d \n", strategy.toString(),
 					time, exposions, swaps);
 			writer.append((CharSequence) str);
 
