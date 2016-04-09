@@ -81,7 +81,7 @@ public class PerformanceTest extends GenericTest {
 	private void recordData(BufferedWriter writer, long time,
 			GPSSolution<CalcudokuRule, CalcudokuState> solution,
 			SearchStrategy strategy) throws IOException {
-		if (solution != null) {
+		if (solution.isFailure()) {
 			long exposions = solution.getExplosionCount();
 			long swaps = solution.getCost();
 			String str = String.format("%s, %d, %d, %d \n", strategy.toString(),
