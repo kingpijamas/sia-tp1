@@ -82,7 +82,6 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	private void initOpenNodes() {
 		S initialState = problem.getInitialState();
 		int initialHValue = getHValue(initialState);
-		assert initialHValue == 0;
 
 		bestCosts = new TObjectIntHashMap<S>();
 

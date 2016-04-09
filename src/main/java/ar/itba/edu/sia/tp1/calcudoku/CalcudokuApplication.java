@@ -234,4 +234,28 @@ public class CalcudokuApplication {
 
 		return board;
 	}
+
+	public static GPSSolution<CalcudokuRule, CalcudokuState> getSolution(Board initialBoard,SearchStrategy strategy,GPSHeuristic<CalcudokuState> h){
+
+		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(initialBoard),
+				h);
+		calcudoku.fillBoardWithRandomValues();
+
+		CalcudokuState state = calcudoku.getInitialState();
+		System.out.println(state.getBoard().fullToString());
+
+		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
+				strategy);
+		GPSSolution<CalcudokuRule, CalcudokuState> solution=null;
+		try {
+			solution=engine.solve();
+		} catch (StackOverflowError e) {
+			System.out.println("Solution (if any) too deep for stack.");
+		}
+
+		return solution;
+
+
+
+	}
 }
