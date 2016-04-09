@@ -113,7 +113,17 @@ public class Board {
 		}
 		return true;
 	}
-	
+
+	public List<Integer> getAllValues(){
+		List<Integer> values = new ArrayList<>();
+		for(int i=0; i<n; i++){
+			for(int j=0; j<n; j++){
+				values.add(getCellValue(i,j));
+			}
+		}
+		return values;
+	}
+
 	// cantidad de grupos inválidos
 	public int  invalidGroupsCount() {
 		int count=0;

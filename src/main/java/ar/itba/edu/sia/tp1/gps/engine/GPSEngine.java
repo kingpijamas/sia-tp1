@@ -20,7 +20,7 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 		this.searchStrategy = searchStrategy;
 	}
 
-	public void solve() {
+	public GPSSolution<R, S> solve() {
 		GPSSolutionProcess<R, S> solutionProcess = buildSolutionProcess();
 		GPSSolution<R, S> solution = solutionProcess.solve();
 
@@ -38,6 +38,7 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 			System.out
 					.println("Expanded nodes: " + solution.getExplosionCount());
 		}
+		return solution;
 	}
 
 	private GPSSolutionProcess<R, S> buildSolutionProcess() {

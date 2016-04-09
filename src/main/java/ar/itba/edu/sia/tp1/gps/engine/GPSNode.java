@@ -52,14 +52,15 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
+		/*final int prime = 31;
 		int result = 1;
 		result = prime * result + gValue;
 		result = prime * result + hValue;
 		result = prime * result + ((parent == null) ? 0 : parent.hashCode());
 		result = prime * result + ((rule == null) ? 0 : rule.hashCode());
 		result = prime * result + ((state == null) ? 0 : state.hashCode());
-		return result;
+		return result;*/
+		return state.hashCode();
 	}
 
 	@Override
@@ -73,7 +74,7 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 		if (!(obj instanceof GPSNode))
 			return false;
 		GPSNode<R, S> other = (GPSNode<R, S>) obj;
-		if (gValue != other.gValue)
+		/*if (gValue != other.gValue)
 			return false;
 		if (hValue != other.hValue)
 			return false;
@@ -92,7 +93,8 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 				return false;
 		} else if (!state.equals(other.state))
 			return false;
-		return true;
+		return true;*/
+		return state.equals(other.getState());
 	}
 
 	@Override
@@ -101,4 +103,6 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 				.append("gValue", gValue).append("hValue", hValue)
 				.appendToString(state.toString()).toString();
 	}
+
+
 }
