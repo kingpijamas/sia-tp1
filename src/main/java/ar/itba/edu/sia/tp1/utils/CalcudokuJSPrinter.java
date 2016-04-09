@@ -20,14 +20,15 @@ public class CalcudokuJSPrinter {
         aSolution.append(structureForDraw(solution, n));
         aSolution.append("\n\nvar solutionPath = ");
         aSolution.append(drawCalcudokuPath(solution));
+        aSolution.append(String.format("\n\nvar n = %d;",n));
 
         return aSolution.toString().replaceAll("n-","nL");
     }
 
     private String structureForDraw(GPSSolution<CalcudokuRule, CalcudokuState> solution, int n) {
         StringBuffer sb = new StringBuffer();
-
-        int circleDiameter = 50 + 10;
+        int radio = 25;
+        int circleDiameter = 2*radio + 10;
         int width = circleDiameter + n * 50;
         int height = n*50;
         List<String> nodeVariableNames = new ArrayList<>();
@@ -52,6 +53,7 @@ public class CalcudokuJSPrinter {
         }
 
         sb.append("\n, chart_config = "+nodeVariableNames.toString()+";");
+        sb.append(String.format("\nvar r = %d;",radio));
         //chart_config = [config, malory, lana, figgs, sterling, woodhouse, pseudo, pam, cheryl];
 
         return sb.toString().replaceAll("n-","nL");
