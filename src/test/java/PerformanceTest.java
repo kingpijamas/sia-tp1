@@ -16,7 +16,7 @@ import org.junit.Test;
 
 public class PerformanceTest extends GenericTest {
 
-	@Test
+	//@Test
 	public void performanceTest() throws IOException {
 		String outputfileName = "./src/test/resources/performanceN=3.csv";
 		String[] inputFileName = { "./src/test/resources/3x3_easy1.json", "./src/test/resources/3x3_easy2.json",
@@ -25,11 +25,18 @@ public class PerformanceTest extends GenericTest {
 
 	}
 
-	@Test
+	//@Test
 	public void performanceTest2() throws IOException {
 		String outputfileName = "./src/test/resources/performanceN=4.csv";
 		String[] inputFileName = { "./src/test/resources/4x4_easy.json", "./src/test/resources/4x4_medium.json",
 				"./src/test/resources/4x4_hard.json" };
+		runTest(outputfileName, inputFileName);
+	}
+	
+	@Test
+	public void performanceTest3() throws IOException {
+		String outputfileName = "./src/test/resources/performanceN=6.csv";
+		String[] inputFileName = {"src/test/resources/6x6_easy.json" };
 		runTest(outputfileName, inputFileName);
 	}
 
@@ -61,13 +68,13 @@ public class PerformanceTest extends GenericTest {
 					Board finalBoard = getSolutionBoard(solution);
 					currentTime = chronometer.stop();
 
-					recordData(writer, currentTime, solution, strategy);
-					// // en el caso de dfs y bfs no se utiliza heuristicas
-					if (strategy == SearchStrategy.DFS || strategy == SearchStrategy.BFS
-							|| strategy == SearchStrategy.IDDFS) {
-						break;
-					}
-
+					recordData(writer, currentTime, solution, strategy,h);
+					
+				}
+				// // en el caso de dfs y bfs no se utiliza heuristicas
+				if (strategy == SearchStrategy.DFS || strategy == SearchStrategy.BFS
+						|| strategy == SearchStrategy.IDDFS) {
+					break;
 				}
 
 			}
@@ -77,11 +84,17 @@ public class PerformanceTest extends GenericTest {
 	}
 
 	private void recordData(BufferedWriter writer, long time, GPSSolution<CalcudokuRule, CalcudokuState> solution,
-			SearchStrategy strategy) throws IOException {
+			SearchStrategy strategy, Heuristic h ) throws IOException {
 		if (solution != null) {
 			long exposions = solution.getExplosionCount();
 			long swaps = solution.getCost();
-			String str = String.format("%s, %d, %d, %d \n", strategy.toString(), time, exposions, swaps);
+			String methodName=strategy.toString();
+			
+			if(strategy!=SearchStrategy.BFS && strategy!=SearchStrategy.DFS && strategy!=SearchStrategy.IDDFS)
+				methodName+="_" +h.toString();
+			
+				
+		String str = String.format("%s, %d, %d, %d \n", methodName, time, exposions, swaps);
 			writer.append((CharSequence) str);
 
 		}

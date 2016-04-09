@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum SearchStrategy {
-	BFS, DFS, IDDFS, GREEDY(true), A_STAR(true);
+	GREEDY(true), A_STAR(true),IDDFS,BFS, DFS; 
 
 	private final boolean informed;
 

@@ -9,4 +9,9 @@ public class H1 extends Heuristic{
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "H1";
+	}
+	
 }
