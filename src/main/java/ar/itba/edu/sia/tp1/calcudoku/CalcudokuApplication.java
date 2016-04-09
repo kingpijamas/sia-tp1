@@ -38,8 +38,8 @@ public class CalcudokuApplication {
 		// }
 
 		int n = 5;
-		//Board board = new Board(n, Arrays.asList()); //getBoard3X3();
-		Board board = getBoard6X6FromJson();
+		Board board = new Board(n, Arrays.asList()); //getBoard3X3();
+		//Board board = getBoard6X6FromJson();
 
 		GPSHeuristic<CalcudokuState> heuristic = new H3();
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
