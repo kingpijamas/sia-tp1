@@ -26,18 +26,18 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-		Board board = new Board(3, Arrays.asList()); //getBoard3X3();
+		Board board = new Board(4, Arrays.asList()); //getBoard3X3();
 
 		GPSHeuristic<CalcudokuState> heuristic = state -> 1;
 		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
 				heuristic);
-		calcudoku.fillBoardWithRandomValues();
+		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
 		System.out.println(state.getBoard().fullToString());
 
 		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				SearchStrategy.DFS);
+				SearchStrategy.BFS);
 
 		try {
 			engine.solve();

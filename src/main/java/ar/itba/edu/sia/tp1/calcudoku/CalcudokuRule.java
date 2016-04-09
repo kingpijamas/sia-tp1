@@ -1,7 +1,5 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -38,7 +36,7 @@ public class CalcudokuRule implements GPSRule {
 	 * @param n
 	 * @return
 	 */
-	public static List<CalcudokuRule> buildRules(int n) {
+	public static List<CalcudokuRule> buildAllSwaps(int n) {
 		Set<CalcudokuRule> ruleSet = new HashSet<>();
 		for (int row1 = 0; row1 < n; row1++) {
 			for (int col1 = 0; col1 < n; col1++) {
@@ -54,7 +52,21 @@ public class CalcudokuRule implements GPSRule {
 				}
 			}
 		}
-		System.out.println(ruleSet.size());
+		return Collections.unmodifiableList(new ArrayList<>(ruleSet));
+	}
+
+	public static List<CalcudokuRule> buildSwapsInColumns(int n) {
+		Set<CalcudokuRule> ruleSet = new HashSet<>();
+		for (int row = 0; row < n; row++) {
+			for (int col1 = 0; col1 < n; col1++) {
+				for (int col2 = col1 + 1; col2 < n; col2++) {
+					Position pos1 = new Position(row, col1);
+					Position pos2 = new Position(row, col2);
+
+					ruleSet.add(new CalcudokuRule(pos1, pos2));
+				}
+			}
+		}
 		return Collections.unmodifiableList(new ArrayList<>(ruleSet));
 	}
 

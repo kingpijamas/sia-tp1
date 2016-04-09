@@ -1,6 +1,5 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 
 /**
  * Created by scamisay on 02/04/16.
