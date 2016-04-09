@@ -5,15 +5,12 @@ import static java.util.Arrays.asList;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.util.List;
 
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
-import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonSerializer;
 
 public class Borrar {

@@ -1,7 +1,6 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
 import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
-
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

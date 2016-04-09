@@ -1,17 +1,13 @@
 package ar.itba.edu.sia.tp1.calcudoku.heuristics;
 
 import static java.util.Arrays.asList;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.PipedInputStream;
-import java.io.PipedOutputStream;
 import java.util.List;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
@@ -20,7 +16,6 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
-import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonSerializer;
 
 public class HeuristicsTest {
 	private CalcudokuJsonParser parser;

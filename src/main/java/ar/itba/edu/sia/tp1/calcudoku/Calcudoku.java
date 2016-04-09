@@ -20,14 +20,14 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 
 	public Calcudoku(Board board, GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = new CalcudokuState(board);
-		this.rules = CalcudokuRule.buildRules(initialState.getN());
+		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
 	public Calcudoku(CalcudokuState initialState,
 			GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = initialState;
-		this.rules = CalcudokuRule.buildRules(initialState.getN());
+		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
@@ -77,6 +77,23 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 
 		for (int i = 0; i < values.size(); i++) {
 			board.put(new Position(i / n, i % n), values.get(i));
+		}
+	}
+
+	public void fillBoardWithRandomValuesInRows() {
+		Board board = initialState.getBoard();
+		int n = board.getN();
+
+		for (int i = 0; i < n; i++) {
+			List<Integer> values = new ArrayList<>(n * n);
+			for (int value = 1; value <= n; value++) {
+				values.add(value);
+			}
+			Collections.shuffle(values);
+
+			for (int j = 0; j < values.size(); j++) {
+				board.put(new Position(i, j), values.get(j));
+			}
 		}
 	}
 }
