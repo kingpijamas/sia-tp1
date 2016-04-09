@@ -63,22 +63,22 @@ public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
 		return heuristic.getValue(state);
 	}
 
-	public void fillBoardWithRandomValues() {
-		Board board = initialState.getBoard();
-		int n = board.getN();
-
-		List<Integer> values = new ArrayList<>(n * n);
-		for (int value = 1; value <= n; value++) {
-			for (int appearances = 0; appearances < n; appearances++) {
-				values.add(value);
-			}
-		}
-		Collections.shuffle(values);
-
-		for (int i = 0; i < values.size(); i++) {
-			board.put(new Position(i / n, i % n), values.get(i));
-		}
-	}
+	// public void fillBoardWithRandomValues() {
+	// Board board = initialState.getBoard();
+	// int n = board.getN();
+	//
+	// List<Integer> values = new ArrayList<>(n * n);
+	// for (int value = 1; value <= n; value++) {
+	// for (int appearances = 0; appearances < n; appearances++) {
+	// values.add(value);
+	// }
+	// }
+	// Collections.shuffle(values);
+	//
+	// for (int i = 0; i < values.size(); i++) {
+	// board.put(new Position(i / n, i % n), values.get(i));
+	// }
+	// }
 
 	public void fillBoardWithRandomValuesInRows() {
 		Board board = initialState.getBoard();

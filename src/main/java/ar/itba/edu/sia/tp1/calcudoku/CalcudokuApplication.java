@@ -32,46 +32,40 @@ public class CalcudokuApplication {
 		// Board board = getBoard6X6FromJson();
 
 		GPSHeuristic<CalcudokuState> heuristic = state -> 1;
-		
+
 		getSolution(board, SearchStrategy.DFS, heuristic);
-		
+
 	}
 
-	public static GPSSolution<CalcudokuRule, CalcudokuState> getSolution(Board initialBoard,SearchStrategy strategy,GPSHeuristic<CalcudokuState> h){
-		
-		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(initialBoard),
-				h);
-		calcudoku.fillBoardWithRandomValues();
+	public static GPSSolution<CalcudokuRule, CalcudokuState> getSolution(Board initialBoard, SearchStrategy strategy,
+			GPSHeuristic<CalcudokuState> h) {
+
+		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(initialBoard), h);
+		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
 		System.out.println(state.getBoard().fullToString());
 
-		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				strategy);
-		GPSSolution<CalcudokuRule, CalcudokuState> solution=null;
+		CalcudokuEngine engine = new CalcudokuEngine(calcudoku, strategy);
+		GPSSolution<CalcudokuRule, CalcudokuState> solution = null;
 		try {
-			solution=engine.solve();
+			solution = engine.solve();
 		} catch (StackOverflowError e) {
 			System.out.println("Solution (if any) too deep for stack.");
 		}
-		
 		return solution;
-		
-		
-		
 	}
-	
+
 	private static Position position(int row, int col) {
 		return new Position(row, col);
 	}
 
-	//ONE swap to complete
-	private static Board getBoard2X2(){
+	// ONE swap to complete
+	private static Board getBoard2X2() {
 		int n = 2;
 
 		List<Group> groups = new ArrayList<>();
-		Group gsum = new Group(Arrays.asList(position(0, 0), position(0, 1)),
-				Operator.PLUS, 3);
+		Group gsum = new Group(Arrays.asList(position(0, 0), position(0, 1)), Operator.PLUS, 3);
 		groups.add(gsum);
 
 		Board board = new Board(n, groups);
@@ -85,8 +79,8 @@ public class CalcudokuApplication {
 		return board;
 	}
 
-	//ONE swap to complete
-	private static Board getBoard3X3(){
+	// ONE swap to complete
+	private static Board getBoard3X3() {
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
@@ -96,8 +90,7 @@ public class CalcudokuApplication {
 		// Operator.PLUS, 7);
 		// groups.add(gSum);
 
-		Group gdiv = new Group(Arrays.asList(position(2, 1), position(2, 2)),
-				Operator.PLUS, 3);
+		Group gdiv = new Group(Arrays.asList(position(2, 1), position(2, 2)), Operator.PLUS, 3);
 		groups.add(gdiv);
 
 		Board board = new Board(n, groups);
