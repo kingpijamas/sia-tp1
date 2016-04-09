@@ -28,11 +28,9 @@
 			"operator":"PLUS",
 			"result":8
 			},
-			
 			{"positions":[{"row":2,"col":3},{"row":3,"col":3}],
 			"operator":"DIVIDE",
 			"result":2
-			},
+			}
 		]
-
 }

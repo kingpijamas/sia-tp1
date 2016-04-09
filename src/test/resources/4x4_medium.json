@@ -21,11 +21,9 @@
 			"operator":"PLUS",
 			"result":10
 			},
-			
 			{"positions":[{"row":3,"col":2},{"row":3,"col":3}],
 			"operator":"PLUS",
 			"result":5
-			},
+			}
 		]
-
 }
