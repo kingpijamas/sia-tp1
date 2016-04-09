@@ -4,41 +4,47 @@ import gnu.trove.map.hash.TObjectIntHashMap;
 
 import java.util.Optional;
 import java.util.Queue;
+import java.util.function.Supplier;
 
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 
 class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
-	// TODO: merge back into GPSEngine
-	private final Queue<GPSNode<R, S>> openNodes;
+	private Queue<GPSNode<R, S>> openNodes;
 	private final GPSProblem<R, S> problem;
+	private final Supplier<Queue<GPSNode<R, S>>> queueBuilder;
+	private final int maxDepth;
 
-	private final TObjectIntHashMap<S> bestCosts = new TObjectIntHashMap<S>();
-
+	private TObjectIntHashMap<S> bestCosts;
+	private int currDepth;
 	private long explosionCount = 0;
 
 	GPSSolutionProcess(GPSProblem<R, S> problem,
-			Queue<GPSNode<R, S>> openNodes) {
+			Supplier<Queue<GPSNode<R, S>>> queueBuilder,
+			SearchStrategy searchStrategy, int maxDepth) {
 		this.problem = problem;
-		this.openNodes = openNodes;
-		S initialState = problem.getInitialState();
-		int initialHValue = getHValue(initialState); // should always be 0
-		openNodes.add(new GPSNode<>(null, initialState, 0, initialHValue));
+		this.maxDepth = maxDepth;
+		this.currDepth = startDepthFor(searchStrategy);
+		this.queueBuilder = queueBuilder;
 	}
 
 	GPSSolution<R, S> solve() {
-		while (!openNodes.isEmpty()) {
-			GPSNode<R, S> currentNode = openNodes.poll();
-			if (problem.isGoal(currentNode.getState())) {
-				return GPSSolution.of(currentNode, explosionCount);
+		while (currDepth <= maxDepth) {
+			initOpenNodes();
+			while (!openNodes.isEmpty()) {
+				GPSNode<R, S> currentNode = openNodes.poll();
+				if (problem.isGoal(currentNode.getState())) {
+					return GPSSolution.of(currentNode, explosionCount);
+				}
+				explode(currentNode);
 			}
-			explode(currentNode);
+			currDepth++;
 		}
 		return GPSSolution.failure(explosionCount);
 	}
 
-	private void explode(GPSNode<R, S> node) {
+	protected void explode(GPSNode<R, S> node) {
 		explosionCount++;
 		if (!isBetterThanCurrentBest(node)) {
 			return;
@@ -51,7 +57,8 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 				S newState = newStateOpt.get();
 				int newGValue = node.getGValue() + rule.getCost();
 
-				if (isBetterThanCurrentBest(newState, newGValue)) {
+				if (newGValue <= currDepth
+						&& isBetterThanCurrentBest(newState, newGValue)) {
 					int newHValue = getHValue(newState);
 
 					GPSNode<R, S> newNode = new GPSNode<>(node, rule, newState,
@@ -63,21 +70,44 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 		return;
 	}
 
+	private int startDepthFor(SearchStrategy searchStrategy) {
+		switch (searchStrategy) {
+		case IDDFS:
+			return 0;
+		default:
+			return maxDepth;
+		}
+	}
+
+	private void initOpenNodes() {
+		S initialState = problem.getInitialState();
+		int initialHValue = getHValue(initialState);
+		assert initialHValue == 0;
+
+		bestCosts = new TObjectIntHashMap<S>();
+
+		this.openNodes = queueBuilder.get();
+		openNodes.add(new GPSNode<>(null, initialState, 0, initialHValue));
+	}
+
 	private int getHValue(S state) {
 		return problem.getHValue(state);
 	}
 
-	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
+	// IMPORTANT: this is used to check if a node was visited (even in
+	// uninformed algorithms like DFS)
 	private boolean isBetterThanCurrentBest(GPSNode<R, S> node) {
 		return isBetterThanCurrentBest(node.getState(), node.getGValue());
 	}
 
-	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
+	// IMPORTANT: this is used to check if a node was visited (even in
+	// uninformed algorithms like DFS)
 	private boolean isBetterThanCurrentBest(S state, int cost) {
 		return !bestCosts.containsKey(state) || cost < bestCosts.get(state);
 	}
 
-	// IMPORTANT: this is used to check if a node was visited (even in uninformed algorithms like DFS)
+	// IMPORTANT: this is used to check if a node was visited (even in
+	// uninformed algorithms like DFS)
 	private void updateBestCost(GPSNode<R, S> node) {
 		bestCosts.put(node.getState(), node.getGValue());
 	}
