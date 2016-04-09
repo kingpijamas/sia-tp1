@@ -10,6 +10,6 @@ import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 public class CalcudokuEngine extends GPSEngine<CalcudokuRule, CalcudokuState> {
 	public CalcudokuEngine(GPSProblem<CalcudokuRule, CalcudokuState> problem,
 			SearchStrategy searchStrategy) {
-		super(problem, searchStrategy);
+		super(problem, searchStrategy, problem.getRules().size());
 	}
 }
