@@ -30,7 +30,7 @@ Las siguientes heuríticas fueron probadas con tableros de hasta 5 por 5 casille
 
 #### H1
 La heurística consiste en la siguiente ecuación:
-![](https://raw.githubusercontent.com/kpjjpk/sia-tp1/master/images/h1.png)
+![](https://raw.githubusercontent.com/kpjjpk/sia-tp1/informe/images/h1.png)
 
 La idea detrás de este heurística es estimar la cantidad de intercambios entre casilleros considerando cual de los parámetros (G o C) presenta una mayor cantidad de elementos incorrectos. Esto se obtiene mediante la función "máximo". 
 Luego a este valor máximo, se lo divide por dos debido a lo siguiente:
@@ -39,7 +39,7 @@ Luego a este valor máximo, se lo divide por dos debido a lo siguiente:
 
 #### H2 
 La heurística consiste en la siguiente fórmula:
-![](https://raw.githubusercontent.com/kpjjpk/sia-tp1/master/images/h2.png)
+![](https://raw.githubusercontent.com/kpjjpk/sia-tp1/informe/images/h2.png)
 
 Esta fórmula se obtiene calculando el promedio entre G y C; y luego dividiendo este resultado por dos. Al dividir este promedio, se obtiene una cantidad menor o igual a la cantidad real de pasos que faltan para obtener la solución.
 
