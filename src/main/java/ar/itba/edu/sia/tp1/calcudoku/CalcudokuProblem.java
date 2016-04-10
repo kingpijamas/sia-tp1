@@ -3,6 +3,7 @@ package ar.itba.edu.sia.tp1.calcudoku;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
@@ -13,22 +14,31 @@ import ar.itba.edu.sia.tp1.gps.ProblemParser;
 /**
  * Created by scamisay on 02/04/16.
  */
-public class CalcudokuProblem implements GPSProblem<CalcudokuRule, CalcudokuState> {
+public class CalcudokuProblem implements
+		GPSProblem<CalcudokuRule, CalcudokuState> {
 	private final CalcudokuState initialState;
 	private final List<CalcudokuRule> rules;
-	private final GPSHeuristic<CalcudokuState> heuristic;
+	private final Optional<GPSHeuristic<CalcudokuState>> heuristic;
+
+	public CalcudokuProblem(Board board) {
+		this(board, null);
+	}
 
 	public CalcudokuProblem(Board board, GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = new CalcudokuState(board);
 		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
-		this.heuristic = heuristic;
+		this.heuristic = Optional.ofNullable(heuristic);
+	}
+
+	public CalcudokuProblem(CalcudokuState initialState) {
+		this(initialState, null);
 	}
 
 	public CalcudokuProblem(CalcudokuState initialState,
 			GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = initialState;
 		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
-		this.heuristic = heuristic;
+		this.heuristic = Optional.ofNullable(heuristic);
 	}
 
 	public CalcudokuProblem(ProblemParser<CalcudokuState> problemReader,
@@ -60,7 +70,7 @@ public class CalcudokuProblem implements GPSProblem<CalcudokuRule, CalcudokuStat
 
 	@Override
 	public int getHValue(CalcudokuState state) {
-		return heuristic.getValue(state);
+		return heuristic.get().getValue(state);
 	}
 
 	// public void fillBoardWithRandomValues() {

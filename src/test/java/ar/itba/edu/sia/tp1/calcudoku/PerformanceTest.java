@@ -16,7 +16,9 @@ import ar.itba.edu.sia.tp1.utils.timing.TimedResults;
 import ar.itba.edu.sia.tp1.utils.timing.Timer;
 
 public class PerformanceTest extends GenericTest {
-	private static final GPSHeuristic<CalcudokuState> dummyHeuristic = state -> 1;
+	private static final GPSHeuristic<CalcudokuState> dummyHeuristic = state -> {
+		throw new IllegalStateException();
+	};
 
 	private static final List<GPSHeuristic<CalcudokuState>> heuristics = Arrays
 			.asList(new H1(), new H2());

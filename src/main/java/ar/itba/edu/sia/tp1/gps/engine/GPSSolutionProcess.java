@@ -45,11 +45,12 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	}
 
 	protected void explode(GPSNode<R, S> node) {
-		explosionCount++;
 		if (!isBetterThanCurrentBest(node)) {
 			return;
 		}
 		updateBestCost(node);
+		explosionCount++; // TODO: ask whether this should go below
+
 		for (R rule : problem.getRules()) {
 			Optional<S> newStateOpt = node.getState().apply(rule);
 

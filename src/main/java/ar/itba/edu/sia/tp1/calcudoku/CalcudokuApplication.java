@@ -38,8 +38,8 @@ public class CalcudokuApplication {
 		int n = board.getN();
 
 		GPSHeuristic<CalcudokuState> heuristic = new H1();
-		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(board),
-				heuristic);
+		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(
+				board), heuristic);
 		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
@@ -234,7 +234,8 @@ public class CalcudokuApplication {
 			Board initialBoard, SearchStrategy strategy,
 			GPSHeuristic<CalcudokuState> h) {
 
-		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(initialBoard), h);
+		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(
+				initialBoard), h);
 		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
