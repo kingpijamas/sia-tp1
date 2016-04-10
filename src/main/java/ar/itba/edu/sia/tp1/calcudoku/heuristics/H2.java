@@ -6,5 +6,10 @@ public class H2 extends Heuristic{
 	int getH(int incorrect_groups, int incorrect_columns) {
 		return (int) Math.ceil((incorrect_columns+incorrect_groups)/4.0);
 	}
+	
 
+	@Override
+	public String toString() {
+		return "H2" ;
+	}
 }
