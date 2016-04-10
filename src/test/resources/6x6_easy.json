@@ -1,89 +1,251 @@
 {
-"n":6,
-"groups":[
-			{"positions":[{"row":0,"col":0},{"row":0,"col":1}],
-			"operator":"PLUS",
-			"result":5
-			},
-			{"positions":[{"row":0,"col":2},{"row":0,"col":3}],
-			"operator":"MULTIPLY",
-			"result":6
-			},			
-			{"positions":[{"row":0,"col":4},{"row":1,"col":4}],
-			"operator":"MINUS",
-			"result":5
-			},
-			{"positions":[{"row":0,"col":5}],
-			"operator":"IDENTITY",
-			"result":5
-			},
-			{"positions":[{"row":1,"col":0},{"row":1,"col":1}],
-			"operator":"PLUS",
-			"result":11
-			},
-			
-			{"positions":[{"row":1,"col":2},{"row":2,"col":2}],
-			"operator":"MULTIPLY",
-			"result":20
-			},
-			{"positions":[{"row":1,"col":3},{"row":2,"col":3}],
-			"operator":"DIVIDE",
-			"result":2
-			},
-			{"positions":[{"row":1,"col":5},{"row":2,"col":4},{"row":2,"col":5}],
-			"operator":"MULTIPLY",
-			"result":72
-			},
-			
-			{"positions":[{"row":2,"col":0},{"row":2,"col":1},{"row":3,"col":0}],
-			"operator":"PLUS",
-			"result":11
-			},
-			
-			
-			{"positions":[{"row":3,"col":1},{"row":3,"col":2},{"row":4,"col":2}],
-			"operator":"MULTIPLY",
-			"result":9
-			},
-			
-			
-			{"positions":[{"row":3,"col":3},{"row":4,"col":3}],
-			"operator":"PLUS",
-			"result":11
-			},
-			
-			{"positions":[{"row":3,"col":4},{"row":3,"col":5},{"row":4,"col":5}],
-			"operator":"MULTIPLY",
-			"result":16
-			},
-			
-			{"positions":[{"row":4,"col":0},{"row":5,"col":0}],
-			"operator":"MINUS",
-			"result":2
-			},
-			
-			{"positions":[{"row":4,"col":1}],
-			"operator":"IDENTITY",
-			"result":1
-			},
-			
-			
-			{"positions":[{"row":5,"col":1},{"row":5,"col":2}],
-			"operator":"PLUS",
-			"result":11
-			},
-			
-				
-			{"positions":[{"row":5,"col":3}],
-			"operator":"IDENTITY",
-			"result":4
-			},
-				
-			{"positions":[{"row":4,"col":4},{"row":5,"col":4},{"row":5,"col":5}],
-			"operator":"MULTIPLY",
-			"result":15
-			}
-			
-		]
-
+  "n": 6,
+  "groups": [
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 0
+        },
+        {
+          "row": 0,
+          "col": 1
+        }
+      ],
+      "operator": "PLUS",
+      "result": 5
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 2
+        },
+        {
+          "row": 0,
+          "col": 3
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 6
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 4
+        },
+        {
+          "row": 1,
+          "col": 4
+        }
+      ],
+      "operator": "MINUS",
+      "result": 5
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 5
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 5
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 0
+        },
+        {
+          "row": 1,
+          "col": 1
+        }
+      ],
+      "operator": "PLUS",
+      "result": 11
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 2
+        },
+        {
+          "row": 2,
+          "col": 2
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 20
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 3
+        },
+        {
+          "row": 2,
+          "col": 3
+        }
+      ],
+      "operator": "DIVIDE",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 5
+        },
+        {
+          "row": 2,
+          "col": 4
+        },
+        {
+          "row": 2,
+          "col": 5
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 72
+    },
+    {
+      "positions": [
+        {
+          "row": 2,
+          "col": 0
+        },
+        {
+          "row": 2,
+          "col": 1
+        },
+        {
+          "row": 3,
+          "col": 0
+        }
+      ],
+      "operator": "PLUS",
+      "result": 11
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 1
+        },
+        {
+          "row": 3,
+          "col": 2
+        },
+        {
+          "row": 4,
+          "col": 2
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 9
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 3
+        },
+        {
+          "row": 4,
+          "col": 3
+        }
+      ],
+      "operator": "PLUS",
+      "result": 11
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 4
+        },
+        {
+          "row": 3,
+          "col": 5
+        },
+        {
+          "row": 4,
+          "col": 5
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 16
+    },
+    {
+      "positions": [
+        {
+          "row": 4,
+          "col": 0
+        },
+        {
+          "row": 5,
+          "col": 0
+        }
+      ],
+      "operator": "MINUS",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 4,
+          "col": 1
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 1
+    },
+    {
+      "positions": [
+        {
+          "row": 5,
+          "col": 1
+        },
+        {
+          "row": 5,
+          "col": 2
+        }
+      ],
+      "operator": "PLUS",
+      "result": 11
+    },
+    {
+      "positions": [
+        {
+          "row": 5,
+          "col": 3
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 4
+    },
+    {
+      "positions": [
+        {
+          "row": 4,
+          "col": 4
+        },
+        {
+          "row": 5,
+          "col": 4
+        },
+        {
+          "row": 5,
+          "col": 5
+        }
+      ],
+      "operator": "MULTIPLY",
+      "result": 15
+    }
+  ]
 }

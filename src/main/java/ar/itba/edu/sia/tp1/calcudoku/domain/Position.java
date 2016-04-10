@@ -1,12 +1,15 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
-
 /**
  * Created by scamisay on 02/04/16.
  */
 public class Position {
 	private final int row;
 	private final int col;
+
+	public static Position position(int row, int col) {
+		return new Position(row, col);
+	}
 
 	public Position(int row, int col) {
 		this.row = row;

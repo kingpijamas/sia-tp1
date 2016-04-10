@@ -109,7 +109,7 @@ public class CalcudokuRule implements GPSRule {
 	}
 
 	@Override
-	public Integer getCost() {
+	public int getCost() {
 		return 1;
 	}
 

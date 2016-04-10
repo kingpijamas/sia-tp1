@@ -1,6 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku.marshall.mapping;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 import static java.util.stream.Collectors.toList;
 
 import java.util.List;

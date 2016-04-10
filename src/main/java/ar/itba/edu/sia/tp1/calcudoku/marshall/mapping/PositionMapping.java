@@ -1,6 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku.marshall.mapping;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 
 import org.boon.json.annotations.JsonInclude;
 import org.boon.json.annotations.JsonProperty;

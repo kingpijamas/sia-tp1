@@ -1,7 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.BitSet;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,45 +25,6 @@ import java.util.stream.Collectors;
  *
  */
 public class Board {
-
-	public static void main(String[] args) {
-		int n = 3;
-
-		List<Group> groups = new ArrayList<>();
-		// Group gSum = new Group(
-		// Arrays.asList(new Position(0, 0), new Position(0, 1),
-		// new Position(1, 0), new Position(2, 0)),
-		// Operator.PLUS, 7);
-		// groups.add(gSum);
-
-		Group gdiv = new Group(
-				Arrays.asList(new Position(2, 1), new Position(2, 2)),
-				Operator.DIVIDE, 2);
-		groups.add(gdiv);
-
-		Group gsub = new Group(
-				Arrays.asList(new Position(1, 1), new Position(1, 2)),
-				Operator.MINUS, 1);
-		groups.add(gsub);
-
-		Board board = new Board(n, groups);
-
-		board.put(new Position(0, 0), 2);
-		board.put(new Position(0, 1), 1);
-		board.put(new Position(0, 2), 3);
-
-		board.put(new Position(1, 0), 1);
-		board.put(new Position(1, 1), 3);
-		board.put(new Position(1, 2), 2);
-
-		board.put(new Position(2, 0), 3);
-		board.put(new Position(2, 1), 2);
-		board.put(new Position(2, 2), 1);
-
-		board.isValid();
-		board.fullToString();
-	}
-
 	private final BitSet data;
 	private final int n;
 	private final List<Group> groups;
@@ -72,7 +32,7 @@ public class Board {
 	public Board(int n, List<Group> groups) {
 		this.n = n;
 		this.groups = groups;
-		data = new BitSet(n * n * n);
+		this.data = new BitSet(n * n * n);
 	}
 
 	private Board(Board baseBoard) {
@@ -92,95 +52,21 @@ public class Board {
 	 * @param value
 	 */
 	public void put(Position position, int value) {
+		put(position.getRow(), position.getCol(), value);
+	}
+
+	public void put(int row, int col, int value) {
 		// representation of value in n bits
 		BitSet bitValue = new BitSet(n);
 
 		// index starts at 0
 		bitValue.set(value - 1);
 
-		putBitSetValue(position, bitValue);
+		putBitSetValue(row, col, bitValue);
 	}
 
 	public boolean isValid() {
 		return areRowsValid() && areColsValid() && areGroupsValid();
-	}
-
-	private boolean areGroupsValid() {
-		for (Group aGroup : getCompleteGroups()) {
-			if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
-				return false;
-			}
-		}
-		return true;
-	}
-
-	public List<Integer> getAllValues(){
-		List<Integer> values = new ArrayList<>();
-		for(int i=0; i<n; i++){
-			for(int j=0; j<n; j++){
-				values.add(getCellValue(i,j));
-			}
-		}
-		return values;
-	}
-
-	// cantidad de grupos inválidos
-	public int  invalidGroupsCount() {
-		int count=0;
-		for (Group aGroup : getCompleteGroups()) {
-			if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
-				count++;
-			}
-		}
-		return count;
-	}
-	// cantida de columnas inválidas
-	public int invalidColumnsCount(){
-		BitSet op = new BitSet(n);
-		int count=0;
-		for (int j = 0; j < n; j++) {
-			for (int i = 0; i < n; i++) {
-				op.or(getCell(i, j));
-			}
-
-			// cardinality counts the number of 1s in the BitSet
-			if (op.cardinality() < n) {
-				count++;
-			}
-			op.clear();
-		}
-		return count;
-
-		
-	}
-	
-	
-
-	private List<Integer> getValuesForGroup(Group aGroup) {
-		return aGroup.getPositions().stream()
-				.map(aPosition -> getCellValue(aPosition))
-				.collect(Collectors.toList());
-	}
-
-	/**
-	 * The binary OR between all elements of each col must be equal to n 1s
-	 * 
-	 * @return
-	 */
-	private boolean areColsValid() {
-		BitSet op = new BitSet(n);
-		for (int j = 0; j < n; j++) {
-			for (int i = 0; i < n; i++) {
-				op.or(getCell(i, j));
-			}
-
-			// cardinality counts the number of 1s in the BitSet
-			if (op.cardinality() < n) {
-				return false;
-			}
-			op.clear();
-		}
-		return true;
 	}
 
 	/**
@@ -204,13 +90,85 @@ public class Board {
 		return true;
 	}
 
-	private BitSet getCell(int i, int j) {
-		int beginning = getBeginningOfCell(new Position(i, j));
-		return data.get(beginning, beginning + n);
+	/**
+	 * The binary OR between all elements of each col must be equal to n 1s
+	 * 
+	 * @return
+	 */
+	private boolean areColsValid() {
+		BitSet op = new BitSet(n);
+		for (int j = 0; j < n; j++) {
+			for (int i = 0; i < n; i++) {
+				op.or(getCell(i, j));
+			}
+
+			// cardinality counts the number of 1s in the BitSet
+			if (op.cardinality() < n) {
+				return false;
+			}
+			op.clear();
+		}
+		return true;
 	}
 
-	public int getN() {
-		return n;
+	private boolean areGroupsValid() {
+		for (Group aGroup : getCompleteGroups()) {
+			if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public List<Integer> getAllValues() {
+		List<Integer> values = new ArrayList<>();
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				values.add(getCellValue(i, j));
+			}
+		}
+		return values;
+	}
+
+	// cantidad de grupos inválidos
+	public int invalidGroupsCount() {
+		int count = 0;
+		for (Group aGroup : getCompleteGroups()) {
+			if (!aGroup.isCorrect(getValuesForGroup(aGroup))) {
+				count++;
+			}
+		}
+		return count;
+	}
+
+	// cantida de columnas inválidas
+	public int invalidColumnsCount() {
+		BitSet op = new BitSet(n);
+		int count = 0;
+		for (int j = 0; j < n; j++) {
+			for (int i = 0; i < n; i++) {
+				op.or(getCell(i, j));
+			}
+
+			// cardinality counts the number of 1s in the BitSet
+			if (op.cardinality() < n) {
+				count++;
+			}
+			op.clear();
+		}
+		return count;
+
+	}
+
+	private List<Integer> getValuesForGroup(Group aGroup) {
+		return aGroup.getPositions().stream()
+				.map(aPosition -> getCellValue(aPosition))
+				.collect(Collectors.toList());
+	}
+
+	private BitSet getCell(int i, int j) {
+		int beginning = getBeginningOfCell(i, j);
+		return data.get(beginning, beginning + n);
 	}
 
 	/**
@@ -219,8 +177,8 @@ public class Board {
 	 * @param position
 	 * @param bitValue
 	 */
-	private void putBitSetValue(Position position, BitSet bitValue) {
-		int beginning = getBeginningOfCell(position);
+	private void putBitSetValue(int row, int col, BitSet bitValue) {
+		int beginning = getBeginningOfCell(row, col);
 
 		for (int i = 0; i < n; i++) {
 			data.set(beginning + i, bitValue.get(i));
@@ -230,11 +188,15 @@ public class Board {
 	/**
 	 * devuelve index en el bitset para el inicio del dato en el casillero
 	 */
-	private int getBeginningOfCell(Position position) {
-		return position.getCol() * n + position.getRow() * n * n;
+	private int getBeginningOfCell(int row, int col) {
+		return row * n + col * n * n;
 	}
 
-	private Integer getCellValue(int i, int j) {
+	public Integer getCellValue(Position aPosition) {
+		return getCellValue(aPosition.getRow(), aPosition.getCol());
+	}
+
+	public Integer getCellValue(int i, int j) {
 		BitSet cell = getCell(i, j);
 		for (int index = 0; index < n; index++) {
 			if (cell.get(index)) {
@@ -244,25 +206,20 @@ public class Board {
 		return null;
 	}
 
-	public Integer getCellValue(Position aPosition) {
-		return getCellValue(aPosition.getRow(), aPosition.getCol());
-	}
-
 	public void swapCellValues(Position from, Position to) {
 		int aux = getCellValue(to);
 		put(to, getCellValue(from));
 		put(from, aux);
 	}
 
-	public List<Group> getGroups() {
-		return groups;
-	}
-
-	public List<Group> getCompleteGroups() { // FIXME: don't use Streams for
-												// code that'll be called too
-												// often
-		return groups.stream().filter(aGroup -> isACompleteGroup(aGroup))
-				.collect(Collectors.toList());
+	public List<Group> getCompleteGroups() {
+		List<Group> completeGroups = new ArrayList<>(groups.size());
+		for (Group group : groups) {
+			if (isACompleteGroup(group)) {
+				completeGroups.add(group);
+			}
+		}
+		return completeGroups;
 	}
 
 	private boolean isACompleteGroup(Group aGroup) {
@@ -272,6 +229,14 @@ public class Board {
 			}
 		}
 		return true;
+	}
+
+	public int getN() {
+		return n;
+	}
+
+	public List<Group> getGroups() {
+		return groups;
 	}
 
 	@Override

@@ -1,9 +1,8 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 	private final GPSNode<R, S> parent;
@@ -59,6 +58,7 @@ public class GPSNode<R extends GPSRule, S extends GPSState<R, S>> {
 	}
 
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;

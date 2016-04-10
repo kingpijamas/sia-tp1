@@ -1,11 +1,23 @@
 {
-"n":3,
-"groups":[
-			{"positions":[{"row":0,"col":0},{"row":0,"col":1},{"row":0,"col":2}],
-			"operator":"'-'",
-			"result":5
-			}
-		
-		]
-
+  "n": 3,
+  "groups": [
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 0
+        },
+        {
+          "row": 0,
+          "col": 1
+        },
+        {
+          "row": 0,
+          "col": 2
+        }
+      ],
+      "operator": "'-'",
+      "result": 5
+    }
+  ]
 }
