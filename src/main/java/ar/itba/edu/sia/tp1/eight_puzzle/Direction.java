@@ -18,16 +18,16 @@ public enum Direction {
 	@Override
 	public String toString() {
 		switch (this) {
-			case LEFT :
-				return "Left";
-			case DOWN :
-				return "Down";
-			case RIGHT :
-				return "Right";
-			case UP :
-				return "Up";
-			default :
-				throw new IllegalStateException();
+		case LEFT:
+			return "Left";
+		case DOWN:
+			return "Down";
+		case RIGHT:
+			return "Right";
+		case UP:
+			return "Up";
+		default:
+			throw new IllegalStateException();
 		}
 	}
 }

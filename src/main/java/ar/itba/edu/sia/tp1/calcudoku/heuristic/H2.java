@@ -12,4 +12,9 @@ public class H2 extends CalcudokuHeuristic {
 		int invalidColumns = board.invalidColumnsCount();
 		return (int) ceil((invalidGroups + invalidColumns) / 4.0);
 	}
+
+	@Override
+	public String toString() {
+		return "H2";
+	}
 }

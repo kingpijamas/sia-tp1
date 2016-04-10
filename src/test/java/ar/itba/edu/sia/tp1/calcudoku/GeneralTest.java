@@ -2,7 +2,6 @@ package ar.itba.edu.sia.tp1.calcudoku;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,6 +11,7 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H2;
+import ar.itba.edu.sia.tp1.calcudoku.run.CalcudokuRun;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
@@ -21,7 +21,7 @@ public class GeneralTest extends GenericTest {
 			new H1(), new H2());
 
 	// answers: es una matriz de 3 columnas(i,j, valor esperado en dicha celda)
-	private void runTest(String fileName, int[][] answers) throws IOException {
+	private void runTest(String fileName, int[][] answers) throws Exception {
 		Board originalboard = setUp(fileName);
 
 		for (SearchStrategy strategy : SearchStrategy.unInformed()) {
@@ -39,11 +39,11 @@ public class GeneralTest extends GenericTest {
 	}
 
 	private void runStrategyTest(Board board, SearchStrategy strategy,
-			GPSHeuristic<CalcudokuState> h, int[][] answers) {
+			GPSHeuristic<CalcudokuState> h, int[][] answers) throws Exception {
 		System.out.println(strategy);
 
-		GPSSolution<CalcudokuRule, CalcudokuState> solution = CalcudokuApplication
-				.getSolution(board, strategy, h);
+		GPSSolution<CalcudokuRule, CalcudokuState> solution = new CalcudokuRun(
+				board, strategy, h).run();
 
 		Board finalBoard = getSolutionBoard(solution);
 		assert solution.isSuccess();
@@ -58,7 +58,7 @@ public class GeneralTest extends GenericTest {
 
 	// 2x2
 	@Test
-	public void test1() throws IOException {
+	public void test1() throws Exception {
 		String fileName = "./src/test/resources/A.json";
 
 		int[][] answers = { { 0, 0, 1 }, { 0, 1, 2 }, { 1, 0, 2 }, { 1, 1, 1 } };
@@ -67,7 +67,7 @@ public class GeneralTest extends GenericTest {
 
 	// 2x2
 	@Test
-	public void test2() throws IOException {
+	public void test2() throws Exception {
 		String fileName = "./src/test/resources/D.json";
 
 		int[][] answers = { { 0, 0, 1 }, { 0, 1, 2 }, { 1, 0, 2 }, { 1, 1, 1 } };
@@ -76,7 +76,7 @@ public class GeneralTest extends GenericTest {
 
 	// 3x3
 	@Test
-	public void test3() throws IOException {
+	public void test3() throws Exception {
 		String fileName = "./src/test/resources/3x3_easy1.json";
 
 		int[][] answers = { { 0, 0, 3 }, { 0, 1, 1 }, { 0, 2, 2 }, { 1, 0, 2 },
@@ -86,7 +86,7 @@ public class GeneralTest extends GenericTest {
 
 	// 3x3
 	@Test
-	public void test4() throws IOException {
+	public void test4() throws Exception {
 		String fileName = "./src/test/resources/3x3_easy2.json";
 
 		int[][] answers = { { 0, 0, 2 }, { 0, 1, 1 }, { 0, 2, 3 }, { 1, 0, 1 },
@@ -96,7 +96,7 @@ public class GeneralTest extends GenericTest {
 
 	// 4x4
 	// @Test
-	public void test5() throws IOException {
+	public void test5() throws Exception {
 		String fileName = "./src/test/resources/4X4_easy.json";
 
 		int[][] answers = { { 0, 0, 4 }, { 0, 1, 3 }, { 0, 2, 2 }, { 0, 3, 1 },
