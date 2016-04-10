@@ -9,5 +9,5 @@ public interface GPSRule {
 	 *
 	 * @return The cost of the rule.
 	 */
-	Integer getCost();
+	int getCost();
 }

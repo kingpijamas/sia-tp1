@@ -12,7 +12,8 @@ import ar.itba.edu.sia.tp1.calcudoku.heuristic.H2;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
-import ar.itba.edu.sia.tp1.utils.Chronometer;
+import ar.itba.edu.sia.tp1.utils.timing.TimedResults;
+import ar.itba.edu.sia.tp1.utils.timing.Timer;
 
 public class PerformanceTest extends GenericTest {
 	private static final GPSHeuristic<CalcudokuState> dummyHeuristic = state -> 1;
@@ -20,7 +21,7 @@ public class PerformanceTest extends GenericTest {
 	private static final List<GPSHeuristic<CalcudokuState>> heuristics = Arrays
 			.asList(new H1(), new H2());
 
-	public void performanceTest() throws IOException {
+	public void performanceTest() throws Exception {
 		String outputfileName = "./src/test/resources/performanceN=3.csv";
 		String[] inputFileName = { "./src/test/resources/3x3_easy1.json",
 				"./src/test/resources/3x3_easy2.json",
@@ -29,7 +30,7 @@ public class PerformanceTest extends GenericTest {
 
 	}
 
-	public void performanceTest2() throws IOException {
+	public void performanceTest2() throws Exception {
 		String outputfileName = "./src/test/resources/performanceN=4.csv";
 		String[] inputFileName = { "./src/test/resources/4x4_easy.json",
 				"./src/test/resources/4x4_medium.json",
@@ -37,7 +38,7 @@ public class PerformanceTest extends GenericTest {
 		runTest(outputfileName, inputFileName);
 	}
 
-	public void performanceTest3() throws IOException {
+	public void performanceTest3() throws Exception {
 		String outputfileName = "./src/test/resources/performanceN=6.csv";
 		String[] inputFileName = { "src/test/resources/6x6_easy.json" };
 		runTest(outputfileName, inputFileName);
@@ -47,32 +48,28 @@ public class PerformanceTest extends GenericTest {
 	// tabler.
 	// Cada matriz es de 3 columnas(i,j, valor esperado en dicha celda)
 	private void runTest(String csvFileName, String[] fileNameArray)
-			throws IOException {
+			throws Exception {
 
 		BufferedWriter writer = new BufferedWriter(new FileWriter(csvFileName));
 		int files_count = fileNameArray.length;
 
-		Chronometer chronometer = new Chronometer();
-
 		for (SearchStrategy strategy : SearchStrategy.values()) {
 			for (GPSHeuristic<CalcudokuState> heuristic : getHeuristicsFor(strategy)) {
-				chronometer.reset();
-
 				for (int index = 0; index < files_count; index++) {
-					long currentTime = 0;
-
 					String fileName = fileNameArray[index];
 					Board originalboard = setUp(fileName);
 					Board board = originalboard.deepCopy();
 
-					GPSSolution<CalcudokuRule, CalcudokuState> solution = CalcudokuApplication
-							.getSolution(board, strategy, heuristic);
+					TimedResults<GPSSolution<CalcudokuRule, CalcudokuState>> timedResult = Timer
+							.time(() -> CalcudokuApplication.getSolution(board,
+									strategy, heuristic));
+
+					GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResult
+							.getLast().getValue();
+					long time = timedResult.getLast().getElapsedTime();
 
 					Board finalBoard = getSolutionBoard(solution);
-					currentTime = chronometer.stop();
-
-					recordData(writer, currentTime, solution, strategy,
-							heuristic);
+					recordData(writer, time, solution, strategy, heuristic);
 				}
 			}
 		}

@@ -27,17 +27,15 @@ public class GenericTest {
 
 	protected Board getSolutionBoard(
 			GPSSolution<CalcudokuRule, CalcudokuState> solution) {
-		if (solution != null) {
-			Iterable<GPSNode<CalcudokuRule, CalcudokuState>> path = solution
-					.getPath();
-			Board finalBoard = null;
-			for (GPSNode<CalcudokuRule, CalcudokuState> node : path) {
-				finalBoard = node.getState().getBoard();
-			}
-			return finalBoard;
+		if (solution.isFailure()) {
+			return null;
 		}
-		return null;
-
+		Iterable<GPSNode<CalcudokuRule, CalcudokuState>> path = solution
+				.getPath();
+		Board finalBoard = null;
+		for (GPSNode<CalcudokuRule, CalcudokuState> node : path) {
+			finalBoard = node.getState().getBoard();
+		}
+		return finalBoard;
 	}
-
 }

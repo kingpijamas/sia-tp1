@@ -4,7 +4,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public enum SearchStrategy {
-	GREEDY(true), A_STAR(true),IDDFS,BFS, DFS; 
+	GREEDY(true), A_STAR(true), IDDFS, BFS, DFS;
 
 	private final boolean informed;
 
@@ -21,10 +21,12 @@ public enum SearchStrategy {
 	}
 
 	public static Iterable<SearchStrategy> informed() {
-		return Stream.of(values()).filter(SearchStrategy::isInformed).collect(Collectors.toList());
+		return Stream.of(values()).filter(SearchStrategy::isInformed)
+				.collect(Collectors.toList());
 	}
 
 	public static Iterable<SearchStrategy> unInformed() {
-		return Stream.of(values()).filter(strategy -> !strategy.isInformed()).collect(Collectors.toList());
+		return Stream.of(values()).filter(strategy -> !strategy.isInformed())
+				.collect(Collectors.toList());
 	}
 }
