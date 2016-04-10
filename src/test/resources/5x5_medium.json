@@ -1,0 +1,60 @@
+{
+"n":5,
+"groups":[
+			{"positions":[{"row":0,"col":0},{"row":1,"col":0},{"row":1,"col":1}],
+			"operator":"MULTIPLY",
+			"result":30
+			},
+			{"positions":[{"row":0,"col":1}],
+			"operator":"IDENTITY",
+			"result":4
+			},
+			{"positions":[{"row":0,"col":2},{"row":0,"col":3}],
+			"operator":"DIVIDE",
+			"result":2
+			},
+			{"positions":[{"row":0,"col":4},{"row":1,"col":4},{"row":2,"col":4}],
+			"operator":"MULTIPLY",
+			"result":12
+			},
+			{"positions":[{"row":1,"col":2},{"row":1,"col":3}],
+			"operator":"PLUS",
+			"result":9
+			},
+			{"positions":[{"row":2,"col":0},{"row":2,"col":1}],
+			"operator":"MINUS",
+			"result":4
+			},
+			{"positions":[{"row":2,"col":2},{"row":2,"col":3}],
+			"operator":"MINUS",
+			"result":1
+			},
+			{"positions":[{"row":3,"col":0},{"row":4,"col":0}],
+			"operator":"MINUS",
+			"result":1
+			},
+			{"positions":[{"row":3,"col":1},{"row":3,"col":2}],
+			"operator":"MINUS",
+			"result":1
+			},
+			{"positions":[{"row":3,"col":3},{"row":3,"col":4}],
+			"operator":"MINUS",
+			"result":4
+			},
+			{"positions":[{"row":4,"col":1},{"row":4,"col":2}],
+			"operator":"MINUS",
+			"result":3
+			},
+			{"positions":[{"row":4,"col":3},{"row":4,"col":4}],
+			"operator":"MINUS",
+			"result":3
+			}
+			
+			
+			
+			
+			
+			
+		]
+
+}

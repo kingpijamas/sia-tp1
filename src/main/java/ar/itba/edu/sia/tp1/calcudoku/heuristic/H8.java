@@ -13,4 +13,10 @@ public class H8 extends CalcudokuHeuristic {
 		int h1Value = h1.getValue(state);
 		return h1Value * h1Value;
 	}
+	
+	
+	@Override
+	public String toString() {
+		return "H8";
+	}
 }
