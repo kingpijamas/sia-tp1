@@ -1,6 +1,6 @@
 package ar.itba.edu.sia.tp1.gps.engine;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
 import ar.itba.edu.sia.tp1.gps.GPSState;
 

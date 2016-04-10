@@ -1,12 +1,14 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
+import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.ProblemParser;
@@ -32,6 +34,10 @@ public class CalcudokuProblem implements
 
 	public CalcudokuProblem(CalcudokuState initialState) {
 		this(initialState, null);
+	}
+
+	public CalcudokuProblem(int n, CalcudokuHeuristic heuristic) {
+		this(new CalcudokuState(new Board(n, Arrays.asList())), heuristic);
 	}
 
 	public CalcudokuProblem(CalcudokuState initialState,

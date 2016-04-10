@@ -1,4 +1,4 @@
-package ar.itba.edu.sia.tp1.utils.timing;
+package ar.itba.edu.sia.tp1.util.timing;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -25,7 +25,11 @@ public class TimedResults<V> {
 	}
 
 	// NOTE: sample std dev
-	public double getStdDev() {
+	public Double getStdDev() {
+		if (timedResults.size() == 1) {
+			return null; // No deviation, just one value
+		}
+
 		double avgTime = getAvg();
 
 		double diffsToMean = elapsedTimes().collect(

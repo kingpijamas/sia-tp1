@@ -1,12 +1,12 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
-import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
+import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import ar.itba.edu.sia.tp1.utils.ComparatorUtils;
+import ar.itba.edu.sia.tp1.util.ComparatorUtils;
 
 /**
  * Created by scamisay on 02/04/16.

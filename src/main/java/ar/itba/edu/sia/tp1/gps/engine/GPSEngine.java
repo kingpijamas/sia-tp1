@@ -3,9 +3,6 @@ package ar.itba.edu.sia.tp1.gps.engine;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
-import java.util.stream.Collectors;
-
-import org.apache.commons.collections4.IterableUtils;
 
 import ar.itba.edu.sia.tp1.gps.GPSProblem;
 import ar.itba.edu.sia.tp1.gps.GPSRule;
@@ -16,7 +13,8 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 	private final GPSProblem<R, S> problem;
 	private final int maxSolutionDepth;
 
-	public GPSEngine(GPSProblem<R, S> problem, SearchStrategy searchStrategy, int maxSolutionDepth) {
+	public GPSEngine(GPSProblem<R, S> problem, SearchStrategy searchStrategy,
+			int maxSolutionDepth) {
 		this.problem = problem;
 		this.searchStrategy = searchStrategy;
 		this.maxSolutionDepth = maxSolutionDepth;
@@ -24,23 +22,12 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 
 	public GPSSolution<R, S> solve() {
 		GPSSolutionProcess<R, S> solutionProcess = buildSolutionProcess();
-		GPSSolution<R, S> solution = solutionProcess.solve();
-
-		if (solution.isSuccess()) {
-			System.out.println("OK! solution found!");
-			System.out.println("Expanded nodes: " + solution.getExplosionCount());
-			System.out.println("Solution cost: " + solution.getCost());
-			System.out.println("\nSolution path (chronological order):\n" + IterableUtils.toList(solution.getPath())
-					.stream().map(GPSNode::toString).collect(Collectors.joining("\n")));
-		} else {
-			System.err.println("FAILED! solution not found!");
-			System.out.println("Expanded nodes: " + solution.getExplosionCount());
-		}
-		return solution;
+		return solutionProcess.solve();
 	}
 
 	private GPSSolutionProcess<R, S> buildSolutionProcess() {
-		return new GPSSolutionProcess<>(problem, () -> buildOpenNodes(), searchStrategy, maxSolutionDepth);
+		return new GPSSolutionProcess<>(problem, () -> buildOpenNodes(),
+				searchStrategy, maxSolutionDepth);
 	}
 
 	protected Queue<GPSNode<R, S>> buildOpenNodes() {

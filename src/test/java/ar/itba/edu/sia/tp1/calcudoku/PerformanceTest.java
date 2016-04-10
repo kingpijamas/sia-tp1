@@ -12,8 +12,8 @@ import ar.itba.edu.sia.tp1.calcudoku.heuristic.H2;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
-import ar.itba.edu.sia.tp1.utils.timing.TimedResults;
-import ar.itba.edu.sia.tp1.utils.timing.Timer;
+import ar.itba.edu.sia.tp1.util.timing.TimedResults;
+import ar.itba.edu.sia.tp1.util.timing.Timer;
 
 public class PerformanceTest extends GenericTest {
 	private static final GPSHeuristic<CalcudokuState> dummyHeuristic = state -> {
@@ -63,8 +63,11 @@ public class PerformanceTest extends GenericTest {
 					Board board = originalboard.deepCopy();
 
 					TimedResults<GPSSolution<CalcudokuRule, CalcudokuState>> timedResult = Timer
-							.time(() -> CalcudokuApplication.getSolution(board,
-									strategy, heuristic));
+							.timer()
+							.timesToRun(1)
+							.keepOnlyLastResult()
+							.toTime(() -> CalcudokuApplication.getSolution(
+									board, strategy, heuristic)).start();
 
 					GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResult
 							.getLast().getValue();

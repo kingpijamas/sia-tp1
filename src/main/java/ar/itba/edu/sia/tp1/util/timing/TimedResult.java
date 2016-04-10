@@ -1,4 +1,4 @@
-package ar.itba.edu.sia.tp1.utils.timing;
+package ar.itba.edu.sia.tp1.util.timing;
 
 public class TimedResult<V> {
 	private V value;

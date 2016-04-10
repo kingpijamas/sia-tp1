@@ -1,7 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
 import static ar.itba.edu.sia.tp1.calcudoku.domain.Position.position;
-import static ar.itba.edu.sia.tp1.utils.timing.Timer.time;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -15,10 +14,12 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
+import ar.itba.edu.sia.tp1.calcudoku.view.CalcudokuJsPrinter;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
-import ar.itba.edu.sia.tp1.utils.timing.TimedResults;
+import ar.itba.edu.sia.tp1.util.timing.TimedResults;
+import ar.itba.edu.sia.tp1.util.timing.Timer;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -34,7 +35,7 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-		Board board = new Board(6, Arrays.asList()); // getBoard3X3();
+		Board board = new Board(5, Arrays.asList()); // getBoard3X3();
 		// Board board = getBoard6X6FromJson();
 		int n = board.getN();
 
@@ -50,16 +51,17 @@ public class CalcudokuApplication {
 				SearchStrategy.A_STAR);
 
 		try {
-			TimedResults<Void> timedResults = time(1,
-					calcudoku::fillBoardWithRandomValuesInRows, () -> {
-						engine.solve();
-					});
+			TimedResults<GPSSolution<CalcudokuRule, CalcudokuState>> timedResults = Timer
+					.timer().timesToRun(1).keepOnlyLastResult()
+					.setUpWith(calcudoku::fillBoardWithRandomValuesInRows)
+					.toTime(engine::solve).start();
+			GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResults
+					.getLast().getValue();
 
-			System.out.println(timedResults.getAvg());
-			System.out.println(timedResults.getStdDev());
-			// System.out.println(new CalcudokuJSPrinter().printJS(solution
-			// .getLast().getValue(), n));
-			System.out.print(1);
+			System.out.println(timedResults.getAvg() + " ms");
+			System.out.println(timedResults.getStdDev() + " ms^2");
+			System.out.println("\n--JSON--");
+			System.out.println(new CalcudokuJsPrinter().print(solution, n));
 		} catch (StackOverflowError e) {
 			System.out.println("Solution (if any) too deep for stack.");
 		}

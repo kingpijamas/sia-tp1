@@ -12,11 +12,11 @@ import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 /**
  * Created by scamisay on 09/04/16.
  */
-public class CalcudokuJSPrinter {
+public class CalcudokuJsPrinter {
 	private static final int RADIO = 25;
 	private static final int CIRCLE_DIAMETER = 2 * RADIO + 10;
 
-	public String printJS(GPSSolution<CalcudokuRule, CalcudokuState> solution,
+	public String print(GPSSolution<CalcudokuRule, CalcudokuState> solution,
 			int n) {
 		StringBuffer aSolution = new StringBuffer();
 		aSolution.append("var ");
