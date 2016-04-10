@@ -13,25 +13,25 @@ import ar.itba.edu.sia.tp1.gps.ProblemParser;
 /**
  * Created by scamisay on 02/04/16.
  */
-public class Calcudoku implements GPSProblem<CalcudokuRule, CalcudokuState> {
+public class CalcudokuProblem implements GPSProblem<CalcudokuRule, CalcudokuState> {
 	private final CalcudokuState initialState;
 	private final List<CalcudokuRule> rules;
 	private final GPSHeuristic<CalcudokuState> heuristic;
 
-	public Calcudoku(Board board, GPSHeuristic<CalcudokuState> heuristic) {
+	public CalcudokuProblem(Board board, GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = new CalcudokuState(board);
 		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
-	public Calcudoku(CalcudokuState initialState,
+	public CalcudokuProblem(CalcudokuState initialState,
 			GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = initialState;
 		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
 		this.heuristic = heuristic;
 	}
 
-	public Calcudoku(ProblemParser<CalcudokuState> problemReader,
+	public CalcudokuProblem(ProblemParser<CalcudokuState> problemReader,
 			GPSHeuristic<CalcudokuState> heuristic) {
 		this(problemReader.parse(), heuristic);
 	}

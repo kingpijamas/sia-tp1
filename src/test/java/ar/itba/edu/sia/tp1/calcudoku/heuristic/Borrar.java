@@ -1,4 +1,4 @@
-package ar.itba.edu.sia.tp1.calcudoku.heuristics;
+package ar.itba.edu.sia.tp1.calcudoku.heuristic;
 
 import static java.util.Arrays.asList;
 
@@ -13,13 +13,13 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonSerializer;
 
-public class Borrar {
+public class Borrar { // XXX
 
 	public static void main(String[] args) {
-		String fileName="./src/test/resources/serialized";
+		String fileName = "./src/test/resources/serialized";
 		CalcudokuJsonSerializer serializer;
 
-		OutputStream os=null;
+		OutputStream os = null;
 		try {
 			os = new FileOutputStream(fileName);
 		} catch (FileNotFoundException e) {
@@ -37,7 +37,7 @@ public class Borrar {
 		serializer.serialize(stateWritten);
 
 	}
-	
+
 	private static Position position(int row, int col) {
 		return new Position(row, col);
 	}

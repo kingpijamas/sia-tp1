@@ -2,6 +2,7 @@ package ar.itba.edu.sia.tp1.calcudoku.domain;
 
 import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -13,6 +14,10 @@ public class Group {
 	private final List<Position> positions;
 	private final Operator operator;
 	private final int result;
+
+	public static Group of(Operator operator, int result, Position... positions) {
+		return new Group(Arrays.asList(positions), operator, result);
+	}
 
 	public Group(List<Position> positions, Operator operator, int result) {
 		this.positions = Collections.unmodifiableList(positions);
@@ -34,39 +39,40 @@ public class Group {
 
 	public boolean isCorrect(List<Integer> values) {
 		switch (operator) {
-			case IDENTITY :
-				return isCorrectIdentity(values);
-			case PLUS :
-				return isCorrectPlus(values);
-			case MULTIPLY :
-				return isCorrectMultiply(values);
-			case DIVIDE :
-				return isCorrectDivide(values);
-			case MINUS :
-				return isCorrectMinus(values);
+		case IDENTITY:
+			return isCorrectIdentity(values);
+		case PLUS:
+			return isCorrectPlus(values);
+		case MULTIPLY:
+			return isCorrectMultiply(values);
+		case DIVIDE:
+			return isCorrectDivide(values);
+		case MINUS:
+			return isCorrectMinus(values);
 		}
 		return false;
 	}
 
-    /**
-     * As result is always positive then 'values' is sorted desc and values are substracted in that order.
-     * It is true if the substraction equals 'result'
-     * @param values
-     * @return
-     */
+	/**
+	 * As result is always positive then 'values' is sorted desc and values are
+	 * substracted in that order. It is true if the substraction equals 'result'
+	 * 
+	 * @param values
+	 * @return
+	 */
 	private boolean isCorrectMinus(List<Integer> values) {
-        Collections.sort(values);
-        Collections.reverse(values);
+		Collections.sort(values);
+		Collections.reverse(values);
 
-        Integer substraction = 0;
-        Iterator<Integer> it = values.iterator();
-        if(it.hasNext()){
-            substraction = it.next();
-        }
+		Integer substraction = 0;
+		Iterator<Integer> it = values.iterator();
+		if (it.hasNext()) {
+			substraction = it.next();
+		}
 
-        while (it.hasNext()){
-            substraction -= it.next();
-        }
+		while (it.hasNext()) {
+			substraction -= it.next();
+		}
 		return result == substraction;
 	}
 
@@ -77,10 +83,11 @@ public class Group {
 	 * @return
 	 */
 	private boolean isCorrectDivide(List<Integer> values) {
-        Collections.sort(values);
-        Integer greaterValue = values.get(1);
-        Integer lesserValue = values.get(0);
-        return  greaterValue % lesserValue == 0 && result == (greaterValue / lesserValue);
+		Collections.sort(values);
+		Integer greaterValue = values.get(1);
+		Integer lesserValue = values.get(0);
+		return greaterValue % lesserValue == 0
+				&& result == (greaterValue / lesserValue);
 	}
 
 	private boolean isCorrectMultiply(List<Integer> values) {

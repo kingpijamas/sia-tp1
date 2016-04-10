@@ -1,71 +1,165 @@
 {
-"n":4,
-"groups":[
-			{"positions":[{"row":0,"col":0}],
-			"operator":"IDENTITY",
-			"result":1
-			},
-			{"positions":[{"row":0,"col":1}],
-			"operator":"IDENTITY",
-			"result":2
-			},
-			{"positions":[{"row":0,"col":3}],
-			"operator":"IDENTITY",
-			"result":3
-			},
-			{"positions":[{"row":0,"col":4}],
-			"operator":"IDENTITY",
-			"result":4
-			},
-			{"positions":[{"row":1,"col":0}],
-			"operator":"IDENTITY",
-			"result":2
-			},
-			{"positions":[{"row":1,"col":1}],
-			"operator":"IDENTITY",
-			"result":3
-			},
-			{"positions":[{"row":1,"col":2}],
-			"operator":"IDENTITY",
-			"result":4
-			},
-			{"positions":[{"row":1,"col":3}],
-			"operator":"IDENTITY",
-			"result":1
-			},
-			{"positions":[{"row":2,"col":0}],
-			"operator":"IDENTITY",
-			"result":3
-			},
-			{"positions":[{"row":2,"col":1}],
-			"operator":"IDENTITY",
-			"result":4
-			},
-			{"positions":[{"row":2,"col":2}],
-			"operator":"IDENTITY",
-			"result":1
-			},
-			{"positions":[{"row":2,"col":3}],
-			"operator":"IDENTITY",
-			"result":2
-			},
-			{"positions":[{"row":3,"col":0}],
-			"operator":"IDENTITY",
-			"result":4
-			},
-			{"positions":[{"row":3,"col":1}],
-			"operator":"IDENTITY",
-			"result":1
-			},
-			{"positions":[{"row":3,"col":2}],
-			"operator":"IDENTITY",
-			"result":2
-			},
-			{"positions":[{"row":3,"col":3}],
-			"operator":"IDENTITY",
-			"result":3
-			}
-			
-		]
-
+  "n": 4,
+  "groups": [
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 0
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 1
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 1
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 3
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 3
+    },
+    {
+      "positions": [
+        {
+          "row": 0,
+          "col": 4
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 4
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 0
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 1
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 3
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 2
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 4
+    },
+    {
+      "positions": [
+        {
+          "row": 1,
+          "col": 3
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 1
+    },
+    {
+      "positions": [
+        {
+          "row": 2,
+          "col": 0
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 3
+    },
+    {
+      "positions": [
+        {
+          "row": 2,
+          "col": 1
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 4
+    },
+    {
+      "positions": [
+        {
+          "row": 2,
+          "col": 2
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 1
+    },
+    {
+      "positions": [
+        {
+          "row": 2,
+          "col": 3
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 0
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 4
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 1
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 1
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 2
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 2
+    },
+    {
+      "positions": [
+        {
+          "row": 3,
+          "col": 3
+        }
+      ],
+      "operator": "IDENTITY",
+      "result": 3
+    }
+  ]
 }

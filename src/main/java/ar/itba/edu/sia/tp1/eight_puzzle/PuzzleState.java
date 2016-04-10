@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Optional;
 
 import ar.itba.edu.sia.tp1.gps.GPSState;
-import ar.itba.edu.sia.tp1.utils.Copies;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
@@ -33,18 +32,29 @@ public class PuzzleState extends GPSState<PuzzleRule, PuzzleState> {
 			return Optional.empty();
 		}
 
-		int[][] newMap = Copies.deepCopy(map);
+		int[][] newMap = deepCopy(map);
 		newMap[blank.x][blank.y] = newMap[rule.destination.x][rule.destination.y];
 		newMap[rule.destination.x][rule.destination.y] = PuzzleState.BLANK;
 		return Optional.of(new PuzzleState(newMap));
+	}
+
+	private int[][] deepCopy(int[][] param) {
+		int baseLength = param.length;
+		int[][] ret = new int[baseLength][];
+		for (int i = 0; i < baseLength; i++) {
+			ret[i] = new int[param[i].length];
+			for (int j = 0; j < baseLength; j++) {
+				ret[i][j] = param[i][j];
+			}
+		}
+		return ret;
 	}
 
 	public boolean isValid(PuzzleRule rule) {
 		Point destination = rule.destination;
 		return !(destination.getX() < 0
 				|| destination.getX() >= PuzzleState.LENGTH
-				|| destination.getY() < 0
-				|| destination.getY() >= PuzzleState.LENGTH);
+				|| destination.getY() < 0 || destination.getY() >= PuzzleState.LENGTH);
 	}
 
 	public Point getBlankCoords() {

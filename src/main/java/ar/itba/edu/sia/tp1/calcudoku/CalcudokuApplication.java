@@ -6,23 +6,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H1;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H2;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H3;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H4;
+import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
+import ar.itba.edu.sia.tp1.calcudoku.view.CalcudokuJSPrinter;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
-import ar.itba.edu.sia.tp1.gps.engine.GPSNode;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
-import ar.itba.edu.sia.tp1.utils.CalcudokuJSPrinter;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -38,13 +33,12 @@ public class CalcudokuApplication {
 		// writer.serialize(calcudoku);
 		// }
 
-
-		Board board = new Board(6, Arrays.asList()); //getBoard3X3();
-		//Board board = getBoard6X6FromJson();
+		Board board = new Board(6, Arrays.asList()); // getBoard3X3();
+		// Board board = getBoard6X6FromJson();
 		int n = board.getN();
 
 		GPSHeuristic<CalcudokuState> heuristic = new H1();
-		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(board),
+		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(board),
 				heuristic);
 		calcudoku.fillBoardWithRandomValuesInRows();
 
@@ -58,7 +52,8 @@ public class CalcudokuApplication {
 		try {
 			solution = engine.solve();
 
-			String finalSolution = new CalcudokuJSPrinter().printJS(solution, n);
+			String finalSolution = new CalcudokuJSPrinter()
+					.printJS(solution, n);
 
 			System.out.print(1);
 		} catch (StackOverflowError e) {
@@ -71,8 +66,8 @@ public class CalcudokuApplication {
 		return new Position(row, col);
 	}
 
-	//ONE swap to complete
-	private static Board getBoard2X2(){
+	// ONE swap to complete
+	private static Board getBoard2X2() {
 		int n = 2;
 
 		List<Group> groups = new ArrayList<>();
@@ -91,8 +86,8 @@ public class CalcudokuApplication {
 		return board;
 	}
 
-	//ONE swap to complete
-	private static Board getBoard3X3(){
+	// ONE swap to complete
+	private static Board getBoard3X3() {
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
@@ -122,7 +117,7 @@ public class CalcudokuApplication {
 		return board;
 	}
 
-	private static Board getBoard5X5(){
+	private static Board getBoard5X5() {
 		int n = 5;
 
 		List<Group> groups = new ArrayList<>();
@@ -162,8 +157,8 @@ public class CalcudokuApplication {
 		return board;
 	}
 
-	private static Board getBoard6X6FromJson(){
-		String fileName="./src/test/resources/b6x6.json";
+	private static Board getBoard6X6FromJson() {
+		String fileName = "./src/test/resources/b6x6.json";
 
 		CalcudokuJsonParser parser;
 
@@ -173,7 +168,7 @@ public class CalcudokuApplication {
 			parser = new CalcudokuJsonParser(is);
 
 			CalcudokuState stateRead = parser.parse();
-			Board b=stateRead.getBoard();
+			Board b = stateRead.getBoard();
 
 			return b;
 		} catch (FileNotFoundException e) {
@@ -183,18 +178,16 @@ public class CalcudokuApplication {
 
 	}
 
-	private static Board getBoard6X6(){
+	private static Board getBoard6X6() {
 		int n = 6;
 
 		List<Group> groups = new ArrayList<>();
-		Group gs1 = new Group(Arrays.asList(
-				position(0, 0),position(0, 1), position(0, 2), position(0, 3),position(0, 4), position(0, 5),
-				position(1, 0),position(1, 1), position(1, 2), position(1, 3),position(1, 4),
-				position(2, 0),position(2, 1), position(2, 2), position(2, 3),
-				position(3, 0),position(3, 1), position(3, 2),
-				position(2, 0),position(2, 1)
-		),
-				Operator.PLUS, 91);
+		Group gs1 = new Group(Arrays.asList(position(0, 0), position(0, 1),
+				position(0, 2), position(0, 3), position(0, 4), position(0, 5),
+				position(1, 0), position(1, 1), position(1, 2), position(1, 3),
+				position(1, 4), position(2, 0), position(2, 1), position(2, 2),
+				position(2, 3), position(3, 0), position(3, 1), position(3, 2),
+				position(2, 0), position(2, 1)), Operator.PLUS, 91);
 		groups.add(gs1);
 
 		Board board = new Board(n, groups);
@@ -237,27 +230,25 @@ public class CalcudokuApplication {
 		return board;
 	}
 
-	public static GPSSolution<CalcudokuRule, CalcudokuState> getSolution(Board initialBoard,SearchStrategy strategy,GPSHeuristic<CalcudokuState> h){
+	public static GPSSolution<CalcudokuRule, CalcudokuState> getSolution(
+			Board initialBoard, SearchStrategy strategy,
+			GPSHeuristic<CalcudokuState> h) {
 
-		Calcudoku calcudoku = new Calcudoku(new CalcudokuState(initialBoard),
-				h);
+		CalcudokuProblem calcudoku = new CalcudokuProblem(new CalcudokuState(initialBoard), h);
 		calcudoku.fillBoardWithRandomValuesInRows();
 
 		CalcudokuState state = calcudoku.getInitialState();
 		System.out.println(state.getBoard().fullToString());
 
-		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
-				strategy);
-		GPSSolution<CalcudokuRule, CalcudokuState> solution=null;
+		CalcudokuEngine engine = new CalcudokuEngine(calcudoku, strategy);
+		GPSSolution<CalcudokuRule, CalcudokuState> solution = null;
 		try {
-			solution=engine.solve();
+			solution = engine.solve();
 		} catch (StackOverflowError e) {
 			System.out.println("Solution (if any) too deep for stack.");
 		}
 
 		return solution;
-
-
 
 	}
 }
