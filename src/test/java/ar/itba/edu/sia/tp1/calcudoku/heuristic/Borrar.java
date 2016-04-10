@@ -31,7 +31,7 @@ public class Borrar { // XXX
 
 		List<Position> positions = asList(position(0, 0), position(0, 1),
 				position(0, 2));
-		List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
+		List<Group> groups = asList(new Group(Operator.PLUS, 5, positions));
 		CalcudokuState stateWritten = new CalcudokuState(3, groups);
 
 		serializer.serialize(stateWritten);

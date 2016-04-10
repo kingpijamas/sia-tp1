@@ -17,10 +17,10 @@ public class Group {
 	private final int result;
 
 	public static Group of(Operator operator, int result, Position... positions) {
-		return new Group(Arrays.asList(positions), operator, result);
+		return new Group(operator, result, Arrays.asList(positions));
 	}
 
-	public Group(List<Position> positions, Operator operator, int result) {
+	public Group(Operator operator, int result, List<Position> positions) {
 		this.positions = Collections.unmodifiableList(positions);
 		this.operator = operator;
 		this.result = result;

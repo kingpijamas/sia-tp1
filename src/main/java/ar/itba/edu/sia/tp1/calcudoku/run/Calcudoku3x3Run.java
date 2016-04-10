@@ -31,8 +31,8 @@ public class Calcudoku3x3Run extends CalcudokuRun {
 		// Operator.PLUS, 7);
 		// groups.add(gSum);
 
-		Group gdiv = new Group(Arrays.asList(position(2, 1), position(2, 2)),
-				Operator.PLUS, 3);
+		Group gdiv = new Group(Operator.PLUS,
+				3, Arrays.asList(position(2, 1), position(2, 2)));
 		groups.add(gdiv);
 
 		Board board = new Board(n, groups);

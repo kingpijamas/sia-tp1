@@ -25,8 +25,8 @@ public class Calcudoku2x2Run extends CalcudokuRun {
 		int n = 2;
 
 		List<Group> groups = new ArrayList<>();
-		Group gsum = new Group(Arrays.asList(position(0, 0), position(0, 1)),
-				Operator.PLUS, 3);
+		Group gsum = new Group(Operator.PLUS,
+				3, Arrays.asList(position(0, 0), position(0, 1)));
 		groups.add(gsum);
 
 		Board board = new Board(n, groups);

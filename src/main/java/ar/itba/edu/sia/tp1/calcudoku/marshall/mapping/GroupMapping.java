@@ -70,7 +70,7 @@ public class GroupMapping {
 
 	public Group unmarshall() {
 		List<Position> positions = unmarshall(positionMappings);
-		return new Group(positions, operator, result);
+		return new Group(operator, result, positions);
 	}
 
 	private List<Position> unmarshall(List<PositionMapping> mappings) {
