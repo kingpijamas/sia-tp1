@@ -11,9 +11,8 @@ import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.mapping.CalcudokuStateMapping;
 import ar.itba.edu.sia.tp1.gps.ProblemSerializer;
 
-public class CalcudokuJsonSerializer
-		implements
-			ProblemSerializer<CalcudokuProblem, CalcudokuRule, CalcudokuState> {
+public class CalcudokuJsonSerializer implements
+		ProblemSerializer<CalcudokuProblem, CalcudokuRule, CalcudokuState> {
 	private static final ObjectMapper mapper = JsonFactory
 			.createUseAnnotations(false);
 

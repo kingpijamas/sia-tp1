@@ -36,8 +36,8 @@ public class GroupMapping {
 	}
 
 	public GroupMapping(Group group) {
-		this(marshall(group.getPositions()), group.getOperator(),
-				group.getResult());
+		this(marshall(group.getPositions()), group.getOperator(), group
+				.getResult());
 	}
 
 	private static List<PositionMapping> marshall(List<Position> positions) {

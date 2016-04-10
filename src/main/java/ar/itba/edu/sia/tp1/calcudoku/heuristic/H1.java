@@ -13,4 +13,9 @@ public class H1 extends CalcudokuHeuristic {
 		int invalidColumns = board.invalidColumnsCount();
 		return (int) ceil(max(invalidGroups, invalidColumns) / 2.0);
 	}
+
+	@Override
+	public String toString() {
+		return "H1";
+	}
 }

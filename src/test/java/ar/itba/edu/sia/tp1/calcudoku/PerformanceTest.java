@@ -9,6 +9,7 @@ import java.util.List;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H2;
+import ar.itba.edu.sia.tp1.calcudoku.run.CalcudokuRun;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
@@ -62,12 +63,10 @@ public class PerformanceTest extends GenericTest {
 					Board originalboard = setUp(fileName);
 					Board board = originalboard.deepCopy();
 
+					CalcudokuRun test = new CalcudokuRun(board, strategy,
+							heuristic);
 					TimedResults<GPSSolution<CalcudokuRule, CalcudokuState>> timedResult = Timer
-							.timer()
-							.timesToRun(1)
-							.keepOnlyLastResult()
-							.toTime(() -> CalcudokuApplication.getSolution(
-									board, strategy, heuristic)).start();
+							.timer().timesToRun(1).toTime(test::run).start();
 
 					GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResult
 							.getLast().getValue();
