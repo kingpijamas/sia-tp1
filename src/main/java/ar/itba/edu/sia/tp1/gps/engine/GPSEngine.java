@@ -25,7 +25,7 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 	public GPSSolution<R, S> solve() {
 		GPSSolutionProcess<R, S> solutionProcess = buildSolutionProcess();
 		GPSSolution<R, S> solution = solutionProcess.solve();
-
+/*
 		if (solution.isSuccess()) {
 			System.out.println("OK! solution found!");
 			System.out.println("Expanded nodes: " + solution.getExplosionCount());
@@ -36,7 +36,7 @@ public abstract class GPSEngine<R extends GPSRule, S extends GPSState<R, S>> {
 			System.err.println("FAILED! solution not found!");
 			System.out.println("Expanded nodes: " + solution.getExplosionCount());
 		}
-		return solution;
+*/		return solution;
 	}
 
 	private GPSSolutionProcess<R, S> buildSolutionProcess() {

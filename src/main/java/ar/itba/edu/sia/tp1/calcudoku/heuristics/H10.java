@@ -11,7 +11,7 @@ public class H10 implements GPSHeuristic<CalcudokuState> {
 
     @Override
     public int getValue(CalcudokuState state) {
-        double h1Value = h1.getValue(state);
-        return (int) (h1Value * Math.log(h1Value));
+        int h1Value = h1.getValue(state);
+        return h1Value * h1Value * h1Value;
     }
 }

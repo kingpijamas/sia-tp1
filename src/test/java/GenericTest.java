@@ -6,9 +6,7 @@ import ar.itba.edu.sia.tp1.calcudoku.CalcudokuRule;
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H1;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.H2;
-import ar.itba.edu.sia.tp1.calcudoku.heuristics.Heuristic;
+import ar.itba.edu.sia.tp1.calcudoku.heuristics.*;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
 import ar.itba.edu.sia.tp1.gps.engine.GPSNode;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
@@ -17,7 +15,7 @@ public class GenericTest {
 	protected CalcudokuJsonParser parser;
 
 	protected InputStream is;
-	protected static final Heuristic[] heuristics = { new H1(), new H2() };
+	protected static final Heuristic[] heuristics = { new H1(), new H2(),new H3(),new H4()};
 
 	protected Board setUp(String fileName) throws IOException {
 		is = new FileInputStream(fileName);

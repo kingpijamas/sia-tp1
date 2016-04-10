@@ -9,8 +9,14 @@ public class H4 extends H1 {
 
     @Override
     public int getValue(CalcudokuState state) {
-        int m = getH(state.getBoard());
+        int h1 = getH(state.getBoard());
         int n = state.getN();
-        return Math.min(n,m);
+
+        int c = state.getBoard().invalidColumnsCount();
+        if(c >= n/2){
+            return n;
+        }else{
+            return h1;
+        }
     }
 }

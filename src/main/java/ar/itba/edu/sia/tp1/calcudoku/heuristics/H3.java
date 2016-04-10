@@ -10,7 +10,7 @@ public class H3 extends H1 {
     @Override
     public int getValue(CalcudokuState state) {
         int m = getH(state.getBoard());
-        return Math.max(m*(m-1),m);
+        return m*(m-1);
     }
 
 
