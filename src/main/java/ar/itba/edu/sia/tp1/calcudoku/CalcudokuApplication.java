@@ -50,12 +50,13 @@ public class CalcudokuApplication {
 				SearchStrategy.A_STAR);
 
 		try {
-			TimedResults<Void> timedResults = time(1000,
+			TimedResults<Void> timedResults = time(1,
 					calcudoku::fillBoardWithRandomValuesInRows, () -> {
 						engine.solve();
 					});
 
-			System.out.println(timedResults);
+			System.out.println(timedResults.getAvg());
+			System.out.println(timedResults.getStdDev());
 			// System.out.println(new CalcudokuJSPrinter().printJS(solution
 			// .getLast().getValue(), n));
 			System.out.print(1);

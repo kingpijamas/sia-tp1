@@ -4,8 +4,9 @@ import static ar.itba.edu.sia.tp1.utils.ObjectUtils.toStringBuilder;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
+
+import ar.itba.edu.sia.tp1.utils.ComparatorUtils;
 
 /**
  * Created by scamisay on 02/04/16.
@@ -49,8 +50,9 @@ public class Group {
 			return isCorrectDivide(values);
 		case MINUS:
 			return isCorrectMinus(values);
+		default:
+			throw new IllegalStateException();
 		}
-		return false;
 	}
 
 	/**
@@ -61,19 +63,14 @@ public class Group {
 	 * @return
 	 */
 	private boolean isCorrectMinus(List<Integer> values) {
-		Collections.sort(values);
-		Collections.reverse(values);
+		Collections.sort(values, ComparatorUtils::reverseComparison);
 
-		Integer substraction = 0;
-		Iterator<Integer> it = values.iterator();
-		if (it.hasNext()) {
-			substraction = it.next();
+		int subtraction = values.isEmpty() ? 0 : values.get(0);
+		for (int i = 1; i < values.size(); i++) {
+			subtraction -= values.get(i);
 		}
 
-		while (it.hasNext()) {
-			substraction -= it.next();
-		}
-		return result == substraction;
+		return subtraction == result;
 	}
 
 	/**
@@ -83,27 +80,27 @@ public class Group {
 	 * @return
 	 */
 	private boolean isCorrectDivide(List<Integer> values) {
-		Collections.sort(values);
-		Integer greaterValue = values.get(1);
-		Integer lesserValue = values.get(0);
+		Collections.sort(values, ComparatorUtils::reverseComparison);
+		int greaterValue = values.get(0);
+		int lesserValue = values.get(1);
 		return greaterValue % lesserValue == 0
-				&& result == (greaterValue / lesserValue);
+				&& (greaterValue / lesserValue) == result;
 	}
 
 	private boolean isCorrectMultiply(List<Integer> values) {
-		Integer prod = 1;
-		for (Integer aValue : values) {
+		int prod = 1;
+		for (int aValue : values) {
 			prod *= aValue;
 		}
-		return prod.equals(result);
+		return prod == result;
 	}
 
 	private boolean isCorrectPlus(List<Integer> values) {
-		Integer sum = 0;
-		for (Integer aValue : values) {
+		int sum = 0;
+		for (int aValue : values) {
 			sum += aValue;
 		}
-		return sum.equals(result);
+		return sum == result;
 	}
 
 	private boolean isCorrectIdentity(List<Integer> values) {
