@@ -9,8 +9,8 @@ public class H1 extends CalcudokuHeuristic {
 	@Override
 	public int getValue(CalcudokuState state) {
 		Board board = state.getBoard();
-		int incorrectGroups = board.invalidGroupsCount();
-		int incorrectColumns = board.invalidColumnsCount();
-		return (int) ceil(max(incorrectGroups, incorrectColumns) / 2.0);
+		int invalidGroups = board.invalidGroupsCount();
+		int invalidColumns = board.invalidColumnsCount();
+		return (int) ceil(max(invalidGroups, invalidColumns) / 2.0);
 	}
 }

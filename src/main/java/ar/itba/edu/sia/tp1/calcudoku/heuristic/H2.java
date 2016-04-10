@@ -8,8 +8,8 @@ public class H2 extends CalcudokuHeuristic {
 	@Override
 	public int getValue(CalcudokuState state) {
 		Board board = state.getBoard();
-		int incorrectGroups = board.invalidGroupsCount();
-		int incorrectColumns = board.invalidColumnsCount();
-		return (int) ceil((incorrectGroups + incorrectColumns) / 4.0);
+		int invalidGroups = board.invalidGroupsCount();
+		int invalidColumns = board.invalidColumnsCount();
+		return (int) ceil((invalidGroups + invalidColumns) / 4.0);
 	}
 }

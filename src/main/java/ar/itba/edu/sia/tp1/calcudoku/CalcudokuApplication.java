@@ -1,8 +1,10 @@
 package ar.itba.edu.sia.tp1.calcudoku;
 
+import static ar.itba.edu.sia.tp1.calcudoku.domain.Position.position;
+import static ar.itba.edu.sia.tp1.utils.timing.Timer.time;
+
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,19 +13,18 @@ import java.util.List;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
-import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
-import ar.itba.edu.sia.tp1.calcudoku.view.CalcudokuJSPrinter;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
+import ar.itba.edu.sia.tp1.utils.timing.TimedResults;
 
 /**
  * Created by scamisay on 02/04/16.
  */
 public class CalcudokuApplication {
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws Exception {
 		// List<Position> positions = asList(position(0, 0), position(0, 1),
 		// position(0, 2));
 		// List<Group> groups = asList(new Group(positions, Operator.PLUS, 5));
@@ -48,22 +49,20 @@ public class CalcudokuApplication {
 		CalcudokuEngine engine = new CalcudokuEngine(calcudoku,
 				SearchStrategy.A_STAR);
 
-		GPSSolution<CalcudokuRule, CalcudokuState> solution = null;
 		try {
-			solution = engine.solve();
+			TimedResults<Void> timedResults = time(1000,
+					calcudoku::fillBoardWithRandomValuesInRows, () -> {
+						engine.solve();
+					});
 
-			String finalSolution = new CalcudokuJSPrinter()
-					.printJS(solution, n);
-
+			System.out.println(timedResults);
+			// System.out.println(new CalcudokuJSPrinter().printJS(solution
+			// .getLast().getValue(), n));
 			System.out.print(1);
 		} catch (StackOverflowError e) {
 			System.out.println("Solution (if any) too deep for stack.");
 		}
 
-	}
-
-	private static Position position(int row, int col) {
-		return new Position(row, col);
 	}
 
 	// ONE swap to complete
