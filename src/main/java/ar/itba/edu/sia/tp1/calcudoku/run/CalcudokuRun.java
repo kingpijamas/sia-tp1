@@ -50,7 +50,7 @@ public class CalcudokuRun {
 					.toTime(engine::solve).start();
 			GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResults
 					.getLast().getValue();
-
+			
 			System.out.println(timedResults.getAvg() + " ms");
 			System.out.println(timedResults.getStdDev() + " ms^2");
 			System.out.println("\n--JSON--");

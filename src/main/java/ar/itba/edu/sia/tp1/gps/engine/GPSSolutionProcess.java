@@ -61,6 +61,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 				if (newGValue <= currDepth
 						&& isBetterThanCurrentBest(newState, newGValue)) {
 					int newHValue = getHValue(newState);
+					System.out.println("g: " + newGValue + "h: " + newHValue);
 
 					GPSNode<R, S> newNode = new GPSNode<>(node, rule, newState,
 							newGValue, newHValue);
@@ -73,16 +74,17 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 
 	private int startDepthFor(SearchStrategy searchStrategy) {
 		switch (searchStrategy) {
-		case IDDFS:
-			return 0;
-		default:
-			return maxDepth;
+			case IDDFS :
+				return 0;
+			default :
+				return maxDepth;
 		}
 	}
 
 	private void initOpenNodes() {
 		S initialState = problem.getInitialState();
 		int initialHValue = getHValue(initialState);
+		System.out.println(initialHValue);
 
 		bestCosts = new TObjectIntHashMap<S>();
 

@@ -2,6 +2,7 @@ package ar.itba.edu.sia.tp1.calcudoku.domain;
 
 import java.util.ArrayList;
 import java.util.BitSet;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,8 @@ public class Board {
 
 	public Board(int n, List<Group> groups) {
 		this.n = n;
+		Collections.sort(groups, (g1, g2) -> Integer
+				.compare(g1.getPositions().size(), g2.getPositions().size()));
 		this.groups = groups;
 		this.data = new BitSet(n * n * n);
 	}
@@ -52,6 +55,7 @@ public class Board {
 	 * @param value
 	 */
 	public void put(Position position, int value) {
+		assert value <= n;
 		put(position.getRow(), position.getCol(), value);
 	}
 
@@ -157,7 +161,6 @@ public class Board {
 			op.clear();
 		}
 		return count;
-
 	}
 
 	private List<Integer> getValuesForGroup(Group aGroup) {
@@ -192,8 +195,8 @@ public class Board {
 		return row * n + col * n * n;
 	}
 
-	public Integer getCellValue(Position aPosition) {
-		return getCellValue(aPosition.getRow(), aPosition.getCol());
+	public Integer getCellValue(Position position) {
+		return getCellValue(position.getRow(), position.getCol());
 	}
 
 	public Integer getCellValue(int i, int j) {

@@ -2,6 +2,7 @@ package ar.itba.edu.sia.tp1.calcudoku.domain;
 
 import static ar.itba.edu.sia.tp1.util.ObjectUtils.toStringBuilder;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -16,8 +17,13 @@ public class Group {
 	private final Operator operator;
 	private final int result;
 
-	public static Group of(Operator operator, int result, Position... positions) {
+	public static Group of(Operator operator, int result,
+			Position... positions) {
 		return new Group(operator, result, Arrays.asList(positions));
+	}
+
+	public Group(Operator operator, int result, Position... positions) {
+		this(operator, result, Arrays.asList(positions));
 	}
 
 	public Group(Operator operator, int result, List<Position> positions) {
@@ -38,20 +44,28 @@ public class Group {
 		return result;
 	}
 
+	public boolean isCorrect(Board board) {
+		List<Integer> values = new ArrayList<>(positions.size());
+		for (Position position : positions) {
+			values.add(board.getCellValue(position));
+		}
+		return isCorrect(values);
+	}
+
 	public boolean isCorrect(List<Integer> values) {
 		switch (operator) {
-		case IDENTITY:
-			return isCorrectIdentity(values);
-		case PLUS:
-			return isCorrectPlus(values);
-		case MULTIPLY:
-			return isCorrectMultiply(values);
-		case DIVIDE:
-			return isCorrectDivide(values);
-		case MINUS:
-			return isCorrectMinus(values);
-		default:
-			throw new IllegalStateException();
+			case IDENTITY :
+				return isCorrectIdentity(values);
+			case PLUS :
+				return isCorrectPlus(values);
+			case MULTIPLY :
+				return isCorrectMultiply(values);
+			case DIVIDE :
+				return isCorrectDivide(values);
+			case MINUS :
+				return isCorrectMinus(values);
+			default :
+				throw new IllegalStateException();
 		}
 	}
 

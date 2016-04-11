@@ -21,12 +21,12 @@ public class Position {
 		return positions;
 	}
 
-	public static List<Position> allInRow(int minRow, int maxRow, int col) {
-		return allInArea(minRow, maxRow, col, col);
+	public static List<Position> allInRow(int row, int minCol, int maxCol) {
+		return allInArea(row, row, minCol, maxCol);
 	}
 
-	public static List<Position> allInCol(int row, int minCol, int maxCol) {
-		return allInArea(row, row, minCol, maxCol + 1);
+	public static List<Position> allInCol(int minRow, int maxRow, int col) {
+		return allInArea(minRow, maxRow, col, col);
 	}
 
 	public static Position position(int row, int col) {

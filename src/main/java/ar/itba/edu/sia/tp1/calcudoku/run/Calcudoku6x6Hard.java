@@ -15,9 +15,9 @@ import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
-public class Calcudoku5x5Run extends CalcudokuRun {
+public class Calcudoku6x6Hard extends CalcudokuRun {
 	public static void main(String[] args) throws Exception {
-		Calcudoku5x5Run test = new Calcudoku5x5Run(A_STAR, new H1(), 1);
+		Calcudoku6x6Hard test = new Calcudoku6x6Hard(A_STAR, new H1(), 1);
 		test.run();
 	}
 
@@ -90,11 +90,11 @@ public class Calcudoku5x5Run extends CalcudokuRun {
 		return board;
 	}
 
-	public Calcudoku5x5Run(SearchStrategy searchStrategy, int timesToRun) {
+	public Calcudoku6x6Hard(SearchStrategy searchStrategy, int timesToRun) {
 		super(buildBoard(), searchStrategy, timesToRun);
 	}
 
-	public Calcudoku5x5Run(SearchStrategy searchStrategy,
+	public Calcudoku6x6Hard(SearchStrategy searchStrategy,
 			CalcudokuHeuristic heuristic, int timesToRun) {
 		super(buildBoard(), searchStrategy, heuristic, timesToRun);
 	}
