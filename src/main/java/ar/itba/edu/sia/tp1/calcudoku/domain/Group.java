@@ -49,7 +49,12 @@ public class Group {
 	}
 
 	public boolean isCorrect(List<Integer> values) {
-		return getValue(values) == expectedResult;
+		Integer val=getValue(values);
+		if(val==null){
+			System.out.println();
+			getValue(values);
+		}
+		return val == expectedResult;
 	}
 
 	public Integer getValue(Board board) {
@@ -107,7 +112,7 @@ public class Group {
 		int lesserValue = values.get(1);
 
 		if (greaterValue % lesserValue != 0) {
-			return null;
+			return 0;
 		}
 		return greaterValue / lesserValue;
 	}
