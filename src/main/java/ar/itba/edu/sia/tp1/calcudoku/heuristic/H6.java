@@ -7,6 +7,7 @@ import java.util.List;
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
+import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 
 /**
  * Created by scamisay on 09/04/16.
@@ -20,7 +21,9 @@ public class H6 extends CalcudokuHeuristic { // *really* good
 
 		int minSwaps = 0;
 		for (Group group : groups) {
-			if (!group.isCorrect(board)) {
+			if (group.getOperator() != Operator.MULTIPLY
+					&& group.getOperator() != Operator.DIVIDE
+					&& !group.isCorrect(board)) {
 				int value = group.getValue(board);
 				minSwaps += (int) ceil(
 						(Math.abs(group.getResult() - value) / n) / 2);
