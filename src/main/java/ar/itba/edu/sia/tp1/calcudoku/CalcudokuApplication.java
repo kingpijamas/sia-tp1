@@ -74,24 +74,29 @@ public class CalcudokuApplication {
 		List<GPSHeuristic<CalcudokuState>> heuristics = Arrays.asList(new H1(), new H2(), new H3(), new H3(), new H5(), new H6(),
 				new H7(), new H8(), new H9(), new H13(), new H14(), new H15(), new H16());
 
-		/**
-		 * todo: validar entrada
-		 */
+		if(args.length>3 || args.length <0){
+			System.out.println("cantidad incorrecta de parametros");
+			help(heuristics);
+			return;
+		}
 		Board board = readBoard(args[0]);
 		if(board == null){
 			System.out.println("No se encontro el tablero: " + args[0]);
+			help(heuristics);
 			return;
 		}
 
 		SearchStrategy searchStrategy = readStrategy(args[1]);
 		if(searchStrategy == null){
 			System.out.println("Estrategia invalidad" );
+			help(heuristics);
 			return;
 		}
 
 		GPSHeuristic<CalcudokuState> heuristic = readHeuristic(args[2],heuristics);
 		if(heuristic == null){
 			System.out.println("Heuristica invalidad: elija una entre 0 y " + heuristics.size());
+			help(heuristics);
 			return;
 		}
 
@@ -99,12 +104,27 @@ public class CalcudokuApplication {
 		CalcudokuApplication app = new CalcudokuApplication(searchStrategy, heuristic, board);
 		app.run();
 
-		/**
-		 * hacer help
-		 */
 
+	}
 
+	private static String heuristicName(GPSHeuristic<CalcudokuState> heuristic){
+		String []arr = heuristic.getClass().getName().split("\\.");
+		return arr[arr.length-1];
 
+	}
+
+	private static void help(List<GPSHeuristic<CalcudokuState>> heuristics){
+		StringBuffer sb = new StringBuffer();
+		sb.append("Ayuda:\n");
+		sb.append("Pasar tres argumentos: arhivoDeEntrada.json estrategia heuristica\n");
+		sb.append("archivo de entrada: pasar path\n");
+		sb.append("estrategia: dfs | bfs | iddfs | a_star |greedy\n");
+		sb.append("heuristica:\n");
+		for(int i = 0 ; i < heuristics.size(); i++){
+			sb.append(String.format("%d - %s\n",i,heuristicName(heuristics.get(i))));
+		}
+		sb.append("Ejempo: APP 3x3_easy1.json a_star 7");
+		System.out.println(sb.toString());
 	}
 
 	private static GPSHeuristic<CalcudokuState> readHeuristic(String arg, List<GPSHeuristic<CalcudokuState>> heuristics) {
