@@ -13,9 +13,9 @@ import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.H6;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
-public class Calcudoku5x5Run extends CalcudokuRun {
+public class Calcudoku5x5Hard extends CalcudokuRun {
 	public static void main(String[] args) throws Exception {
-		Calcudoku5x5Run test = new Calcudoku5x5Run(A_STAR, new H6(), 1);
+		Calcudoku5x5Hard test = new Calcudoku5x5Hard(A_STAR, new H6(), 1);
 		test.run();
 	}
 
@@ -29,10 +29,14 @@ public class Calcudoku5x5Run extends CalcudokuRun {
 		List<Position> row4 = Position.allInRow(4, 0, n);
 
 		Group sumR0 = new Group(PLUS, 1 + 2 + 3 + 4 + 5, row0);
+		System.out.println(sumR0);
 		Group sumR1 = new Group(PLUS, 1 + 2 + 3 + 4 + 5, row1);
+		System.out.println(sumR1);
 		Group sumR2 = new Group(PLUS, 1 + 2 + 3 + 4 + 5, row2);
+		System.out.println(sumR2);
 		Group sumR3 = new Group(PLUS, 1 + 2 + 3 + 4,
 				Position.allInRow(3, 0, n - 2));
+		System.out.println(sumR3);
 		Board board = new Board(n, Arrays.asList(sumR0, sumR1, sumR2, sumR3));
 
 		board.put(row0.get(0), 1);
@@ -68,11 +72,11 @@ public class Calcudoku5x5Run extends CalcudokuRun {
 		return board;
 	}
 
-	public Calcudoku5x5Run(SearchStrategy searchStrategy, int timesToRun) {
+	public Calcudoku5x5Hard(SearchStrategy searchStrategy, int timesToRun) {
 		super(buildBoard(), searchStrategy, timesToRun);
 	}
 
-	public Calcudoku5x5Run(SearchStrategy searchStrategy,
+	public Calcudoku5x5Hard(SearchStrategy searchStrategy,
 			CalcudokuHeuristic heuristic, int timesToRun) {
 		super(buildBoard(), searchStrategy, heuristic, timesToRun);
 	}

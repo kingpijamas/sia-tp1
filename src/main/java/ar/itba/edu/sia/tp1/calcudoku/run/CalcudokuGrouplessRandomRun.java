@@ -4,13 +4,14 @@ import java.util.Arrays;
 
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
+import ar.itba.edu.sia.tp1.calcudoku.heuristic.H6;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
 public class CalcudokuGrouplessRandomRun extends CalcudokuRun {
 	public static void main(String[] args) throws Exception {
 		int n = 6;
 		CalcudokuGrouplessRandomRun test = new CalcudokuGrouplessRandomRun(n,
-				SearchStrategy.A_STAR, 1);
+				SearchStrategy.A_STAR, new H6(), 1);
 		test.run();
 	}
 

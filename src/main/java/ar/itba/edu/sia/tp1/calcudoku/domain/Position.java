@@ -1,11 +1,33 @@
 package ar.itba.edu.sia.tp1.calcudoku.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by scamisay on 02/04/16.
  */
 public class Position {
 	private final int row;
 	private final int col;
+
+	public static List<Position> allInArea(int minRow, int maxRow, int minCol,
+			int maxCol) {
+		List<Position> positions = new ArrayList<>();
+		for (int i = minRow; i <= maxRow; i++) {
+			for (int j = minCol; j <= maxCol; j++) {
+				positions.add(position(i, j));
+			}
+		}
+		return positions;
+	}
+
+	public static List<Position> allInRow(int row, int minCol, int maxCol) {
+		return allInArea(row, row, minCol, maxCol);
+	}
+
+	public static List<Position> allInCol(int minRow, int maxRow, int col) {
+		return allInArea(minRow, maxRow, col, col);
+	}
 
 	public static Position position(int row, int col) {
 		return new Position(row, col);

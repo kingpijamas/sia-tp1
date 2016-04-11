@@ -5,7 +5,6 @@ import ar.itba.edu.sia.tp1.calcudoku.CalcudokuProblem;
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuRule;
 import ar.itba.edu.sia.tp1.calcudoku.CalcudokuState;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
-import ar.itba.edu.sia.tp1.calcudoku.view.CalcudokuJsPrinter;
 import ar.itba.edu.sia.tp1.gps.GPSHeuristic;
 import ar.itba.edu.sia.tp1.gps.engine.GPSSolution;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
@@ -51,11 +50,23 @@ public class CalcudokuRun {
 			GPSSolution<CalcudokuRule, CalcudokuState> solution = timedResults
 					.getLast().getValue();
 
-			System.out.println(timedResults.getAvg() + " ms");
-			System.out.println(timedResults.getStdDev() + " ms^2");
-			System.out.println("\n--JSON--");
-			System.out.println(new CalcudokuJsPrinter().print(solution,
-					board.getN()));
+			System.out.println("Time taken: " + timedResults.getAvg() + " ms");
+			if (timesToRun > 1) {
+				System.out.println(timedResults.getStdDev() + " ms^2");
+			}
+
+			System.out.println("Explosions: " + solution.getExplosionCount());
+			System.out
+					.println("Analyzed nodes: " + solution.getAnalyzedNodes());
+			System.out.println("Path: " + solution.getPath());
+			if (solution.isSuccess()) {
+				System.out.println("Success:\n" + solution.getPath());
+			} else {
+				System.out.println("Solution not found\n");
+			}
+			// System.out.println("\n--JSON--");
+			// System.out.println(new CalcudokuJsPrinter().print(solution,
+			// board.getN()));
 			return solution;
 		} catch (StackOverflowError e) {
 			System.out.println("Solution (if any) too deep for stack.");

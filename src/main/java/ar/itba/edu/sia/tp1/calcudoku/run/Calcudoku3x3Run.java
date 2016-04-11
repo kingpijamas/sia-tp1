@@ -25,14 +25,9 @@ public class Calcudoku3x3Run extends CalcudokuRun {
 		int n = 3;
 
 		List<Group> groups = new ArrayList<>();
-		// Group gSum = new Group(
-		// Arrays.asList(new Position(0, 0), new Position(0, 1),
-		// new Position(1, 0), new Position(2, 0)),
-		// Operator.PLUS, 7);
-		// groups.add(gSum);
 
-		Group gdiv = new Group(Arrays.asList(position(2, 1), position(2, 2)),
-				Operator.PLUS, 3);
+		Group gdiv = new Group(Operator.PLUS,
+				3, Arrays.asList(position(2, 1), position(2, 2)));
 		groups.add(gdiv);
 
 		Board board = new Board(n, groups);

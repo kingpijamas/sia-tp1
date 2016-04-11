@@ -19,6 +19,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 	private TObjectIntHashMap<S> bestCosts;
 	private int currDepth;
 	private long explosionCount = 0;
+	private long analyzedNodes = 0;
 
 	GPSSolutionProcess(GPSProblem<R, S> problem,
 			Supplier<Queue<GPSNode<R, S>>> queueBuilder,
@@ -34,14 +35,18 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 			initOpenNodes();
 			while (!openNodes.isEmpty()) {
 				GPSNode<R, S> currentNode = openNodes.poll();
+				// System.out
+				// .println("Analyzing node, g: " + currentNode.getGValue()
+				// + " h:" + currentNode.getHValue());
+				analyzedNodes++;
 				if (problem.isGoal(currentNode.getState())) {
-					return GPSSolution.of(currentNode, explosionCount);
+					return GPSSolution.of(currentNode, explosionCount, analyzedNodes);
 				}
 				explode(currentNode);
 			}
 			currDepth++;
 		}
-		return GPSSolution.failure(explosionCount);
+		return GPSSolution.failure(explosionCount, analyzedNodes);
 	}
 
 	protected void explode(GPSNode<R, S> node) {
@@ -49,7 +54,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 			return;
 		}
 		updateBestCost(node);
-		explosionCount++; // TODO: ask whether this should go below
+		explosionCount++;
 
 		for (R rule : problem.getRules()) {
 			Optional<S> newStateOpt = node.getState().apply(rule);
@@ -73,10 +78,10 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 
 	private int startDepthFor(SearchStrategy searchStrategy) {
 		switch (searchStrategy) {
-		case IDDFS:
-			return 0;
-		default:
-			return maxDepth;
+			case IDDFS :
+				return 0;
+			default :
+				return maxDepth;
 		}
 	}
 

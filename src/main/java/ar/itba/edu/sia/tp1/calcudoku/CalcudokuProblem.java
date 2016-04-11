@@ -16,8 +16,9 @@ import ar.itba.edu.sia.tp1.gps.ProblemParser;
 /**
  * Created by scamisay on 02/04/16.
  */
-public class CalcudokuProblem implements
-		GPSProblem<CalcudokuRule, CalcudokuState> {
+public class CalcudokuProblem
+		implements
+			GPSProblem<CalcudokuRule, CalcudokuState> {
 	private final CalcudokuState initialState;
 	private final List<CalcudokuRule> rules;
 	private final Optional<GPSHeuristic<CalcudokuState>> heuristic;
@@ -26,7 +27,8 @@ public class CalcudokuProblem implements
 		this(board, null);
 	}
 
-	public CalcudokuProblem(Board board, GPSHeuristic<CalcudokuState> heuristic) {
+	public CalcudokuProblem(Board board,
+			GPSHeuristic<CalcudokuState> heuristic) {
 		this.initialState = new CalcudokuState(board);
 		this.rules = CalcudokuRule.buildSwapsInColumns(initialState.getN());
 		this.heuristic = Optional.ofNullable(heuristic);
@@ -76,7 +78,10 @@ public class CalcudokuProblem implements
 
 	@Override
 	public int getHValue(CalcudokuState state) {
-		return heuristic.get().getValue(state);
+		if (heuristic.isPresent()) {
+			return heuristic.get().getValue(state);
+		}
+		return -1;
 	}
 
 	// public void fillBoardWithRandomValues() {

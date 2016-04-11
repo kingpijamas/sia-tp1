@@ -67,6 +67,8 @@ public class Timer<V> {
 			long timeBefore = System.currentTimeMillis();
 			V value = timeable.run();
 			long elapsedTime = System.currentTimeMillis() - timeBefore;
+			System.out.println("solution found in " + elapsedTime + " ms ("
+					+ ((double) i * 100) / times + "%)");
 
 			final V valueToStore;
 			if (keepOnlyLast && i < times - 1) {
