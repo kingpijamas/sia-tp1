@@ -14,7 +14,7 @@ import java.util.Arrays;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
-import ar.itba.edu.sia.tp1.calcudoku.heuristic.H16;
+import ar.itba.edu.sia.tp1.calcudoku.heuristic.H6;
 import ar.itba.edu.sia.tp1.calcudoku.marshall.CalcudokuJsonParser;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
@@ -23,7 +23,7 @@ public class CalcudokuNewHeuristicsRun extends CalcudokuRun {
 
 	public static void main(String[] args) throws Exception {
 		CalcudokuNewHeuristicsRun test = new CalcudokuNewHeuristicsRun(
-				SearchStrategy.A_STAR, new H16(), 1);
+				SearchStrategy.A_STAR, new H6(), 1);
 		test.run();
 	}
 

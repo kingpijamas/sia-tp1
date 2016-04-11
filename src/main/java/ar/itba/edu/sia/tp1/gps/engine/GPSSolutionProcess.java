@@ -49,7 +49,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 			return;
 		}
 		updateBestCost(node);
-		explosionCount++; // TODO: ask whether this should go below
+		explosionCount++;
 
 		for (R rule : problem.getRules()) {
 			Optional<S> newStateOpt = node.getState().apply(rule);
@@ -61,7 +61,7 @@ class GPSSolutionProcess<R extends GPSRule, S extends GPSState<R, S>> {
 				if (newGValue <= currDepth
 						&& isBetterThanCurrentBest(newState, newGValue)) {
 					int newHValue = getHValue(newState);
-					System.out.println("g: " + newGValue + "h: " + newHValue);
+//					System.out.println("g: " + newGValue + "h: " + newHValue);
 
 					GPSNode<R, S> newNode = new GPSNode<>(node, rule, newState,
 							newGValue, newHValue);

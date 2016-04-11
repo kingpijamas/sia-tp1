@@ -1,8 +1,6 @@
 package ar.itba.edu.sia.tp1.calcudoku.run;
 
-import static ar.itba.edu.sia.tp1.calcudoku.domain.Operator.IDENTITY;
 import static ar.itba.edu.sia.tp1.calcudoku.domain.Operator.PLUS;
-import static ar.itba.edu.sia.tp1.calcudoku.domain.Position.position;
 import static ar.itba.edu.sia.tp1.gps.engine.SearchStrategy.A_STAR;
 
 import java.util.Arrays;
@@ -12,12 +10,12 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Position;
 import ar.itba.edu.sia.tp1.calcudoku.heuristic.CalcudokuHeuristic;
-import ar.itba.edu.sia.tp1.calcudoku.heuristic.H1;
+import ar.itba.edu.sia.tp1.calcudoku.heuristic.H6;
 import ar.itba.edu.sia.tp1.gps.engine.SearchStrategy;
 
 public class Calcudoku6x6Hard extends CalcudokuRun {
 	public static void main(String[] args) throws Exception {
-		Calcudoku6x6Hard test = new Calcudoku6x6Hard(A_STAR, new H1(), 1);
+		Calcudoku6x6Hard test = new Calcudoku6x6Hard(A_STAR, new H6(), 1);
 		test.run();
 	}
 
