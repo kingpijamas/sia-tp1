@@ -52,7 +52,7 @@ public class Group {
 		return getValue(values) == expectedResult;
 	}
 
-	public int getValue(Board board) {
+	public Integer getValue(Board board) {
 		List<Integer> values = new ArrayList<>(positions.size());
 		for (Position position : positions) {
 			values.add(board.getCellValue(position));
