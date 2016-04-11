@@ -7,8 +7,6 @@ import ar.itba.edu.sia.tp1.calcudoku.domain.Board;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Group;
 import ar.itba.edu.sia.tp1.calcudoku.domain.Operator;
 
-import static java.lang.Math.*;
-
 /**
  * Created by scamisay on 09/04/16.
  */
@@ -23,11 +21,6 @@ public class H13 extends CalcudokuHeuristic {
 		List<Group> groups = state.getGroups(); // IMPORTANT: they are sorted by
 												// size
 		int n = board.getN();
-
-		// return peor valor posible - #ids bien (si no hay ids bien, obvio)
-
-		// 1 - 0.tamano grupo
-		// 0.1 si celda vacia
 
 		int idGroups = 0;
 		int idGroupsOk = 0;

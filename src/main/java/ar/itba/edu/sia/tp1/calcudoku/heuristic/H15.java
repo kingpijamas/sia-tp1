@@ -12,18 +12,12 @@ public class H15 extends CalcudokuHeuristic {
 	public int getValue(CalcudokuState state) {
 		Board board = state.getBoard();
 
-		int hValue = 0;
 		for (Group group : board.getGroups()) {
 			group.getResult();
 		}
-		
+
 		int invalidGroups = board.invalidGroupsCount();
 		int invalidColumns = board.invalidColumnsCount();
 		return (int) ceil(max(invalidGroups, invalidColumns) / 2.0);
-	}
-
-	@Override
-	public String toString() {
-		return "H1";
 	}
 }

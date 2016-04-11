@@ -12,21 +12,24 @@ public class GPSSolution<R extends GPSRule, S extends GPSState<R, S>> {
 	private final Iterable<GPSNode<R, S>> path;
 	private final long explosionCount;
 	private final Integer cost;
+	private final long analyzedNodes;
 
 	static <R extends GPSRule, S extends GPSState<R, S>> GPSSolution<R, S> of(
-			GPSNode<R, S> lastNode, long explosionCount) {
-		return new GPSSolution<R, S>(lastNode, explosionCount);
+			GPSNode<R, S> lastNode, long explosionCount, long analyzedNodes) {
+		return new GPSSolution<R, S>(lastNode, explosionCount, analyzedNodes);
 	}
 
 	static <R extends GPSRule, S extends GPSState<R, S>> GPSSolution<R, S> failure(
-			long explosionCount) {
-		return of(null, explosionCount);
+			long explosionCount, long analyzedNodes) {
+		return of(null, explosionCount, analyzedNodes);
 	}
 
-	GPSSolution(GPSNode<R, S> lastNode, long explosionCount) {
+	GPSSolution(GPSNode<R, S> lastNode, long explosionCount,
+			long analyzedNodes) {
 		this.path = getSolutionPath(lastNode);
 		this.explosionCount = explosionCount;
 		this.cost = lastNode == null ? null : lastNode.getGValue();
+		this.analyzedNodes = analyzedNodes;
 	}
 
 	public boolean isSuccess() {
@@ -50,6 +53,10 @@ public class GPSSolution<R extends GPSRule, S extends GPSState<R, S>> {
 
 	public Iterable<GPSNode<R, S>> getPath() {
 		return path;
+	}
+
+	public long getAnalyzedNodes() {
+		return analyzedNodes;
 	}
 
 	private Iterable<GPSNode<R, S>> getSolutionPath(GPSNode<R, S> node) {
