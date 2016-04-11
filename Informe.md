@@ -35,7 +35,7 @@ La heurística consiste en la siguiente ecuación:
 $$ H1=\left \lceil{ \frac{\max (G,C)}{2}  }\right \rceil $$
 
 
-La idea detrás de este heurística es estimar la cantidad de intercambios entre casilleros considerando cual de los parámetros (G o C) presenta una mayor cantidad de elementos incorrectos. Esto se obtiene mediante la función "máximo". 
+La idea detrás de esta heurística es estimar la cantidad de intercambios entre casilleros considerando cual de los parámetros (G o C) presenta una mayor cantidad de elementos incorrectos. Esto se obtiene mediante la función "máximo". 
 Luego a este valor máximo, se lo divide por dos debido a lo siguiente:
 
 + Caso de que el valor máximo sea C: en el caso la cantidad de columnas incorrectas se da en cantidadades pares  luego las misma cantidad de intercambios que soluciona a una columna también soluciona a otra. Para los casos en los que esta cantidad no sea múltipla de dos, si se la divide por dos y se le calcula la función techo, se obtiene una cantidad menor o igual a la cantidad de pasos necesarios para solucionar el tablero
@@ -60,25 +60,37 @@ Para el caso de tableros de 6 por 6 casilleros o superiores, no se logro llegar 
 
 # Estructuras de datos implementados en el problema
 
-### Tablero (Board.java)
-Contiene los grupos, los valores de los casilleros y el parámetro N. Los valores están implementados en un BitSet para poder manipular los datos lo más rápido posible. 
 
 ## Estructura de un estado (CalcudokuState)
-+ la matriz de bits que representa el tablero.
++ Tablero.
 + lista que contiene la representación en bits(almacenada en bitset) de cada numero que se puede emplear.
-+ lista de grupos. Las misma es final y no se copia cuando se copian estados (se comparte, no tiene sentido copiarlos por deep copy):
+
+### Tablero (Board.java)
+Contiene los grupos, los valores de los casilleros y el parámetro N. 
+Los valores están implementados en un BitSet para poder manipular los datos lo más rápido posible. 
+La lista de grupos es final y no se copia cuando se copian los estados. La razón de esto es porque los grupos pertenecen a la estructura inmutable del juego y no tiene sentido copiarlos por deep copy sino más bien compartirlos.
+
+### Grupo (Group.java)
+Estan compuestos por una lista de posiciones, un operador y el resultado que se espera de aplicar dicho operador a los elementos en las posiciones determinadas por la lista.
+ 
+### Posicion (Position.java)
+Par ordenado que representa un casillero contiene una componente para la columna y otra para la fila
+
+### Operador (Operator.java)
+Pueden ser: 
+
++ MINUS: admite más de un casillero y el resultado es restarle al más grande de los elementos del grupo el resto de los elementos.
++ PLUS: admite más de un casillero y el restultado es la suma de todos los elementos del grupo.
++ MULTIPLY: admite más de un elemento y el resultado es el producto de todos los elementos del grupo.
++ DIVIDE: admite solo dós elementos y el resultado es la división entre ambos.
++ IDENTITY: admite un sólo elemento determinado por el valor del resultado.
 
 ## Estructura de un grupo
-
-+ result
-+ operador (MINUS,PLUS,MULTIPLY,DIVIDE,IDENTITY); "Identity" es simplemente el valor resultado.Este valor es un enum
-+ Lista de posiciones (i,j) de casilleros que forman el grupo.
-
 
 
 # Reglas
 
-Se swapea cualquiera con cualquiera.s Las reglas se crean una sola vez al comienzo.Se descartan reglas simetricas.
+Contamos con un esquema de reglas que genera todos los intercambios posibles que se pueden hacer en el tablero. Siendo este de NxN = m elementos, nos dimos cuenta que la cantidad de intercambios posibles representa un grafo completo de m nodos siendo las aristas los intercambios. Por lo tanto tenemos m(m-1)/2 intercambios posibles. Los mismos son representados por una lista de posiciones.
 
 
 ## Algoritmos de búsqueda
