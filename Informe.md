@@ -54,7 +54,7 @@ Para el caso de tableros de 6 por 6 casilleros o superiores, no se logro llegar 
 ### H6.
 La fórmula de esta heurística es la siguiente:
 
-$$ \sum_{i=1}^{cantidadGrupos} \frac {\left | resultadoEsperado_i - resultado_i \right |}{2N} $$
+$$H6= \sum_{i=1}^{cantidadGrupos} \frac {\left | resultadoEsperado_i - resultado_i \right |}{2N} $$
 La lógica de esta herística consiste en tomar cada grupo que no sea correcto para los casos en los que la operación sea una suma, una resta o ;luego se evaluar cuánto da la operación de dicho grupo. Con este valor pueden ocurrir dos posibilidades: se obtiene un resultado menor o mayor al resultado para ese grupo. En ambos casos,  se calcula la diferencia entre lo que debería dar y lo que realmente da, luego se lo divide por el máximo valor que puede contener dicho grupo (N). La idea detrás de esto es estimar la cantidad de intercambios que faltan dentro del grupo en cuestión.
 Por último, se suman estas estimaciones para todos los grupos y se la divide por dos ya que se asume que cada intercambio puede llegar a arreglar dos grupos a la vez.
 Esta heurística no es admisible ya que sobrestima la cantidad de pasos que faltan según se analizó en multiples casos de prueba. 
