@@ -60,7 +60,7 @@ public class Group {
 		return getValue(values);
 	}
 
-	public int getValue(List<Integer> values) {
+	public Integer getValue(List<Integer> values) {
 		switch (operator) {
 			case IDENTITY :
 				return getValueIdentity(values);
