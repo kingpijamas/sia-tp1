@@ -9,8 +9,8 @@ import ar.itba.edu.sia.tp1.calcudoku.heuristic.BinaryFunction;
  */
 public enum Operator {
 	PLUS((x, y) -> x + y, 0, true), MINUS((x, y) -> x - y, 0, false), MULTIPLY(
-			(x, y) -> x * y, 1, true), DIVIDE((x, y) -> x / y, 1, false), IDENTITY(
-			-1);
+			(x, y) -> x * y, 1,
+			true), DIVIDE((x, y) -> x / y, 1, false), IDENTITY(-1);
 
 	private final boolean commutative;
 	private final int zero;
@@ -46,5 +46,9 @@ public enum Operator {
 	@Override
 	public String toString() {
 		return name().toUpperCase();
+	}
+
+	public boolean isBinary() {
+		return this != IDENTITY;
 	}
 }

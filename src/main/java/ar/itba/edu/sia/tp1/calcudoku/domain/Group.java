@@ -15,7 +15,7 @@ import ar.itba.edu.sia.tp1.util.ComparatorUtils;
 public class Group {
 	private final List<Position> positions;
 	private final Operator operator;
-	private final int result;
+	private final int expectedResult;
 
 	public static Group of(Operator operator, int result,
 			Position... positions) {
@@ -29,7 +29,7 @@ public class Group {
 	public Group(Operator operator, int result, List<Position> positions) {
 		this.positions = Collections.unmodifiableList(positions);
 		this.operator = operator;
-		this.result = result;
+		this.expectedResult = result;
 	}
 
 	public List<Position> getPositions() {
@@ -41,29 +41,37 @@ public class Group {
 	}
 
 	public int getResult() {
-		return result;
+		return expectedResult;
 	}
 
 	public boolean isCorrect(Board board) {
+		return getValue(board) == expectedResult;
+	}
+
+	public boolean isCorrect(List<Integer> values) {
+		return getValue(values) == expectedResult;
+	}
+
+	public int getValue(Board board) {
 		List<Integer> values = new ArrayList<>(positions.size());
 		for (Position position : positions) {
 			values.add(board.getCellValue(position));
 		}
-		return isCorrect(values);
+		return getValue(values);
 	}
 
-	public boolean isCorrect(List<Integer> values) {
+	public int getValue(List<Integer> values) {
 		switch (operator) {
 			case IDENTITY :
-				return isCorrectIdentity(values);
+				return getValueIdentity(values);
 			case PLUS :
-				return isCorrectPlus(values);
+				return getValuePlus(values);
 			case MULTIPLY :
-				return isCorrectMultiply(values);
+				return getValueMultiply(values);
 			case DIVIDE :
-				return isCorrectDivide(values);
+				return getValueDivide(values);
 			case MINUS :
-				return isCorrectMinus(values);
+				return getValueMinus(values);
 			default :
 				throw new IllegalStateException();
 		}
@@ -76,7 +84,7 @@ public class Group {
 	 * @param values
 	 * @return
 	 */
-	private boolean isCorrectMinus(List<Integer> values) {
+	private int getValueMinus(List<Integer> values) {
 		Collections.sort(values, ComparatorUtils::reverseComparison);
 
 		int subtraction = values.isEmpty() ? 0 : values.get(0);
@@ -84,7 +92,7 @@ public class Group {
 			subtraction -= values.get(i);
 		}
 
-		return subtraction == result;
+		return subtraction;
 	}
 
 	/**
@@ -93,32 +101,38 @@ public class Group {
 	 * @param values
 	 * @return
 	 */
-	private boolean isCorrectDivide(List<Integer> values) {
+	private Integer getValueDivide(List<Integer> values) {
 		Collections.sort(values, ComparatorUtils::reverseComparison);
 		int greaterValue = values.get(0);
 		int lesserValue = values.get(1);
-		return greaterValue % lesserValue == 0
-				&& (greaterValue / lesserValue) == result;
+
+		if (greaterValue % lesserValue != 0) {
+			return null;
+		}
+		return greaterValue / lesserValue;
 	}
 
-	private boolean isCorrectMultiply(List<Integer> values) {
+	private int getValueMultiply(List<Integer> values) {
 		int prod = 1;
 		for (int aValue : values) {
 			prod *= aValue;
 		}
-		return prod == result;
+		return prod;
 	}
 
-	private boolean isCorrectPlus(List<Integer> values) {
+	private int getValuePlus(List<Integer> values) {
 		int sum = 0;
 		for (int aValue : values) {
 			sum += aValue;
 		}
-		return sum == result;
+		return sum;
 	}
 
-	private boolean isCorrectIdentity(List<Integer> values) {
-		return values.size() == 1 && values.get(0) == result;
+	private Integer getValueIdentity(List<Integer> values) {
+		if (values.size() != 1) {
+			return null;
+		}
+		return values.get(0);
 	}
 
 	@Override
@@ -129,7 +143,7 @@ public class Group {
 				+ ((operator == null) ? 0 : operator.hashCode());
 		result = prime * result
 				+ ((positions == null) ? 0 : positions.hashCode());
-		result = prime * result + this.result;
+		result = prime * result + this.expectedResult;
 		return result;
 	}
 
@@ -149,7 +163,7 @@ public class Group {
 				return false;
 		} else if (!positions.equals(other.positions))
 			return false;
-		if (result != other.result)
+		if (expectedResult != other.expectedResult)
 			return false;
 		return true;
 	}
@@ -157,7 +171,7 @@ public class Group {
 	@Override
 	public String toString() {
 		return toStringBuilder(this).appendToString(positions.toString())
-				.append("operator", operator).append("result", result)
+				.append("operator", operator).append("result", expectedResult)
 				.toString();
 	}
 }
