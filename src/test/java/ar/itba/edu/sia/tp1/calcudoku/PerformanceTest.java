@@ -26,7 +26,7 @@ public class PerformanceTest extends GenericTest {
 	};
 
 	private static final List<GPSHeuristic<CalcudokuState>> heuristics = Arrays
-			.asList(new H1(),new H3(),new H2());
+			.asList(new H8(),new H1(),new H2());
 
 	public void performanceTest() throws Exception {
 		String outputfileName = "./src/test/resources/performanceN=3.csv";
